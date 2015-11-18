@@ -63,47 +63,48 @@ public extension Action {
     }
 
     public func execute(input: Input) -> Observable<Element> {
-        return create { (observer) -> Disposable in
-            var startedExecuting = false
 
-            self.doLocked {
-                if self._enabled.valueOrFalse {
-                    self._executing.value = true
-                    startedExecuting = true
-                }
+        // Buffer from the work to a replay subject.
+        let buffer = ReplaySubject<Element>.create(bufferSize: Int.max)
+
+        // See if we're already executing.
+        var startedExecuting = false
+        self.doLocked {
+            if self._enabled.valueOrFalse {
+                self._executing.value = true
+                startedExecuting = true
             }
-
-            guard startedExecuting else {
-                observer.onError(ActionError.NotEnabled)
-                return NopDisposable.instance
-            }
-
-            let work = self.workFactory(input)
-
-            // Buffer from the work to a replay subject.
-            let buffer = ReplaySubject<Element>.create(bufferSize: Int.max)
-            buffer.doOn { (event) in
-
-                // Pipe values to _elements and errors to _errors.
-                // Completion of the work signals we're no longer executing.
-                switch event {
-                case .Next(let element):
-                    self._elements.onNext(element)
-                case .Error(let error):
-                    self._errors.onNext(ActionError.UnderlyingError(error))
-                    fallthrough
-                case .Completed:
-                    self.doLocked {
-                        self._executing.value = false
-                    }
-                }
-            }.subscribe(observer)
-
-            // Subscribe to the work
-            work.multicast(buffer).connect()
-
-            return NopDisposable.instance
         }
+
+        // Make sure we started executing and we're accidentally disabled.
+        guard startedExecuting else {
+            let error = ActionError.NotEnabled
+            self._errors.onNext(error)
+            buffer.onError(error)
+
+            return buffer
+        }
+
+        let work = self.workFactory(input)
+        defer {
+            // Subscribe to the work.
+            work.multicast(buffer).connect()
+        }
+
+        buffer.subscribe(onNext: { element in
+                    self._elements.onNext(element)
+                },
+                onError: { error in
+                    self._errors.onNext(ActionError.UnderlyingError(error))
+                },
+                onCompleted: nil,
+                onDisposed: {
+                    self.doLocked { self._executing.value = false }
+                })
+            .addDisposableTo(disposeBag)
+
+
+        return buffer.asObservable()
     }
 }
 
