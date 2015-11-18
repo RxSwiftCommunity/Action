@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     But who knows what could have an action – the possibilities are endless!
                    DESC
   s.homepage     = "https://github.com/ashfurrow/Action"
-  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.license      = { :type => "MIT", :file => "License.md" }
   s.author             = { "Ash Furrow" => "ash@ashfurrow.com" }
   s.social_media_url   = "http://twitter.com/ashfurrow"
 
