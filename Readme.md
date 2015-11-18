@@ -35,7 +35,7 @@ And that'll be 👌
 Thanks
 ------
 
-This library is (pretty obviously) inspured by [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)'s [`Action` class](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoa/Swift/Action.swift). Those Thanks!
+This library is (pretty obviously) inspired by [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)'s [`Action` class](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoa/Swift/Action.swift). Those Thanks!
 
 License
 -------
