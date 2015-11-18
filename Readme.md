@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/ashfurrow/Action.svg)](https://travis-ci.org/ashfurrow/NSObject-Rx)
 
-NSObject-Rx
-===========
+Action
+======
 
 This library is used with [RxSwift](https://github.com/ReactiveX/RxSwift) to provide an abstraction on top of observables: actions. 
 
