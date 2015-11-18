@@ -1,7 +1,10 @@
 import Foundation
 import RxSwift
 
-// Possible errors from invoking execute()
+/// Typealias for compatibility with UIButton's rx_action property.
+public typealias CocoaAction = Action<Void, Void>
+
+/// Possible errors from invoking execute()
 public enum ActionError: ErrorType {
     case NotEnabled
     case UnderlyingError(ErrorType)
@@ -56,11 +59,17 @@ public final class Action<Input, Element> {
     }
 }
 
+// MARK: Convenience initializers.
 public extension Action {
 
+    /// Always enabled.
     public convenience init(workFactory: WorkFactory) {
         self.init(enabledIf: just(true), workFactory: workFactory)
     }
+}
+
+// MARK: Execution!
+public extension Action {
 
     public func execute(input: Input) -> Observable<Element> {
 

@@ -13,7 +13,7 @@ Actions accept a `workFactory`: a closure that takes some input and produces an 
 - Only execute one thing at a time.
 - Aggregates next/error events across individual executions.
 
-Oh, and it has this really swift thing with `UIButton` that's pretty cool. Or at least it will, I haven't finished it yet. It'll manage the button's enabled state, make sure the button is disabled while your work is being done, all that stuff 👍
+Oh, and it has this really swift thing with `UIButton` that's pretty cool. It'll manage the button's enabled state, make sure the button is disabled while your work is being done, all that stuff 👍
 
 Usage
 -----
