@@ -1,0 +1,29 @@
+PODS:
+  - Action (1.0.0):
+    - RxCocoa (~> 2.0.0-beta)
+    - RxSwift (~> 2.0.0-beta)
+  - Nimble (3.0.0)
+  - Quick (0.8.0)
+  - RxCocoa (2.0.0-beta.3):
+    - RxSwift (~> 2.0.0-beta)
+  - RxSwift (2.0.0-beta.3)
+
+DEPENDENCIES:
+  - Action (from `../`)
+  - Nimble
+  - Quick
+  - RxCocoa (~> 2.0.0-beta)
+  - RxSwift (~> 2.0.0-beta)
+
+EXTERNAL SOURCES:
+  Action:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Action: a83b446a5844516e498e9160479868dc87bc1860
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  RxCocoa: 1472006304b296d03c847f78b21384523cc4902e
+  RxSwift: 19fbe885b404d1d36d42ac8535134739a9b42952
+
+COCOAPODS: 0.39.0
