@@ -20,7 +20,7 @@ class ActionTests: QuickSpec {
                 receivedError = value
             }).addDisposableTo(disposeBag)
 
-            subject.execute(Void())
+            subject.execute()
 
             expect(receivedError).toNot( beNil() )
         }
@@ -33,7 +33,7 @@ class ActionTests: QuickSpec {
                 error = value
             }).addDisposableTo(disposeBag)
 
-            subject.execute(Void())
+            subject.execute()
 
             guard let receivedError = error else {
                 fail("received error is nil."); return
@@ -54,7 +54,7 @@ class ActionTests: QuickSpec {
                 error = value
             }).addDisposableTo(disposeBag)
 
-            subject.execute(Void())
+            subject.execute()
 
             guard let receivedError = error else {
                 fail("received error is nil."); return
@@ -74,7 +74,7 @@ class ActionTests: QuickSpec {
             var errored = false
 
             subject
-                .execute(Void())
+                .execute()
                 .subscribeError{ _ in
                     errored = true
                 }
@@ -94,7 +94,7 @@ class ActionTests: QuickSpec {
                 }
                 .addDisposableTo(disposeBag)
 
-            subject.execute(Void())
+            subject.execute()
 
             expect(errored) == false
         }
@@ -111,7 +111,7 @@ class ActionTests: QuickSpec {
                 }
                 .addDisposableTo(disposeBag)
 
-            subject.execute(Void())
+            subject.execute()
 
             expect(errored) == false
         }
@@ -148,7 +148,7 @@ class ActionTests: QuickSpec {
                 }
                 .addDisposableTo(disposeBag)
 
-            subject.execute(Void())
+            subject.execute()
 
             expect(elements) == [true, false]
         }
@@ -168,7 +168,7 @@ class ActionTests: QuickSpec {
                     receivedElements += [element]
                     }.addDisposableTo(disposeBag)
 
-                subject.execute(Void())
+                subject.execute()
 
                 expect(receivedElements) == testItems
             }
@@ -177,7 +177,7 @@ class ActionTests: QuickSpec {
                 let subject = testSubject(testItems)
                 var receivedElements: [String] = []
 
-                subject.execute(Void()).subscribeNext { (element) -> Void in
+                subject.execute().subscribeNext { (element) -> Void in
                     receivedElements += [element]
                     }.addDisposableTo(disposeBag)
                 
@@ -202,7 +202,7 @@ class ActionTests: QuickSpec {
             var completed = false
 
             subject
-                .execute(Void())
+                .execute()
                 .subscribeCompleted {
                     completed = true
                 }
@@ -218,7 +218,7 @@ class ActionTests: QuickSpec {
                 return empty()
             })
 
-            subject.execute(Void())
+            subject.execute()
 
             expect(invocations) == 1
         }
@@ -240,7 +240,7 @@ class ActionTests: QuickSpec {
                     }
                 })
 
-                subject.execute(Void())
+                subject.execute()
 
                 var enabled = try! subject.enabled.toBlocking().first()
                 expect(enabled) == false
@@ -276,7 +276,7 @@ class ActionTests: QuickSpec {
                     }
                     .addDisposableTo(disposeBag)
 
-                subject.execute(Void())
+                subject.execute()
 
                 expect(receivedError).toNot( beNil() )
             }
@@ -295,7 +295,7 @@ class ActionTests: QuickSpec {
                     }
                     .addDisposableTo(disposeBag)
                 
-                subject.execute(Void())
+                subject.execute()
 
                 guard let error = receivedError else {
                     fail("Error is nil"); return
@@ -316,7 +316,7 @@ class ActionTests: QuickSpec {
                     return empty()
                 })
 
-                subject.execute(Void())
+                subject.execute()
 
                 expect(invoked) == false
             }

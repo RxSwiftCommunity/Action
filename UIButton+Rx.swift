@@ -32,10 +32,17 @@ public extension UIButton {
 
                 // Set up new bindings, if applicable.
                 if let action = newValue {
-                    action.enabled.bindTo(self.rx_enabled).addDisposableTo(self.actionDisposeBag)
-                    self.rx_tap.subscribeNext { _ -> Void in
-                        action.execute()
-                    }.addDisposableTo(self.actionDisposeBag)
+                    action
+                        .enabled
+                        .bindTo(self.rx_enabled)
+                        .addDisposableTo(self.actionDisposeBag)
+
+                    self
+                        .rx_tap
+                        .subscribeNext { _ -> Void in
+                            action.execute()
+                        }
+                        .addDisposableTo(self.actionDisposeBag)
                 }
             }
         }
@@ -50,8 +57,7 @@ private extension UIButton {
     private var actionDisposeBag: DisposeBag {
         var disposeBag: DisposeBag
 
-        let lookup = objc_getAssociatedObject(self, &AssociatedKeys.DisposeBag) as? DisposeBag
-        if let lookup = lookup {
+        if let lookup = objc_getAssociatedObject(self, &AssociatedKeys.DisposeBag) as? DisposeBag {
             disposeBag = lookup
         } else {
             disposeBag = DisposeBag()
