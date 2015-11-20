@@ -15,9 +15,7 @@ class ButtonTests: QuickSpec {
         it("respects setter") {
             let subject = UIButton(type: .System)
 
-            let action = CocoaAction(workFactory: { _ in
-                return empty()
-            })
+            let action = emptyAction()
 
             subject.rx_action = action
 
@@ -47,9 +45,7 @@ class ButtonTests: QuickSpec {
         it("disables the button if the Action is disabled") {
             let subject = UIButton(type: .System)
 
-            subject.rx_action = CocoaAction(enabledIf: just(false), workFactory: { _ in
-                return empty()
-            })
+            subject.rx_action = emptyAction(just(false))
             
             expect(subject.enabled) == false
         }
@@ -78,7 +74,12 @@ class ButtonTests: QuickSpec {
             })
             subject.rx_action = action
 
-            subject.sendActionsForControlEvents(.TouchUpInside)
+            // Normally I'd use subject.sendActionsForControlEvents(.TouchUpInside) but it's not working
+            for target in subject.allTargets() {
+                for action in subject.actionsForTarget(target, forControlEvent: .TouchUpInside) ?? [] {
+                    target.performSelector(Selector(action))
+                }
+            }
 
             expect(executed) == true
         }
@@ -90,9 +91,7 @@ class ButtonTests: QuickSpec {
             autoreleasepool {
                 let disposeBag = DisposeBag()
 
-                let action = CocoaAction(workFactory: { _ in
-                    return empty()
-                })
+                let action = emptyAction()
                 subject.rx_action = action
 
                 action
@@ -108,4 +107,10 @@ class ButtonTests: QuickSpec {
             expect(disposed) == true
         }
     }
+}
+
+func emptyAction(enabledIf: Observable<Bool> = just(true)) -> CocoaAction {
+    return CocoaAction(enabledIf: enabledIf, workFactory: { _ in
+        return empty()
+    })
 }

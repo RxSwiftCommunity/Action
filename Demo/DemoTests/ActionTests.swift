@@ -121,7 +121,7 @@ class ActionTests: QuickSpec {
             var receivedInput: String?
             let subject = Action<String, Void>(workFactory: { (input) in
                 receivedInput = input
-                return just(Void())
+                return just()
             })
 
             subject.execute(testInput)
