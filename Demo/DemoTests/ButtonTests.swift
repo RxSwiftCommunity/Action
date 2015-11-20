@@ -97,9 +97,9 @@ class ButtonTests: QuickSpec {
 
                 action
                     .elements
-                    .subscribeCompleted {
+                    .subscribe(onNext: nil, onError: nil, onCompleted: nil, onDisposed: {
                         disposed = true
-                    }
+                    })
                     .addDisposableTo(disposeBag)
             }
 
