@@ -12,7 +12,8 @@
 		5E9E83241BF79B3000C85B46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E83221BF79B3000C85B46 /* Main.storyboard */; };
 		5E9E83261BF79B3000C85B46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E83251BF79B3000C85B46 /* Assets.xcassets */; };
 		5E9E83291BF79B3000C85B46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E83271BF79B3000C85B46 /* LaunchScreen.storyboard */; };
-		5E9E83341BF79B3000C85B46 /* DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E83331BF79B3000C85B46 /* DemoTests.swift */; };
+		5E9E83341BF79B3000C85B46 /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E83331BF79B3000C85B46 /* ActionTests.swift */; };
+		5EA1F72F1BFFBEE700F90655 /* ButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1F72E1BFFBEE700F90655 /* ButtonTests.swift */; };
 		ADC6692B4109DB302AB40A30 /* Pods_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF46C3E339DF3F38052433E /* Pods_DemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +39,9 @@
 		5E9E83281BF79B3000C85B46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E9E832A1BF79B3000C85B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E9E832F1BF79B3000C85B46 /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E9E83331BF79B3000C85B46 /* DemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTests.swift; sourceTree = "<group>"; };
+		5E9E83331BF79B3000C85B46 /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
 		5E9E83351BF79B3000C85B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EA1F72E1BFFBEE700F90655 /* ButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +107,8 @@
 		5E9E83321BF79B3000C85B46 /* DemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				5E9E83331BF79B3000C85B46 /* DemoTests.swift */,
+				5E9E83331BF79B3000C85B46 /* ActionTests.swift */,
+				5EA1F72E1BFFBEE700F90655 /* ButtonTests.swift */,
 				5E9E83351BF79B3000C85B46 /* Info.plist */,
 			);
 			path = DemoTests;
@@ -280,7 +283,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E9E83341BF79B3000C85B46 /* DemoTests.swift in Sources */,
+				5E9E83341BF79B3000C85B46 /* ActionTests.swift in Sources */,
+				5EA1F72F1BFFBEE700F90655 /* ButtonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

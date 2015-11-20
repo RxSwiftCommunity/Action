@@ -1,6 +1,7 @@
 import Quick
 import Nimble
 import RxSwift
+import RxBlocking
 import Action
 
 class ActionTests: QuickSpec {
@@ -63,7 +64,7 @@ class ActionTests: QuickSpec {
                 if let e = e as? String {
                     expect(e) == TestError
                 } else {
-                    fail("Incorrect error returnied.")
+                    fail("Incorrect error returned.")
                 }
             }
         }
@@ -128,44 +129,11 @@ class ActionTests: QuickSpec {
             expect(receivedInput) == testInput
         }
 
-        it("sends true on executing observable when work starts") {
+        it("sends false on executing observable by default") {
             let subject = emptySubject()
-            var executed = false
 
-            subject
-                .executing
-                .filter { executing -> Bool in
-                    // Only accept true executions
-                    return executing == true
-                }
-                .subscribeNext { (value) -> Void in
-                    executed = value
-                }
-                .addDisposableTo(disposeBag)
-
-            subject.execute(Void())
-
-            expect(executed) == true
-        }
-
-        it("sends false on executing observable when work ends") {
-            let subject = emptySubject()
-            var finishedExecuting = false
-
-            subject
-                .executing
-                .filter { executing -> Bool in
-                    // Only accept false executions
-                    return executing == false
-                }
-                .subscribeNext { _ -> Void in
-                    finishedExecuting = true
-                }
-                .addDisposableTo(disposeBag)
-
-            subject.execute(Void())
-
-            expect(finishedExecuting) == true
+            let executing = try! subject.executing.toBlocking().first()
+            expect(executing) == false
         }
 
         it("only sends true, then false on executing observable when execute() is called") {
@@ -185,28 +153,48 @@ class ActionTests: QuickSpec {
             expect(elements) == [true, false]
         }
 
-        it("sends next elements on elements observable") {
-            let subject = testSubject()
-            var receivedElements: [String] = []
+        sharedExamples("sending elements") { (context: QCKDSLSharedExampleContext!) -> Void in
+            var testItems: [String]!
 
-            subject.elements.subscribeNext { (element) -> Void in
-                receivedElements += [element]
-            }.addDisposableTo(disposeBag)
+            beforeEach {
+                testItems = context()["items"] as! [String]
+            }
 
-            subject.execute(Void())
+            it("sends next elements on elements observable") {
+                let subject = testSubject(testItems)
+                var receivedElements: [String] = []
 
-            expect(receivedElements) == [TestElement]
+                subject.elements.subscribeNext { (element) -> Void in
+                    receivedElements += [element]
+                    }.addDisposableTo(disposeBag)
+
+                subject.execute(Void())
+
+                expect(receivedElements) == testItems
+            }
+
+            it("sends next elements on observable returned from execte()") {
+                let subject = testSubject(testItems)
+                var receivedElements: [String] = []
+
+                subject.execute(Void()).subscribeNext { (element) -> Void in
+                    receivedElements += [element]
+                    }.addDisposableTo(disposeBag)
+                
+                expect(receivedElements) == testItems
+            }
         }
 
-        it("sends next elements on observable returned from execte()") {
-            let subject = testSubject()
-            var receivedElements: [String] = []
+        describe("one element") {
+            itBehavesLike("sending elements") { () -> (NSDictionary) in
+                return ["items": [TestElement]]
+            }
+        }
 
-            subject.execute(Void()).subscribeNext { (element) -> Void in
-                receivedElements += [element]
-            }.addDisposableTo(disposeBag)
-
-            expect(receivedElements) == [TestElement]
+        describe("multiple elements") {
+            itBehavesLike("sending elements") { () -> (NSDictionary) in
+                return ["items": [TestElement, TestElement, TestElement]]
+            }
         }
 
         it("completes observable returned from execute() when workFactory observable completes") {
@@ -224,42 +212,118 @@ class ActionTests: QuickSpec {
         }
 
         it("only subscribes to observable returned from work factory once") {
-            fail("test not implemented yet")
+            var invocations = 0
+            let subject = Action<Void, Void>(workFactory: { _ in
+                invocations++
+                return empty()
+            })
+
+            subject.execute(Void())
+
+            expect(invocations) == 1
         }
 
         describe("enabled") {
             it("sends true on the enabled observable") {
-                fail("test not implemented yet")
+                let subject = emptySubject()
+
+                let enabled = try! subject.enabled.toBlocking().first()
+                expect(enabled) == true
             }
 
             it("is externally disabled while executing") {
-                fail("test not implemented yet")
+                var observer: AnyObserver<Void>!
+                let subject = Action<Void, Void>(workFactory: { _ in
+                    return create { (obsv) -> Disposable in
+                        observer = obsv
+                        return NopDisposable.instance
+                    }
+                })
+
+                subject.execute(Void())
+
+                var enabled = try! subject.enabled.toBlocking().first()
+                expect(enabled) == false
+
+                observer.onCompleted()
+
+                enabled = try! subject.enabled.toBlocking().first()
+                expect(enabled) == true
             }
         }
 
         describe("disabled") {
             it("sends false on enabled observable") {
-                fail("test not implemented yet")
+                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                    return empty()
+                })
+
+                let enabled = try! subject.enabled.toBlocking().first()
+                expect(enabled) == false
             }
             
-            it("errors observable sends errors as next events when execute() is called") {
-                fail("test not implemented yet")
+            it("errors observable sends error as next event when execute() is called") {
+                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                    return empty()
+                })
+
+                var receivedError: ActionError?
+
+                subject
+                    .errors
+                    .subscribeNext { error in
+                        receivedError = error
+                    }
+                    .addDisposableTo(disposeBag)
+
+                subject.execute(Void())
+
+                expect(receivedError).toNot( beNil() )
+            }
+
+            it("errors observable sends correct error types when execute() is called") {
+                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                    return empty()
+                })
+
+                var receivedError: ActionError?
+
+                subject
+                    .errors
+                    .subscribeNext { error in
+                        receivedError = error
+                    }
+                    .addDisposableTo(disposeBag)
+                
+                subject.execute(Void())
+
+                guard let error = receivedError else {
+                    fail("Error is nil"); return
+                }
+
+                if case ActionError.NotEnabled = error {
+                    // Nop
+                } else {
+                    fail("Incorrect error returned.")
+                }
             }
 
             it("doesn't invoke the work factory") {
-                fail("test not implemented yet")
+                var invoked = false
+
+                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                    invoked = true
+                    return empty()
+                })
+
+                subject.execute(Void())
+
+                expect(invoked) == false
             }
         }
     }
 }
 
-class ButtonTests: QuickSpec {
-    override func spec() {
-        it("isn't written yet") {
-            fail()
-        }
-    }
-}
 
 
 extension String: ErrorType { }
@@ -284,10 +348,11 @@ func emptySubject() -> Action<Void, Void> {
     })
 }
 
+
 let TestElement = "Hi there"
 
-func testSubject(element: String = TestElement) -> Action<Void, String> {
+func testSubject(elements: [String]) -> Action<Void, String> {
     return Action(workFactory: { input in
-        return just(element)
+        return elements.toObservable()
     })
 }

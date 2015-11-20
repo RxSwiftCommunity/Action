@@ -4,6 +4,8 @@ PODS:
     - RxSwift (~> 2.0.0-beta)
   - Nimble (3.0.0)
   - Quick (0.8.0)
+  - RxBlocking (2.0.0-beta.3):
+    - RxSwift (~> 2.0.0-beta)
   - RxCocoa (2.0.0-beta.3):
     - RxSwift (~> 2.0.0-beta)
   - RxSwift (2.0.0-beta.3)
@@ -12,6 +14,7 @@ DEPENDENCIES:
   - Action (from `../`)
   - Nimble
   - Quick
+  - RxBlocking (~> 2.0.0-beta)
   - RxCocoa (~> 2.0.0-beta)
   - RxSwift (~> 2.0.0-beta)
 
@@ -20,9 +23,10 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Action: a83b446a5844516e498e9160479868dc87bc1860
+  Action: f17ec0ba5238046f53b9454610a7e21d09e13448
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  RxBlocking: 331f8bdedf77198f8ff1a37f09c492f1f4f631e5
   RxCocoa: 1472006304b296d03c847f78b21384523cc4902e
   RxSwift: 19fbe885b404d1d36d42ac8535134739a9b42952
 
