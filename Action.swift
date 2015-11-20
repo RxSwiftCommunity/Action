@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import RxCocoa
 
 /// Typealias for compatibility with UIButton's rx_action property.
 public typealias CocoaAction = Action<Void, Void>
@@ -125,7 +126,7 @@ private extension Action {
     }
 }
 
-private extension BehaviorSubject where Element: BooleanLiteralConvertible {
+internal extension BehaviorSubject where Element: BooleanLiteralConvertible {
     var valueOrFalse: Element {
         guard let value = try? value() else { return false }
 
