@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ashfurrow/Action.svg)](https://travis-ci.org/ashfurrow/NSObject-Rx)
+[![Build Status](https://travis-ci.org/ashfurrow/Action.svg)](https://travis-ci.org/ashfurrow/Action)
 
 Action
 ======
