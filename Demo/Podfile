@@ -9,6 +9,9 @@ inhibit_all_warnings!
 
 target 'Demo' do
 
+# Action library
+pod 'Action', :path => '../'
+
 end
 
 target 'DemoTests' do
@@ -17,9 +20,6 @@ target 'DemoTests' do
 pod 'RxSwift', '~> 2.0.0-beta'
 pod 'RxCocoa', '~> 2.0.0-beta'
 pod 'RxBlocking', '~> 2.0.0-beta'
-
-# Action library
-pod 'Action', :path => '../'
 
 # Testing libraries
 pod 'Quick'

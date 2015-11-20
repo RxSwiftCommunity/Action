@@ -7,19 +7,26 @@
 //
 
 import UIKit
+import RxSwift
+import Action
 
 class ViewController: UIViewController {
+    @IBOutlet weak var button: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+        let action = CocoaAction { _ in
+            return create { observer -> Disposable in
+                // Do whatever work here. 
+                print("Doing work for button at \(NSDate())")
+                observer.onCompleted()
+                return NopDisposable.instance
+            }
+        }
 
+        button.rx_action = action
+    }
 
 }
 
