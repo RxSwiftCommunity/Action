@@ -74,7 +74,9 @@ public extension Action {
     public func execute(input: Input) -> Observable<Element> {
 
         // Buffer from the work to a replay subject.
-        let buffer = ReplaySubject<Element>.create(bufferSize: Int.max)
+        // TODO: The buffer size is set to ten because ten is "big enough"
+        // We're tracking this here: https://github.com/ashfurrow/Action/issues/3
+        let buffer = ReplaySubject<Element>.create(bufferSize: 10)
 
         // See if we're already executing.
         var startedExecuting = false
