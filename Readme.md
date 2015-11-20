@@ -18,7 +18,43 @@ Oh, and it has this really swift thing with `UIButton` that's pretty cool. It'll
 Usage
 -----
 
-Coming soon!
+You have to pass a `workFactory` that takes input and returns an `Observable`. This represents some work that needs to be accomplished. Whenever you call `execute()`, you pass in input that's fed to the work factory. The `Action` will subscribe to the observable and emit the `Next` events on its `elements` property. If the observable errors, the error is sent as a `Next` even on the `errors` property. Neat.
+
+Actions can only execute one thing at a time. If you try to execute an action that's currently executing, you'll get an error. The `executing` property sends `true` and `false` values as `Next` events.
+
+```swift
+action = Action<String, Bool> = Action(workFactory: { input in
+    return networkLibrary.checkEmailExists(input)
+})
+
+...
+
+action.execute("ash@ashfurrow.com")
+```
+
+Notice that the first generic parameter is the type of the input, and the second is the type of observable that `workFactory` creates. You can think of it a bit like the action's "output."
+
+You can also specify an `enabledIf` parameter to the `Action` initializer.
+
+```swift
+let validEmailAddress = emailTextField.rx_text.map(isValidEmail)
+
+action = Action<String, Bool> = Action(enabledIf: validEmailAddress, workFactory: { input in
+    return networkLibrary.checkEmailExists(input)
+})
+```
+
+Now `execute()` only does the work if the email address is valid. Super cool!
+
+Note that `enabledIf` isn't the same as the `enabled` property. You pass in `enabledIf` and the action uses that, and its current executing state, to determine if it's currently enabled.
+
+What's _really_ cool is the `UIButton` extension. It accepts a `CocoaAction`, which is just `Action<Void, Void>`. 
+
+```swift
+button.rx_action = action
+```
+
+Now when the button is pressed, the action is executed. The button's `enabled` state is bound to the action's `enabled` property. That means you can feed your form-validation logic into the action as a signal, and your button's enabled state is handled for you. Also, the user can't press the button again before the action is done executing, since it only handles one thing at a time. Cool.
 
 Installing
 ----------
