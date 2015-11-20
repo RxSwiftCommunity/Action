@@ -186,11 +186,27 @@ class ActionTests: QuickSpec {
         }
 
         it("sends next elements on elements observable") {
-            fail("test not implemented yet")
+            let subject = testSubject()
+            var receivedElements: [String] = []
+
+            subject.elements.subscribeNext { (element) -> Void in
+                receivedElements += [element]
+            }.addDisposableTo(disposeBag)
+
+            subject.execute(Void())
+
+            expect(receivedElements) == [TestElement]
         }
 
-        it("sends next elements on observable returned from workFactory") {
-            fail("test not implemented yet")
+        it("sends next elements on observable returned from execte()") {
+            let subject = testSubject()
+            var receivedElements: [String] = []
+
+            subject.execute(Void()).subscribeNext { (element) -> Void in
+                receivedElements += [element]
+            }.addDisposableTo(disposeBag)
+
+            expect(receivedElements) == [TestElement]
         }
 
         it("completes observable returned from execute() when workFactory observable completes") {
@@ -265,5 +281,13 @@ func errorSubject() -> Action<Void, Void> {
 func emptySubject() -> Action<Void, Void> {
     return Action(workFactory: { input in
         return empty()
+    })
+}
+
+let TestElement = "Hi there"
+
+func testSubject(element: String = TestElement) -> Action<Void, String> {
+    return Action(workFactory: { input in
+        return just(element)
     })
 }
