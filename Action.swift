@@ -74,7 +74,7 @@ public extension Action {
     public func execute(input: Input) -> Observable<Element> {
 
         // Buffer from the work to a replay subject.
-        let buffer = ReplaySubject<Element>.create(bufferSize: Int.max)
+        let buffer = ReplaySubject<Element>.create(bufferSize: 0)
 
         // See if we're already executing.
         var startedExecuting = false
