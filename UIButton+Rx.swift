@@ -62,7 +62,7 @@ public extension UIButton {
 private extension UIButton {
     private struct AssociatedKeys {
         static var Action = "rx_action"
-        static var DisposeBag = "rx_diposeBag"
+        static var DisposeBag = "rx_disposeBag"
     }
 
     // A dispose bag to be used exclusively for the instance's rx_action.
