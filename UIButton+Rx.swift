@@ -5,11 +5,6 @@ import ObjectiveC
 
 public extension UIButton {
 
-    private struct AssociatedKeys {
-        static var Action = "rx_action"
-        static var DisposeBag = "rx_diposeBag"
-    }
-
     /// Binds enabled state of action to button, and subscribes to rx_tap to execute action.
     /// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     /// them, set the rx_action to nil or another action.
@@ -37,8 +32,21 @@ public extension UIButton {
                         .bindTo(self.rx_enabled)
                         .addDisposableTo(self.actionDisposeBag)
 
-                    self
-                        .rx_tap
+                    // Technically, this file is only included on tv/iOS platforms,
+                    // so this optional will never be nil. But let's be safe 😉
+                    let lookupControlEvent: ControlEvent<Void>?
+
+                    #if os(tvOS)
+                        lookupControlEvent = self.rx_primaryAction
+                    #elseif os(iOS)
+                        lookupControlEvent = self.rx_tap
+                    #endif
+
+                    guard let controlEvent = lookupControlEvent else {
+                        return
+                    }
+
+                    controlEvent
                         .subscribeNext { _ -> Void in
                             action.execute()
                         }
@@ -52,6 +60,10 @@ public extension UIButton {
 // Note: Actions performed in this extension are _not_ locked
 // So be careful!
 private extension UIButton {
+    private struct AssociatedKeys {
+        static var Action = "rx_action"
+        static var DisposeBag = "rx_diposeBag"
+    }
 
     // A dispose bag to be used exclusively for the instance's rx_action.
     private var actionDisposeBag: DisposeBag {
