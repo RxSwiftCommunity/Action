@@ -59,14 +59,14 @@ public extension UIButton {
 
 // Note: Actions performed in this extension are _not_ locked
 // So be careful!
-private extension UIButton {
-    private struct AssociatedKeys {
+internal extension NSObject {
+    internal struct AssociatedKeys {
         static var Action = "rx_action"
         static var DisposeBag = "rx_disposeBag"
     }
 
     // A dispose bag to be used exclusively for the instance's rx_action.
-    private var actionDisposeBag: DisposeBag {
+    internal var actionDisposeBag: DisposeBag {
         var disposeBag: DisposeBag
 
         if let lookup = objc_getAssociatedObject(self, &AssociatedKeys.DisposeBag) as? DisposeBag {
@@ -80,12 +80,12 @@ private extension UIButton {
     }
 
     // Resets the actionDisposeBag to nil, disposeing of any subscriptions within it.
-    private func resetActionDisposeBag() {
+    internal func resetActionDisposeBag() {
         objc_setAssociatedObject(self, &AssociatedKeys.DisposeBag, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 
     // Uses objc_sync on self to perform a locked operation.
-    private func doLocked(closure: () -> Void) {
+    internal func doLocked(closure: () -> Void) {
         objc_sync_enter(self); defer { objc_sync_exit(self) }
         closure()
     }
