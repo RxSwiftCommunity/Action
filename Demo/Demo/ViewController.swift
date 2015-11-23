@@ -35,7 +35,7 @@ class ViewController: UIViewController {
 		// Demo: add an action to a UIBarButtonItem in the navigation item
 		self.navigationItem.rightBarButtonItem!.rx_action = CocoaAction {
 			print("Bar button item was pressed, simulating a 2 second action")
-			return empty().delaySubscription(1, MainScheduler.sharedInstance)
+			return empty().delaySubscription(2, MainScheduler.sharedInstance)
 		}
 		
 		// Demo: obseve the output of both actions, spin an activity indicator
