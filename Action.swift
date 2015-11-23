@@ -50,8 +50,10 @@ public final class Action<Input, Element> {
     private let executingQueue = dispatch_queue_create("com.ashfurrow.Action.executingQueue", DISPATCH_QUEUE_SERIAL)
     private let disposeBag = DisposeBag()
 
-    public init(enabledIf: Observable<Bool>, workFactory: WorkFactory) {
-        self._enabledIf = enabledIf
+    public init(enabledIf: Observable<BooleanType>, workFactory: WorkFactory) {
+        self._enabledIf = enabledIf.map { booleanType in
+            return booleanType.boolValue
+        }
         self.workFactory = workFactory
 
         combineLatest(self._enabledIf, self.executing) { (enabled, executing) -> Bool in
