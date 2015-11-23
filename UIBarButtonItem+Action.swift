@@ -5,7 +5,7 @@ import ObjectiveC
 
 public extension UIBarButtonItem {
 	
-	/// Binds enabled state of action to button, and subscribes to rx_tap to execute action.
+	/// Binds enabled state of action to bar button item, and subscribes to rx_tap to execute action.
 	/// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
 	/// them, set the rx_action to nil or another action.
 	public var rx_action: CocoaAction? {
@@ -32,22 +32,8 @@ public extension UIBarButtonItem {
 						.bindTo(self.rx_enabled)
 						.addDisposableTo(self.actionDisposeBag)
 					
-					// Technically, this file is only included on tv/iOS platforms,
-					// so this optional will never be nil. But let's be safe 😉
-					let lookupControlEvent: ControlEvent<Void>?
-					
-					#if os(tvOS)
-						lookupControlEvent = self.rx_primaryAction
-					#elseif os(iOS)
-						lookupControlEvent = self.rx_tap
-					#endif
-					
-					guard let controlEvent = lookupControlEvent else {
-						return
-					}
-					
-					controlEvent
-						.subscribeNext { _ -> Void in
+					self.rx_tap
+						.subscribeNext {
 							action.execute()
 						}
 						.addDisposableTo(self.actionDisposeBag)
