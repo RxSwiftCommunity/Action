@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		155834ABB4C21A1B43CBB038 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAA789ED8DE56E04E8476BF /* Pods_Demo.framework */; };
+		3D21522B1C0385D000563245 /* BarButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21522A1C0385D000563245 /* BarButtonTests.swift */; };
 		5E9E831F1BF79B3000C85B46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E831E1BF79B3000C85B46 /* AppDelegate.swift */; };
 		5E9E83211BF79B3000C85B46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E83201BF79B3000C85B46 /* ViewController.swift */; };
 		5E9E83241BF79B3000C85B46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E9E83221BF79B3000C85B46 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		0DF46C3E339DF3F38052433E /* Pods_DemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FAA789ED8DE56E04E8476BF /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F79F878C5E2083EFB22AA39 /* Pods-DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoTests/Pods-DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3D21522A1C0385D000563245 /* BarButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonTests.swift; sourceTree = "<group>"; };
 		5C9BC35B3BC2F649D5FF6AE4 /* Pods-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoTests/Pods-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E9E831B1BF79B3000C85B46 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E9E831E1BF79B3000C85B46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				5E9E83331BF79B3000C85B46 /* ActionTests.swift */,
 				5EA1F72E1BFFBEE700F90655 /* ButtonTests.swift */,
+				3D21522A1C0385D000563245 /* BarButtonTests.swift */,
 				5E9E83351BF79B3000C85B46 /* Info.plist */,
 			);
 			path = DemoTests;
@@ -339,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D21522B1C0385D000563245 /* BarButtonTests.swift in Sources */,
 				5E9E83341BF79B3000C85B46 /* ActionTests.swift in Sources */,
 				5EA1F72F1BFFBEE700F90655 /* ButtonTests.swift in Sources */,
 			);
