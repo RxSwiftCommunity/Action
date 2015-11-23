@@ -25,4 +25,5 @@ Pod::Spec.new do |s|
 
   s.watchos.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift"
   s.osx.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift"
+  s.tvos.exclude_files = "UIBarButtonItem+Action.swift"
 end
