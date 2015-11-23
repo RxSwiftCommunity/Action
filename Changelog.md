@@ -6,6 +6,11 @@ Current master
 
 Nothing yet!
 
+0.2.1
+-----
+
+- Fixes `enabledIf:` parameter to be `Observable<B>`, `where B: BooleanType`. 
+
 0.2.0
 -----
 

@@ -109,7 +109,7 @@ class ButtonTests: QuickSpec {
     }
 }
 
-func emptyAction(enabledIf: Observable<BooleanType> = just(true)) -> CocoaAction {
+func emptyAction(enabledIf: Observable<Bool> = just(true)) -> CocoaAction {
     return CocoaAction(enabledIf: enabledIf, workFactory: { _ in
         return empty()
     })
