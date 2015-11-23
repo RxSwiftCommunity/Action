@@ -23,6 +23,6 @@ Pod::Spec.new do |s|
   s.dependency "RxSwift", '~> 2.0.0-beta'
   s.dependency "RxCocoa", '~> 2.0.0-beta'
 
-  s.watchos.exclude_files = "UIButton+Rx.swift"
-  s.osx.exclude_files = "UIButton+Rx.swift"
+  s.watchos.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift"
+  s.osx.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift"
 end
