@@ -18,12 +18,13 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
 
   s.source       = { :git => "https://github.com/ashfurrow/Action.git", :tag => s.version }
-  s.source_files  = "*.swift"
+  s.source_files  = "*.{swift}"
+
   s.frameworks  = "Foundation"
   s.dependency "RxSwift", '~> 2.0.0-beta'
   s.dependency "RxCocoa", '~> 2.0.0-beta'
 
-  s.watchos.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift"
-  s.osx.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift"
-  s.tvos.exclude_files = "UIBarButtonItem+Action.swift"
+  s.watchos.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift", "AlertAction.swift"
+  s.osx.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift", "AlertAction.swift"
+  s.tvos.exclude_files = "UIBarButtonItem+Action.swift", "AlertAction.swift"
 end
