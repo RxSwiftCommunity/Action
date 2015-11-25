@@ -56,6 +56,12 @@ button.rx_action = action
 
 Now when the button is pressed, the action is executed. The button's `enabled` state is bound to the action's `enabled` property. That means you can feed your form-validation logic into the action as a signal, and your button's enabled state is handled for you. Also, the user can't press the button again before the action is done executing, since it only handles one thing at a time. Cool.
 
+There's also a really cool extension on `UIAlertAction`, used by [`UIAlertController`](http://ashfurrow.com/blog/uialertviewcontroller-example/). One catch: because of the limitations of that class, you can't instantiate it with the normal initializer. Instead, call this class method:
+
+```swift
+let action = UIAlertAction.Action("Hi", style: .Default)
+```
+
 **NOTE**: Due to a temporary issue with RxSwift, there's a [slight issue](https://github.com/ashfurrow/Action/issues/3) that shouldn't affect you, but might. Who knows!
 
 Installing
