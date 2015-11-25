@@ -35,29 +35,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZL-3G-VZh">
-                                <rect key="frame" x="277" y="31" width="46" height="30"/>
+                                <rect key="frame" x="264" y="31" width="73" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Show alert"/>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OrY-7C-i77">
-                                <rect key="frame" x="290" y="258" width="20" height="20"/>
-                            </activityIndicatorView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doing some work" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulN-2s-mAd">
-                                <rect key="frame" x="234" y="229" width="133" height="21"/>
+                                <rect key="frame" x="234" y="467" width="133" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OrY-7C-i77">
+                                <rect key="frame" x="290" y="496" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OrY-7C-i77" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Dyl-A6-bud"/>
-                            <constraint firstItem="OrY-7C-i77" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KWX-Rs-PVL"/>
                             <constraint firstItem="SZL-3G-VZh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="31" id="Np0-fa-c3f"/>
                             <constraint firstItem="ulN-2s-mAd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a5T-qt-gDR"/>
                             <constraint firstItem="OrY-7C-i77" firstAttribute="top" secondItem="ulN-2s-mAd" secondAttribute="bottom" constant="8" id="eqf-Tp-OJd"/>
                             <constraint firstItem="SZL-3G-VZh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hb0-j9-0rK"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OrY-7C-i77" secondAttribute="bottom" constant="20" id="jhU-Jj-aCX"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
