@@ -6,6 +6,11 @@ Current master
 
 Nothing yet!
 
+0.3.0
+-----
+
+Added `UIAlertAction` support.
+
 0.2.1
 -----
 
