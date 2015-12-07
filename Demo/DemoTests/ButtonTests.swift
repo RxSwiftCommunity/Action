@@ -77,7 +77,7 @@ class ButtonTests: QuickSpec {
             // Normally I'd use subject.sendActionsForControlEvents(.TouchUpInside) but it's not working
             for target in subject.allTargets() {
                 for action in subject.actionsForTarget(target, forControlEvent: .TouchUpInside) ?? [] {
-                    target.performSelector(Selector(action))
+                    target.performSelector(Selector(action), withObject: subject)
                 }
             }
 

@@ -4,7 +4,10 @@ Changelog
 Current master
 --------------
 
-Nothing yet!
+0.4.0
+-----
+
+- Unbounded replaying of event values (see [#3](https://github.com/ashfurrow/Action/issues/3)).
 
 0.3.0
 -----
