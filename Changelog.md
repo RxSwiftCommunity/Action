@@ -4,7 +4,7 @@ Changelog
 Current master
 --------------
 
-- Nothing yet!
+- Transitioned podspec to new remote URL (see [#15](https://github.com/RxSwiftCommunity/Action/issues/15)).
 
 1.0.0
 -----
