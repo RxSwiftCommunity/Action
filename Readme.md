@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ashfurrow/Action.svg)](https://travis-ci.org/ashfurrow/Action)
+[![Build Status](https://travis-ci.org/RxSwiftCommunity/Action.svg)](https://travis-ci.org/RxSwiftCommunity/Action)
 
 Action
 ======
