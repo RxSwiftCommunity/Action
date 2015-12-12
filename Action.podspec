@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
-  s.source       = { :git => "https://github.com/ashfurrow/Action.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/RxSwiftCommunity/Action.git", :tag => s.version }
   s.source_files  = "*.{swift}"
 
   s.frameworks  = "Foundation"
