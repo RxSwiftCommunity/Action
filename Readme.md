@@ -62,8 +62,6 @@ There's also a really cool extension on `UIAlertAction`, used by [`UIAlertContro
 let action = UIAlertAction.Action("Hi", style: .Default)
 ```
 
-**NOTE**: Due to a temporary issue with RxSwift, there's a [slight issue](https://github.com/ashfurrow/Action/issues/3) that shouldn't affect you, but might. Who knows!
-
 Installing
 ----------
 
