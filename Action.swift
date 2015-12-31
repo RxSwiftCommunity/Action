@@ -35,7 +35,7 @@ public final class Action<Input, Element> {
     /// Whether or not we're currently executing. 
     /// Always observed on MainScheduler.
     public var executing: Observable<Bool> {
-        return self._executing.asObservable().observeOn(MainScheduler.sharedInstance)
+        return self._executing.asObservable().observeOn(MainScheduler.instance)
     }
     private let _executing = Variable(false)
 
@@ -43,7 +43,7 @@ public final class Action<Input, Element> {
     /// property based on enabledIf initializer and if we're currently executing.
     /// Always observed on MainScheduler.
     public var enabled: Observable<Bool> {
-        return _enabled.asObservable().observeOn(MainScheduler.sharedInstance)
+        return _enabled.asObservable().observeOn(MainScheduler.instance)
     }
     public private(set) var _enabled = BehaviorSubject(value: true)
 
