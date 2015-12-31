@@ -17,9 +17,9 @@ end
 target 'DemoTests' do
 
 # Dependencies
-pod 'RxSwift', '~> 2.0.0-beta'
-pod 'RxCocoa', '~> 2.0.0-beta'
-pod 'RxBlocking', '~> 2.0.0-beta'
+pod 'RxSwift', '~> 2.0.0-rc'
+pod 'RxCocoa', '~> 2.0.0-rc'
+pod 'RxBlocking', '~> 2.0.0-rc'
 
 # Testing libraries
 pod 'Quick'

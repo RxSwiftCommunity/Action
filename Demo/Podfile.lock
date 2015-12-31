@@ -14,9 +14,9 @@ DEPENDENCIES:
   - Action (from `../`)
   - Nimble
   - Quick
-  - RxBlocking (~> 2.0.0-beta)
-  - RxCocoa (~> 2.0.0-beta)
-  - RxSwift (~> 2.0.0-beta)
+  - RxBlocking (~> 2.0.0-rc)
+  - RxCocoa (~> 2.0.0-rc)
+  - RxSwift (~> 2.0.0-rc)
 
 EXTERNAL SOURCES:
   Action:
