@@ -234,7 +234,7 @@ class ActionTests: QuickSpec {
             it("is externally disabled while executing") {
                 var observer: AnyObserver<Void>!
                 let subject = Action<Void, Void>(workFactory: { _ in
-                    return create { (obsv) -> Disposable in
+                    return Observable.create { (obsv) -> Disposable in
                         observer = obsv
                         return NopDisposable.instance
                     }
@@ -330,7 +330,7 @@ extension String: ErrorType { }
 let TestError = "Test Error"
 
 func errorObservable() -> Observable<Void> {
-    return create({ (observer) -> Disposable in
+    return Observable.create({ (observer) -> Disposable in
         observer.onError(TestError)
         return NopDisposable.instance
     })

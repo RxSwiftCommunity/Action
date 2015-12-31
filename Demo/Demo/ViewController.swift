@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         // Demo: add an action to a button in the view
         let action = CocoaAction {
 			print("Button was pressed, showing an alert and keeping the activity indicator spinning while alert is displayed")
-            return create {
+            return Observable.create {
 				[weak self] observer -> Disposable in
 
 				// Demo: show an alert and complete the view's button action once the alert's OK button is pressed

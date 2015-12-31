@@ -26,7 +26,7 @@ class AlertActionTests: QuickSpec {
 
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
-                return create { (obsv) -> Disposable in
+                return Observable.create { (obsv) -> Disposable in
                     observer = obsv
                     return NopDisposable.instance
                 }
