@@ -56,7 +56,7 @@ class BarButtonTests: QuickSpec {
 			var executed = false
 			subject.rx_action = CocoaAction(enabledIf: Observable.just(false), workFactory: { _ in
 				executed = true
-				return empty()
+				return Observable.empty()
 			})
 			
 			subject.target?.performSelector(subject.action, withObject: subject)
@@ -70,7 +70,7 @@ class BarButtonTests: QuickSpec {
 			var executed = false
 			let action = CocoaAction(workFactory: { _ in
 				executed = true
-				return empty()
+				return Observable.empty()
 			})
 			subject.rx_action = action
 			

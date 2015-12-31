@@ -56,7 +56,7 @@ class ButtonTests: QuickSpec {
             var executed = false
             subject.rx_action = CocoaAction(enabledIf: Observable.just(false), workFactory: { _ in
                 executed = true
-                return empty()
+                return Observable.empty()
             })
 
             subject.sendActionsForControlEvents(.TouchUpInside)
@@ -70,7 +70,7 @@ class ButtonTests: QuickSpec {
             var executed = false
             let action = CocoaAction(workFactory: { _ in
                 executed = true
-                return empty()
+                return Observable.empty()
             })
             subject.rx_action = action
 
@@ -111,6 +111,6 @@ class ButtonTests: QuickSpec {
 
 func emptyAction(enabledIf: Observable<Bool> = Observable.just(true)) -> CocoaAction {
     return CocoaAction(enabledIf: enabledIf, workFactory: { _ in
-        return empty()
+        return Observable.empty()
     })
 }
