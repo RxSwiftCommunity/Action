@@ -67,7 +67,7 @@ public extension Action {
 
     /// Always enabled.
     public convenience init(workFactory: WorkFactory) {
-        self.init(enabledIf: just(true), workFactory: workFactory)
+        self.init(enabledIf: Observable.just(true), workFactory: workFactory)
     }
 }
 

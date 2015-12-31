@@ -45,7 +45,7 @@ class ButtonTests: QuickSpec {
         it("disables the button if the Action is disabled") {
             let subject = UIButton(type: .System)
 
-            subject.rx_action = emptyAction(just(false))
+            subject.rx_action = emptyAction(Observable.just(false))
             
             expect(subject.enabled) == false
         }
@@ -54,7 +54,7 @@ class ButtonTests: QuickSpec {
             let subject = UIButton(type: .System)
 
             var executed = false
-            subject.rx_action = CocoaAction(enabledIf: just(false), workFactory: { _ in
+            subject.rx_action = CocoaAction(enabledIf: Observable.just(false), workFactory: { _ in
                 executed = true
                 return empty()
             })
@@ -109,7 +109,7 @@ class ButtonTests: QuickSpec {
     }
 }
 
-func emptyAction(enabledIf: Observable<Bool> = just(true)) -> CocoaAction {
+func emptyAction(enabledIf: Observable<Bool> = Observable.just(true)) -> CocoaAction {
     return CocoaAction(enabledIf: enabledIf, workFactory: { _ in
         return empty()
     })

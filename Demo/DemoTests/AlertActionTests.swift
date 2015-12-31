@@ -44,7 +44,7 @@ class AlertActionTests: QuickSpec {
         it("disables the button if the Action is disabled") {
             let subject = UIAlertAction.Action("Hi", style: .Default)
 
-            subject.rx_action = emptyAction(just(false))
+            subject.rx_action = emptyAction(Observable.just(false))
 
             expect(subject.enabled) == false
         }

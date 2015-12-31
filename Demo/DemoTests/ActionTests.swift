@@ -121,7 +121,7 @@ class ActionTests: QuickSpec {
             var receivedInput: String?
             let subject = Action<String, Void>(workFactory: { (input) in
                 receivedInput = input
-                return just()
+                return Observable.just()
             })
 
             subject.execute(testInput)
@@ -254,7 +254,7 @@ class ActionTests: QuickSpec {
 
         describe("disabled") {
             it("sends false on enabled observable") {
-                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                let subject = Action<Void, Void>(enabledIf: Observable.just(false), workFactory: { _ in
                     return empty()
                 })
 
@@ -263,7 +263,7 @@ class ActionTests: QuickSpec {
             }
             
             it("errors observable sends error as next event when execute() is called") {
-                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                let subject = Action<Void, Void>(enabledIf: Observable.just(false), workFactory: { _ in
                     return empty()
                 })
 
@@ -282,7 +282,7 @@ class ActionTests: QuickSpec {
             }
 
             it("errors observable sends correct error types when execute() is called") {
-                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                let subject = Action<Void, Void>(enabledIf: Observable.just(false), workFactory: { _ in
                     return empty()
                 })
 
@@ -311,7 +311,7 @@ class ActionTests: QuickSpec {
             it("doesn't invoke the work factory") {
                 var invoked = false
 
-                let subject = Action<Void, Void>(enabledIf: just(false), workFactory: { _ in
+                let subject = Action<Void, Void>(enabledIf: Observable.just(false), workFactory: { _ in
                     invoked = true
                     return empty()
                 })
