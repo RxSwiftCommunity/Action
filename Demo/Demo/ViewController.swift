@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 
         // Demo: observe the output of both actions, spin an activity indicator
         // while performing the work
-        combineLatest(
+        Observable.combineLatest(
             button.rx_action!.executing,
             self.navigationItem.rightBarButtonItem!.rx_action!.executing) {
                 // we combine two boolean observable and output one boolean

@@ -56,7 +56,7 @@ public final class Action<Input, Element> {
         }
         self.workFactory = workFactory
 
-        combineLatest(self._enabledIf, self.executing) { (enabled, executing) -> Bool in
+        Observable.combineLatest(self._enabledIf, self.executing) { (enabled, executing) -> Bool in
             return enabled && !executing
         }.bindTo(_enabled).addDisposableTo(disposeBag)
     }
