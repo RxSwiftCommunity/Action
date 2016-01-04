@@ -27,7 +27,7 @@ class ButtonTests: QuickSpec {
 
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
-                return create { (obsv) -> Disposable in
+                return Observable.create { (obsv) -> Disposable in
                     observer = obsv
                     return NopDisposable.instance
                 }
@@ -45,7 +45,7 @@ class ButtonTests: QuickSpec {
         it("disables the button if the Action is disabled") {
             let subject = UIButton(type: .System)
 
-            subject.rx_action = emptyAction(just(false))
+            subject.rx_action = emptyAction(.just(false))
             
             expect(subject.enabled) == false
         }
@@ -54,9 +54,9 @@ class ButtonTests: QuickSpec {
             let subject = UIButton(type: .System)
 
             var executed = false
-            subject.rx_action = CocoaAction(enabledIf: just(false), workFactory: { _ in
+            subject.rx_action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
                 executed = true
-                return empty()
+                return .empty()
             })
 
             subject.sendActionsForControlEvents(.TouchUpInside)
@@ -70,7 +70,7 @@ class ButtonTests: QuickSpec {
             var executed = false
             let action = CocoaAction(workFactory: { _ in
                 executed = true
-                return empty()
+                return .empty()
             })
             subject.rx_action = action
 
@@ -109,8 +109,8 @@ class ButtonTests: QuickSpec {
     }
 }
 
-func emptyAction(enabledIf: Observable<Bool> = just(true)) -> CocoaAction {
+func emptyAction(enabledIf: Observable<Bool> = .just(true)) -> CocoaAction {
     return CocoaAction(enabledIf: enabledIf, workFactory: { _ in
-        return empty()
+        return .empty()
     })
 }

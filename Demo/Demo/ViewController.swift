@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         // Demo: add an action to a button in the view
         let action = CocoaAction {
 			print("Button was pressed, showing an alert and keeping the activity indicator spinning while alert is displayed")
-            return create {
+            return Observable.create {
 				[weak self] observer -> Disposable in
 
 				// Demo: show an alert and complete the view's button action once the alert's OK button is pressed
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 				ok.rx_action = CocoaAction {
 					print("Alert's OK button was pressed")
 					observer.onCompleted()
-					return empty()
+					return .empty()
 				}
 				alertController.addAction(ok)
 				self!.presentViewController(alertController, animated: true, completion: nil)
@@ -46,12 +46,12 @@ class ViewController: UIViewController {
         // Demo: add an action to a UIBarButtonItem in the navigation item
         self.navigationItem.rightBarButtonItem!.rx_action = CocoaAction {
             print("Bar button item was pressed, simulating a 2 second action")
-            return empty().delaySubscription(2, MainScheduler.sharedInstance)
+            return Observable.empty().delaySubscription(2, scheduler: MainScheduler.instance)
         }
 
         // Demo: observe the output of both actions, spin an activity indicator
         // while performing the work
-        combineLatest(
+        Observable.combineLatest(
             button.rx_action!.executing,
             self.navigationItem.rightBarButtonItem!.rx_action!.executing) {
                 // we combine two boolean observable and output one boolean

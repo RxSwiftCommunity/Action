@@ -21,12 +21,12 @@ class AlertActionTests: QuickSpec {
             expect(subject.rx_action) === action
         }
 
-        it("disables the button while executing") {
+        it("disables the alert action while executing") {
             let subject = UIAlertAction.Action("Hi", style: .Default)
 
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
-                return create { (obsv) -> Disposable in
+                return Observable.create { (obsv) -> Disposable in
                     observer = obsv
                     return NopDisposable.instance
                 }
@@ -41,10 +41,19 @@ class AlertActionTests: QuickSpec {
             expect(subject.enabled).toEventually( beTrue() )
         }
 
-        it("disables the button if the Action is disabled") {
+        it("disables the alert action if the Action is disabled") {
             let subject = UIAlertAction.Action("Hi", style: .Default)
+            let disposeBag = DisposeBag()
 
-            subject.rx_action = emptyAction(just(false))
+            subject.rx_action = emptyAction(.just(false))
+            waitUntil { done in
+                subject.rx_observe(Bool.self, "enabled")
+                    .take(1)
+                    .subscribeNext { _ in
+                        done()
+                    }
+                    .addDisposableTo(disposeBag)
+            }
 
             expect(subject.enabled) == false
         }
