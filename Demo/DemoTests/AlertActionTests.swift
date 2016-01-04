@@ -43,8 +43,17 @@ class AlertActionTests: QuickSpec {
 
         it("disables the alert action if the Action is disabled") {
             let subject = UIAlertAction.Action("Hi", style: .Default)
+            let disposeBag = DisposeBag()
 
-            subject.rx_action = emptyAction(Observable.just(false))
+            subject.rx_action = emptyAction(.just(false))
+            waitUntil { done in
+                subject.rx_observe(Bool.self, "enabled")
+                    .take(1)
+                    .subscribeNext { _ in
+                        done()
+                    }
+                    .addDisposableTo(disposeBag)
+            }
 
             expect(subject.enabled) == false
         }
