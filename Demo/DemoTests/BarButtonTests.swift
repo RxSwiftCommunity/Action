@@ -45,7 +45,7 @@ class BarButtonTests: QuickSpec {
 		it("disables the button if the Action is disabled") {
 			let subject = UIBarButtonItem(barButtonSystemItem: .Save, target: nil, action: nil)
 			
-			subject.rx_action = emptyAction(Observable.just(false))
+			subject.rx_action = emptyAction(.just(false))
 			
 			expect(subject.enabled) == false
 		}
@@ -54,9 +54,9 @@ class BarButtonTests: QuickSpec {
 			let subject = UIBarButtonItem(barButtonSystemItem: .Save, target: nil, action: nil)
 			
 			var executed = false
-			subject.rx_action = CocoaAction(enabledIf: Observable.just(false), workFactory: { _ in
+			subject.rx_action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
 				executed = true
-				return Observable.empty()
+				return .empty()
 			})
 			
 			subject.target?.performSelector(subject.action, withObject: subject)
@@ -70,7 +70,7 @@ class BarButtonTests: QuickSpec {
 			var executed = false
 			let action = CocoaAction(workFactory: { _ in
 				executed = true
-				return Observable.empty()
+				return .empty()
 			})
 			subject.rx_action = action
 			

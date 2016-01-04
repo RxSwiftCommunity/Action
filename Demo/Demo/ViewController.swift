@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 				ok.rx_action = CocoaAction {
 					print("Alert's OK button was pressed")
 					observer.onCompleted()
-					return Observable.empty()
+					return .empty()
 				}
 				alertController.addAction(ok)
 				self!.presentViewController(alertController, animated: true, completion: nil)
