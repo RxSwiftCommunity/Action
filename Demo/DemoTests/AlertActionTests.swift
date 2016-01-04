@@ -21,7 +21,7 @@ class AlertActionTests: QuickSpec {
             expect(subject.rx_action) === action
         }
 
-        it("disables the button while executing") {
+        it("disables the alert action while executing") {
             let subject = UIAlertAction.Action("Hi", style: .Default)
 
             var observer: AnyObserver<Void>!
@@ -41,7 +41,7 @@ class AlertActionTests: QuickSpec {
             expect(subject.enabled).toEventually( beTrue() )
         }
 
-        it("disables the button if the Action is disabled") {
+        it("disables the alert action if the Action is disabled") {
             let subject = UIAlertAction.Action("Hi", style: .Default)
 
             subject.rx_action = emptyAction(Observable.just(false))
