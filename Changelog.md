@@ -1,11 +1,19 @@
 Changelog
 =========
 
-- Transitioned podspec to new remote URL (see [#15](https://github.com/RxSwiftCommunity/Action/issues/15)).
-- Moved to RxSwift 2.0 🎉
-
 Current master
 --------------
+
+1.2.0
+-----
+
+- Updates to RxSwift 2.1.0.
+
+1.1.0
+-----
+
+- Transitioned podspec to new remote URL (see [#15](https://github.com/RxSwiftCommunity/Action/issues/15)).
+- Moved to RxSwift 2.0 🎉
 
 1.0.0
 -----
