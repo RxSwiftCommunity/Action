@@ -68,7 +68,7 @@ Installing
 This works with RxSwift version 2, which is still prerelease, so you've gotta be fancy with your podfile. 
 
 ```ruby
-pod 'RxSwift', '~> 2.0.0-beta'
+pod 'RxSwift', '~> 2.0'
 pod 'Action'
 ```
 
