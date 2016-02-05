@@ -3,7 +3,7 @@
 Action
 ======
 
-This library is used with [RxSwift](https://github.com/ReactiveX/RxSwift) to provide an abstraction on top of observables: actions. 
+This library is used with [RxSwift](https://github.com/ReactiveX/RxSwift) to provide an abstraction on top of observables: actions.
 
 An action is a way to say "hey, later I'll need you to subscribe to this thing." It's actually a lot more involved than that.
 
@@ -48,7 +48,7 @@ Now `execute()` only does the work if the email address is valid. Super cool!
 
 Note that `enabledIf` isn't the same as the `enabled` property. You pass in `enabledIf` and the action uses that, and its current executing state, to determine if it's currently enabled.
 
-What's _really_ cool is the `UIButton` extension. It accepts a `CocoaAction`, which is just `Action<Void, Void>`. 
+What's _really_ cool is the `UIButton` extension. It accepts a `CocoaAction`, which is just `Action<Void, Void>`.
 
 ```swift
 button.rx_action = action
@@ -65,14 +65,13 @@ let action = UIAlertAction.Action("Hi", style: .Default)
 Installing
 ----------
 
-This works with RxSwift version 2, which is still prerelease, so you've gotta be fancy with your podfile. 
+Just add the line below to your Podfile:
 
 ```ruby
-pod 'RxSwift', '~> 2.0'
 pod 'Action'
 ```
 
-And that'll be 👌
+Then run `pod install` and that'll be 👌
 
 Thanks
 ------
