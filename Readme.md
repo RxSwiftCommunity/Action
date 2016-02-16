@@ -23,7 +23,7 @@ You have to pass a `workFactory` that takes input and returns an `Observable`. T
 Actions can only execute one thing at a time. If you try to execute an action that's currently executing, you'll get an error. The `executing` property sends `true` and `false` values as `Next` events.
 
 ```swift
-action = Action<String, Bool> = Action(workFactory: { input in
+action: Action<String, Bool> = Action(workFactory: { input in
     return networkLibrary.checkEmailExists(input)
 })
 
@@ -39,7 +39,7 @@ You can also specify an `enabledIf` parameter to the `Action` initializer.
 ```swift
 let validEmailAddress = emailTextField.rx_text.map(isValidEmail)
 
-action = Action<String, Bool> = Action(enabledIf: validEmailAddress, workFactory: { input in
+action: Action<String, Bool> = Action(enabledIf: validEmailAddress, workFactory: { input in
     return networkLibrary.checkEmailExists(input)
 })
 ```
