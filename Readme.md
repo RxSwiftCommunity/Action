@@ -9,7 +9,7 @@ An action is a way to say "hey, later I'll need you to subscribe to this thing."
 
 Actions accept a `workFactory`: a closure that takes some input and produces an observable. When `execute()` is called, it passes its parameter to this closure and subscribes to the work.
 
-- Can only be executed while "enabled" (`true` by default).
+- Can only be executed while "enabled" (`true` if unspecified).
 - Only execute one thing at a time.
 - Aggregates next/error events across individual executions.
 
