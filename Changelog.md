@@ -23,6 +23,11 @@ Current master
 - Transitioned podspec to new remote URL (see [#15](https://github.com/RxSwiftCommunity/Action/issues/15)).
 - Moved to RxSwift 2.0 🎉
 
+1.2.1
+-----
+
+- Relaxes dependency requirements.
+
 1.0.0
 -----
 
