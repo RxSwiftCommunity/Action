@@ -4,6 +4,11 @@ Changelog
 Current master
 --------------
 
+1.2.1
+-----
+
+- Relaxes dependency requirements.
+
 1.2.0
 -----
 
