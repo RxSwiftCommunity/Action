@@ -3,7 +3,8 @@ import RxSwift
 import RxCocoa
 
 /// Typealias for compatibility with UIButton's rx_action property.
-public typealias CocoaAction = Action<Void, AnyObject?>
+public typealias CocoaAction = Action<Void, Void>
+public typealias CocoaActionExecuting = Action<Void, Observable<AnyObject?>>
 
 /// Possible errors from invoking execute()
 public enum ActionError: ErrorType {
