@@ -4,7 +4,6 @@ import RxCocoa
 
 /// Typealias for compatibility with UIButton's rx_action property.
 public typealias CocoaAction = Action<Void, Void>
-public typealias CocoaActionExecuting = Action<Void, Observable<AnyObject?>>
 
 /// Possible errors from invoking execute()
 public enum ActionError: ErrorType {
@@ -112,7 +111,7 @@ public extension Action {
             work.multicast(buffer).connect()
         }
         
-        self._executionObservables.onNext(work)
+        self._executionObservables.onNext(buffer)
         
         buffer.subscribe(onNext: { element in
                     self._elements.onNext(element)

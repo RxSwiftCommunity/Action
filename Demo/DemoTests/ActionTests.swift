@@ -184,6 +184,18 @@ class ActionTests: QuickSpec {
                 expect(receivedElements) == testItems
             }
         }
+        
+        describe("execution observables") {
+            it("returns a new observable from execute() which sends work", closure: {
+                let subject = testExecutionObservablesSubject()
+                
+                subject
+                    .execute()
+                    .subscribeNext({ (string) in
+                        expect(string) == TestElement
+                }).addDisposableTo(disposeBag)
+            })
+        }
 
         describe("one element") {
             itBehavesLike("sending elements") { () -> (NSDictionary) in
@@ -214,7 +226,7 @@ class ActionTests: QuickSpec {
         it("only subscribes to observable returned from work factory once") {
             var invocations = 0
             let subject = Action<Void, Void>(workFactory: { _ in
-                invocations++
+                invocations += 1
                 return .empty()
             })
 
@@ -345,6 +357,16 @@ func errorSubject() -> Action<Void, Void> {
 func emptySubject() -> Action<Void, Void> {
     return Action(workFactory: { input in
         return .empty()
+    })
+}
+
+func testExecutionObservablesSubject() -> Action<Void, String> {
+    return Action(workFactory: { input in
+        return Observable.create({ (observer) -> Disposable in
+            observer.onNext(TestElement)
+            observer.onCompleted()
+            return NopDisposable.instance
+        })
     })
 }
 
