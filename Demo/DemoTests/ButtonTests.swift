@@ -107,7 +107,7 @@ class ButtonTests: QuickSpec {
             expect(disposed) == true
         }
         
-        it("cancels the observable if the button is deallocated") {
+        it("cancels observable if button is deallocated") {
             
             var disposed = false
             
