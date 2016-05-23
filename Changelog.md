@@ -5,6 +5,7 @@ Current master
 --------------
 
 - Fixes a problem with observable deallocation related to `rx_action` button property. See [#33](https://github.com/RxSwiftCommunity/Action/pull/33).
+- Improved Carthage compatibility. See [#34](https://github.com/RxSwiftCommunity/Action/pull/34).
 
 1.2.1
 -----
