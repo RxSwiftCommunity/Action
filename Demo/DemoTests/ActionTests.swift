@@ -214,7 +214,7 @@ class ActionTests: QuickSpec {
         it("only subscribes to observable returned from work factory once") {
             var invocations = 0
             let subject = Action<Void, Void>(workFactory: { _ in
-                invocations++
+                invocations += 1
                 return .empty()
             })
 

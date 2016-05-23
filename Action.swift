@@ -100,18 +100,18 @@ public extension Action {
         let work = self.workFactory(input)
         defer {
             // Subscribe to the work.
-            work.multicast(buffer).connect()
+            work.multicast(buffer).connect().addDisposableTo(disposeBag)
         }
 
-        buffer.subscribe(onNext: { element in
-                    self._elements.onNext(element)
+        buffer.subscribe(onNext: {[weak self] element in
+                    self?._elements.onNext(element)
                 },
-                onError: { error in
-                    self._errors.onNext(ActionError.UnderlyingError(error))
+                onError: {[weak self] error in
+                    self?._errors.onNext(ActionError.UnderlyingError(error))
                 },
                 onCompleted: nil,
-                onDisposed: {
-                    self.doLocked { self._executing.value = false }
+                onDisposed: {[weak self] in
+                    self?.doLocked { self?._executing.value = false }
                 })
             .addDisposableTo(disposeBag)
 

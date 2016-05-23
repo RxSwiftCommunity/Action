@@ -106,6 +106,27 @@ class ButtonTests: QuickSpec {
 
             expect(disposed) == true
         }
+        
+        it("cancels the observable if the button is deallocated") {
+            
+            var disposed = false
+            
+            autoreleasepool {
+                let subject = UIButton(type: .System)
+                let action = CocoaAction {
+                    return Observable.create {_ in
+                        AnonymousDisposable {
+                            disposed = true
+                        }
+                    }
+                }
+                
+                subject.rx_action = action
+                subject.rx_action?.execute()
+            }
+            
+            expect(disposed) == true
+        }
     }
 }
 
