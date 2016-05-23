@@ -47,11 +47,9 @@
 		BE73AD161CDCD101006F8B98 = {
 			isa = PBXGroup;
 			children = (
-				BE73AD401CDCF5FE006F8B98 /* RxSwift.framework */,
-				BE73AD3E1CDCF5F0006F8B98 /* RxCocoa.framework */,
-				BE73AD3C1CDCF5E0006F8B98 /* RxBlocking.framework */,
 				BE73AD221CDCD102006F8B98 /* Action */,
 				BE73AD211CDCD101006F8B98 /* Products */,
+				C1CBD66A1CEB2CE5002C025A /* Dependency Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +74,16 @@
 			path = Action;
 			sourceTree = "<group>";
 		};
+		C1CBD66A1CEB2CE5002C025A /* Dependency Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE73AD401CDCF5FE006F8B98 /* RxSwift.framework */,
+				BE73AD3E1CDCF5F0006F8B98 /* RxCocoa.framework */,
+				BE73AD3C1CDCF5E0006F8B98 /* RxBlocking.framework */,
+			);
+			name = "Dependency Frameworks";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -98,7 +106,6 @@
 				BE73AD1C1CDCD101006F8B98 /* Frameworks */,
 				BE73AD1D1CDCD101006F8B98 /* Headers */,
 				BE73AD1E1CDCD101006F8B98 /* Resources */,
-				BE73AD3B1CDCF52C006F8B98 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -149,25 +156,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		BE73AD3B1CDCF52C006F8B98 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BE73AD1B1CDCD101006F8B98 /* Sources */ = {
