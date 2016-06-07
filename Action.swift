@@ -25,7 +25,7 @@ public final class Action<Input, Element> {
     }
     private let _errors = PublishSubject<ActionError>()
 
-    /// Whether or not we're currently executing. 
+    /// Elements of work from invocation of execute().
     /// Delivered on whatever scheduler they were sent from.
     public var elements: Observable<Element> {
         return self._elements.asObservable()
@@ -109,7 +109,9 @@ public extension Action {
                 onError: {[weak self] error in
                     self?._errors.onNext(ActionError.UnderlyingError(error))
                 },
-                onCompleted: nil,
+                onCompleted: {[weak self] in
+                    self?._elements.onCompleted()
+                },
                 onDisposed: {[weak self] in
                     self?.doLocked { self?._executing.value = false }
                 })
