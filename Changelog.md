@@ -23,6 +23,11 @@ Current master
 - Transitioned podspec to new remote URL (see [#15](https://github.com/RxSwiftCommunity/Action/issues/15)).
 - Moved to RxSwift 2.0 🎉
 
+1.2.2
+-----
+
+- Fixes memory leak when used on buttons. See [#21](https://github.com/RxSwiftCommunity/Action/issues/21).
+
 1.2.1
 -----
 
