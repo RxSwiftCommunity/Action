@@ -18,6 +18,11 @@ public final class Action<Input, Element> {
     public let _enabledIf: Observable<Bool>
     public let workFactory: WorkFactory
 
+    /// Inputs that execute the action.
+    /// Inputs via execute() also appear in this subject.
+    public let inputs = PublishSubject<Input>()
+    private let skipsInputs = Variable(false)
+
     /// Errors aggrevated from invocations of execute(). 
     /// Delivered on whatever scheduler they were sent from.
     public var errors: Observable<ActionError> {
@@ -59,6 +64,14 @@ public final class Action<Input, Element> {
         Observable.combineLatest(self._enabledIf, self.executing) { (enabled, executing) -> Bool in
             return enabled && !executing
         }.bindTo(_enabled).addDisposableTo(disposeBag)
+
+        self.inputs
+            .withLatestFrom(skipsInputs.asObservable()) { $0 }
+            .filter { !$1 }
+            .subscribeNext { [weak self] input, _ in
+                self?._execute(input)
+            }
+            .addDisposableTo(disposeBag)
     }
 }
 
@@ -75,6 +88,15 @@ public extension Action {
 public extension Action {
 
     public func execute(input: Input) -> Observable<Element> {
+        // Send input to `self.inputs` to see all inputs in `self.inputs`.
+        skipsInputs.value = true
+        inputs.onNext(input)
+        skipsInputs.value = false
+
+        return _execute(input)
+    }
+
+    private func _execute(input: Input) -> Observable<Element> {
 
         // Buffer from the work to a replay subject.
         let buffer = ReplaySubject<Element>.createUnbounded()
