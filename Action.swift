@@ -21,7 +21,7 @@ public final class Action<Input, Element> {
     /// Inputs that execute the action.
     /// Inputs via execute() also appear in this subject.
     public let inputs = PublishSubject<Input>()
-    private let skipsInputs = Variable(false)
+    private let _completed = PublishSubject<Void>()
 
     /// Errors aggrevated from invocations of execute(). 
     /// Delivered on whatever scheduler they were sent from.
@@ -66,9 +66,7 @@ public final class Action<Input, Element> {
         }.bindTo(_enabled).addDisposableTo(disposeBag)
 
         self.inputs
-            .withLatestFrom(skipsInputs.asObservable()) { $0 }
-            .filter { !$1 }
-            .subscribeNext { [weak self] input, _ in
+            .subscribeNext { [weak self] input in
                 self?._execute(input)
             }
             .addDisposableTo(disposeBag)
@@ -88,12 +86,26 @@ public extension Action {
 public extension Action {
 
     public func execute(input: Input) -> Observable<Element> {
-        // Send input to `self.inputs` to see all inputs in `self.inputs`.
-        skipsInputs.value = true
+        let buffer = ReplaySubject<Element>.createUnbounded()
+        let error = errors
+            .flatMap { error -> Observable<Element> in
+                if case .UnderlyingError(let error) = error {
+                    throw error
+                } else {
+                    return Observable.empty()
+                }
+            }
+        
+        Observable
+            .of(elements, error)
+            .merge()
+            .takeUntil(_completed)
+            .bindTo(buffer)
+            .addDisposableTo(disposeBag)
+        
         inputs.onNext(input)
-        skipsInputs.value = false
-
-        return _execute(input)
+        
+        return buffer.asObservable()
     }
 
     private func _execute(input: Input) -> Observable<Element> {
@@ -131,7 +143,9 @@ public extension Action {
                 onError: {[weak self] error in
                     self?._errors.onNext(ActionError.UnderlyingError(error))
                 },
-                onCompleted: nil,
+                onCompleted: {[weak self] in
+                    self?._completed.onNext()
+                },
                 onDisposed: {[weak self] in
                     self?.doLocked { self?._executing.value = false }
                 })
