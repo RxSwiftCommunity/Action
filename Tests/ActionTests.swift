@@ -103,4 +103,62 @@ class ActionTests: XCTestCase {
         XCTAssertEqual(errorsObserver.events[1].time, 30)
     }
     
+    // MARK: Output of execute()
+    
+    func testExecuteWithSuccess() {
+        let scheduler = TestScheduler(initialClock: 0, resolution: 1)
+        let action = Action<Int, Int> { input in
+            let firstElement = Observable.of(input)
+            let secondElement = Observable.of(input + 1).delaySubscription(5, scheduler: scheduler)
+            
+            return Observable
+                .of(firstElement, secondElement)
+                .merge()
+        }
+        
+        let observer = scheduler.createObserver(Int.self)
+        action.execute(1)
+            .bindTo(observer)
+            .addDisposableTo(disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(observer.events, [
+            next(0, 1),
+            next(5, 2),
+            completed(5),
+        ])
+    }
+    
+    func testExecuteWithFailure() {
+        enum Error: ErrorType {
+            case Expected
+        }
+        
+        let scheduler = TestScheduler(initialClock: 0, resolution: 1)
+        let action = Action<Int, Int> { input in
+            let element1 = Observable.of(input)
+            let element2 = Observable.of(input + 1).delaySubscription(5, scheduler: scheduler)
+            let element3 = Observable.of(input + 2).delaySubscription(15, scheduler: scheduler)
+            let error = Observable<Int>.error(Error.Expected).delaySubscription(10, scheduler: scheduler)
+            
+            return Observable
+                .of(element1, element2, element3, error)
+                .merge()
+        }
+        
+        let observer = scheduler.createObserver(Int.self)
+        action.execute(1)
+            .bindTo(observer)
+            .addDisposableTo(disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(observer.events, [
+            next(0, 1),
+            next(5, 2),
+            error(10, Error.Expected),
+        ])
+    }
+    
 }
