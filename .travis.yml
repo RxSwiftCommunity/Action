@@ -3,4 +3,7 @@ language: objective-c
 podfile: Demo/Podfile
 cache: cocoapods
 
-script: cd Demo ; set -o pipefail && xcodebuild -workspace 'Demo.xcworkspace' -scheme 'Demo' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='9.1',name='iPhone 6s' build test  | xcpretty -c --test
+script: 
+  - set -o pipefail
+  - xcodebuild test -scheme 'Action' -sdk iphonesimulator | xcpretty -c --test
+  - cd Demo ; xcodebuild -workspace 'Demo.xcworkspace' -scheme 'Demo' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='9.1',name='iPhone 6s' build test  | xcpretty -c --test
