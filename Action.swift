@@ -18,8 +18,10 @@ public final class Action<Input, Element> {
     public let _enabledIf: Observable<Bool>
     public let workFactory: WorkFactory
 
-    /// Inputs that execute the action.
-    /// Inputs via execute() also appear in this subject.
+    /// Inputs that triggers execution of action.
+    /// This subject also includes inputs as aguments of execute().
+    /// All inputs are always appear in this subject even if the action is not enabled.
+    /// Thus, inputs count equals elements count + errors count.
     public let inputs = PublishSubject<Input>()
     private let _completed = PublishSubject<Void>()
 
