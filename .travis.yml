@@ -3,6 +3,9 @@ language: objective-c
 podfile: Demo/Podfile
 cache: cocoapods
 
+install:
+  - carthage bootstrap --platform iOS
+
 script: 
   - set -o pipefail
   - xcodebuild test -scheme 'Action' -sdk iphonesimulator | xcpretty -c --test
