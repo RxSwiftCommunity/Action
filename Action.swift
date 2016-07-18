@@ -38,7 +38,15 @@ public final class Action<Input, Element> {
         return self._executing.asObservable().observeOn(MainScheduler.instance)
     }
     private let _executing = Variable(false)
-
+    
+    /// Observables returned by the workFactory.
+    /// Useful for sending results back from work being completed
+    /// e.g. response from a network call.
+    public var executionObservables: Observable<Observable<Element>> {
+        return self._executionObservables.asObservable().observeOn(MainScheduler.instance)
+    }
+    private let _executionObservables = PublishSubject<Observable<Element>>()
+    
     /// Whether or not we're enabled. Note that this is a *computed* sequence
     /// property based on enabledIf initializer and if we're currently executing.
     /// Always observed on MainScheduler.
@@ -102,6 +110,8 @@ public extension Action {
             // Subscribe to the work.
             work.multicast(buffer).connect().addDisposableTo(disposeBag)
         }
+
+		self._executionObservables.onNext(buffer)
 
         buffer.subscribe(onNext: {[weak self] element in
                     self?._elements.onNext(element)

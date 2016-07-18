@@ -184,6 +184,18 @@ class ActionTests: QuickSpec {
                 expect(receivedElements) == testItems
             }
         }
+        
+        describe("execution observables") {
+            it("returns a new observable from execute() which sends work", closure: {
+                let subject = testExecutionObservablesSubject()
+                
+                subject
+                    .execute()
+                    .subscribeNext({ (string) in
+                        expect(string) == TestElement
+                }).addDisposableTo(disposeBag)
+            })
+        }
 
         describe("one element") {
             itBehavesLike("sending elements") { () -> (NSDictionary) in
@@ -345,6 +357,16 @@ func errorSubject() -> Action<Void, Void> {
 func emptySubject() -> Action<Void, Void> {
     return Action(workFactory: { input in
         return .empty()
+    })
+}
+
+func testExecutionObservablesSubject() -> Action<Void, String> {
+    return Action(workFactory: { input in
+        return Observable.create({ (observer) -> Disposable in
+            observer.onNext(TestElement)
+            observer.onCompleted()
+            return NopDisposable.instance
+        })
     })
 }
 
