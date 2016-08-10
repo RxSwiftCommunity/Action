@@ -56,7 +56,7 @@ button.rx_action = action
 
 Now when the button is pressed, the action is executed. The button's `enabled` state is bound to the action's `enabled` property. That means you can feed your form-validation logic into the action as a signal, and your button's enabled state is handled for you. Also, the user can't press the button again before the action is done executing, since it only handles one thing at a time. Cool. Check out [this code example of CocoaAction _in_ action](https://github.com/artsy/eidolon/blob/cb31168fa29dcc7815fd4a2e30e7c000bd1820ce/Kiosk/Bid%20Fulfillment/GenericFormValidationViewModel.swift).
 
-If you'd like to use `Action` to do a complex operation such as file download with download progress report (to update progress bar in the UI for example) you'd user `Action<Void, Int>` instead of `CocoaAction`. Out of the box `CocoaAction` can't emit progress values, your own `Action<Void, Int>` will do that. For details refer to [this article](http://www.sm-cloud.com/rxswift-action/).
+If you'd like to use `Action` to do a complex operation such as file download with download progress report (to update progress bar in the UI for example) you'd use `Action<Void, Int>` instead of `CocoaAction`. Out of the box `CocoaAction` can't emit progress values, your own `Action<Void, Int>` will do that. For details refer to [this article](http://www.sm-cloud.com/rxswift-action/).
 
 There's also a really cool extension on `UIAlertAction`, used by [`UIAlertController`](http://ashfurrow.com/blog/uialertviewcontroller-example/). One catch: because of the limitations of that class, you can't instantiate it with the normal initializer. Instead, call this class method:
 
