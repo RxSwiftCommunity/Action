@@ -160,7 +160,26 @@ class ActionTests: QuickSpec {
                 testItems = context()["items"] as! [String]
             }
 
-            it("sends next elements on elements observable") {
+            it("sends next elements on inputs and elements observables when execute() is called") {
+                let subject = testSubject(testItems)
+
+                var receivedInputs: [Void] = []
+                subject.inputs.subscribeNext { (input) -> Void in
+                    receivedInputs += [input]
+                    }.addDisposableTo(disposeBag)
+
+                var receivedElements: [String] = []
+                subject.elements.subscribeNext { (element) -> Void in
+                    receivedElements += [element]
+                    }.addDisposableTo(disposeBag)
+
+                subject.execute()
+
+                expect(receivedInputs.count) == 1
+                expect(receivedElements) == testItems
+            }
+
+            it("sends next elements on elements observable when inputs receives next elements") {
                 let subject = testSubject(testItems)
                 var receivedElements: [String] = []
 
@@ -168,7 +187,7 @@ class ActionTests: QuickSpec {
                     receivedElements += [element]
                     }.addDisposableTo(disposeBag)
 
-                subject.execute()
+                subject.inputs.onNext()
 
                 expect(receivedElements) == testItems
             }
@@ -235,102 +254,122 @@ class ActionTests: QuickSpec {
             expect(invocations) == 1
         }
 
-        describe("enabled") {
-            it("sends true on the enabled observable") {
-                let subject = emptySubject()
+        sharedExamples("triggering execution") { (context: QCKDSLSharedExampleContext!) -> Void in
+            var executer: TestActionExecuter!
 
-                let enabled = try! subject.enabled.toBlocking().first()
-                expect(enabled) == true
+            beforeEach {
+                executer = context()["executer"] as! TestActionExecuter
             }
 
-            it("is externally disabled while executing") {
-                var observer: AnyObserver<Void>!
-                let subject = Action<Void, Void>(workFactory: { _ in
-                    return Observable.create { (obsv) -> Disposable in
-                        observer = obsv
-                        return NopDisposable.instance
+            describe("enabled") {
+                it("sends true on the enabled observable") {
+                    let subject = emptySubject()
+
+                    let enabled = try! subject.enabled.toBlocking().first()
+                    expect(enabled) == true
+                }
+
+                it("is externally disabled while executing") {
+                    var observer: AnyObserver<Void>!
+                    let subject = Action<Void, Void>(workFactory: { _ in
+                        return Observable.create { (obsv) -> Disposable in
+                            observer = obsv
+                            return NopDisposable.instance
+                        }
+                    })
+
+                    executer.execute(subject)
+
+                    var enabled = try! subject.enabled.toBlocking().first()
+                    expect(enabled) == false
+
+                    observer.onCompleted()
+
+                    enabled = try! subject.enabled.toBlocking().first()
+                    expect(enabled) == true
+                }
+            }
+
+            describe("disabled") {
+                it("sends false on enabled observable") {
+                    let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
+                        return .empty()
+                    })
+
+                    let enabled = try! subject.enabled.toBlocking().first()
+                    expect(enabled) == false
+                }
+                
+                it("errors observable sends error as next event when execute() is called") {
+                    let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
+                        return .empty()
+                    })
+
+                    var receivedError: ActionError?
+
+                    subject
+                        .errors
+                        .subscribeNext { error in
+                            receivedError = error
+                        }
+                        .addDisposableTo(disposeBag)
+
+                    executer.execute(subject)
+
+                    expect(receivedError).toNot( beNil() )
+                }
+
+                it("errors observable sends correct error types when execute() is called") {
+                    let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
+                        return .empty()
+                    })
+
+                    var receivedError: ActionError?
+
+                    subject
+                        .errors
+                        .subscribeNext { error in
+                            receivedError = error
+                        }
+                        .addDisposableTo(disposeBag)
+
+                    executer.execute(subject)
+
+                    guard let error = receivedError else {
+                        fail("Error is nil"); return
                     }
-                })
 
-                subject.execute()
+                    if case ActionError.NotEnabled = error {
+                        // Nop
+                    } else {
+                        fail("Incorrect error returned.")
+                    }
+                }
 
-                var enabled = try! subject.enabled.toBlocking().first()
-                expect(enabled) == false
+                it("doesn't invoke the work factory") {
+                    var invoked = false
 
-                observer.onCompleted()
+                    let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
+                        invoked = true
+                        return .empty()
+                    })
 
-                enabled = try! subject.enabled.toBlocking().first()
-                expect(enabled) == true
+                    executer.execute(subject)
+
+                    expect(invoked) == false
+                }
             }
         }
 
-        describe("disabled") {
-            it("sends false on enabled observable") {
-                let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
-                    return .empty()
-                })
-
-                let enabled = try! subject.enabled.toBlocking().first()
-                expect(enabled) == false
+        describe("execute via execute()") {
+            itBehavesLike("triggering execution") { () -> (NSDictionary) in
+                return ["executer": TestActionExecuter { subject in subject.execute() }]
             }
-            
-            it("errors observable sends error as next event when execute() is called") {
-                let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
-                    return .empty()
-                })
+        }
 
-                var receivedError: ActionError?
-
-                subject
-                    .errors
-                    .subscribeNext { error in
-                        receivedError = error
-                    }
-                    .addDisposableTo(disposeBag)
-
-                subject.execute()
-
-                expect(receivedError).toNot( beNil() )
-            }
-
-            it("errors observable sends correct error types when execute() is called") {
-                let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
-                    return .empty()
-                })
-
-                var receivedError: ActionError?
-
-                subject
-                    .errors
-                    .subscribeNext { error in
-                        receivedError = error
-                    }
-                    .addDisposableTo(disposeBag)
-                
-                subject.execute()
-
-                guard let error = receivedError else {
-                    fail("Error is nil"); return
-                }
-
-                if case ActionError.NotEnabled = error {
-                    // Nop
-                } else {
-                    fail("Incorrect error returned.")
-                }
-            }
-
-            it("doesn't invoke the work factory") {
-                var invoked = false
-
-                let subject = Action<Void, Void>(enabledIf: .just(false), workFactory: { _ in
-                    invoked = true
-                    return .empty()
-                })
-
-                subject.execute()
-
-                expect(invoked) == false
+        describe("execute via inputs subject") {
+            itBehavesLike("triggering execution") { () -> (NSDictionary) in
+                return ["executer": TestActionExecuter { subject in subject.inputs.onNext() }]
             }
         }
     }
@@ -377,4 +416,12 @@ func testSubject(elements: [String]) -> Action<Void, String> {
     return Action(workFactory: { input in
         return elements.toObservable()
     })
+}
+
+class TestActionExecuter {
+    let execute: Action<Void, Void> -> Void
+
+    init(execute: Action<Void, Void> -> Void) {
+        self.execute = execute
+    }
 }

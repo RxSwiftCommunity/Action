@@ -18,6 +18,13 @@ public final class Action<Input, Element> {
     public let _enabledIf: Observable<Bool>
     public let workFactory: WorkFactory
 
+    /// Inputs that triggers execution of action.
+    /// This subject also includes inputs as aguments of execute().
+    /// All inputs are always appear in this subject even if the action is not enabled.
+    /// Thus, inputs count equals elements count + errors count.
+    public let inputs = PublishSubject<Input>()
+    private let _completed = PublishSubject<Void>()
+
     /// Errors aggrevated from invocations of execute(). 
     /// Delivered on whatever scheduler they were sent from.
     public var errors: Observable<ActionError> {
@@ -67,6 +74,12 @@ public final class Action<Input, Element> {
         Observable.combineLatest(self._enabledIf, self.executing) { (enabled, executing) -> Bool in
             return enabled && !executing
         }.bindTo(_enabled).addDisposableTo(disposeBag)
+
+        self.inputs
+            .subscribeNext { [weak self] input in
+                self?._execute(input)
+            }
+            .addDisposableTo(disposeBag)
     }
 }
 
@@ -83,6 +96,29 @@ public extension Action {
 public extension Action {
 
     public func execute(input: Input) -> Observable<Element> {
+        let buffer = ReplaySubject<Element>.createUnbounded()
+        let error = errors
+            .flatMap { error -> Observable<Element> in
+                if case .UnderlyingError(let error) = error {
+                    throw error
+                } else {
+                    return Observable.empty()
+                }
+            }
+        
+        Observable
+            .of(elements, error)
+            .merge()
+            .takeUntil(_completed)
+            .bindTo(buffer)
+            .addDisposableTo(disposeBag)
+        
+        inputs.onNext(input)
+        
+        return buffer.asObservable()
+    }
+
+    private func _execute(input: Input) -> Observable<Element> {
 
         // Buffer from the work to a replay subject.
         let buffer = ReplaySubject<Element>.createUnbounded()
@@ -119,7 +155,9 @@ public extension Action {
                 onError: {[weak self] error in
                     self?._errors.onNext(ActionError.UnderlyingError(error))
                 },
-                onCompleted: nil,
+                onCompleted: {[weak self] in
+                    self?._completed.onNext()
+                },
                 onDisposed: {[weak self] in
                     self?.doLocked { self?._executing.value = false }
                 })
