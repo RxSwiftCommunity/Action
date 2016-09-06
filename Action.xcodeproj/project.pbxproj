@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F53BC011D7F0C760098EC20 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F53BC001D7F0C760098EC20 /* Nimble.framework */; };
 		7F5E6A601D7F06C4000B6076 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5E6A5D1D7F06C4000B6076 /* RxBlocking.framework */; };
 		7F5E6A611D7F06C4000B6076 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5E6A5E1D7F06C4000B6076 /* RxCocoa.framework */; };
 		7F5E6A621D7F06C4000B6076 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5E6A5F1D7F06C4000B6076 /* RxSwift.framework */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		7F53BBE11D7F0B140098EC20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F53BC001D7F0C760098EC20 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		7F5E6A5D1D7F06C4000B6076 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-iphoneos/RxBlocking.framework"; sourceTree = "<group>"; };
 		7F5E6A5E1D7F06C4000B6076 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-iphoneos/RxCocoa.framework"; sourceTree = "<group>"; };
 		7F5E6A5F1D7F06C4000B6076 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-iphoneos/RxSwift.framework"; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F53BC011D7F0C760098EC20 /* Nimble.framework in Frameworks */,
 				7F5E6A761D7F08F9000B6076 /* Quick.framework in Frameworks */,
 				7F5E6A771D7F08F9000B6076 /* RxBlocking.framework in Frameworks */,
 				7F5E6A781D7F08F9000B6076 /* RxCocoa.framework in Frameworks */,
@@ -88,6 +91,7 @@
 		7F5E6A5C1D7F06C4000B6076 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F53BC001D7F0C760098EC20 /* Nimble.framework */,
 				7F5E6A721D7F08F9000B6076 /* Quick.framework */,
 				7F5E6A731D7F08F9000B6076 /* RxBlocking.framework */,
 				7F5E6A741D7F08F9000B6076 /* RxCocoa.framework */,
