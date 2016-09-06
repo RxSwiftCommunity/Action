@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F5E6A601D7F06C4000B6076 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5E6A5D1D7F06C4000B6076 /* RxBlocking.framework */; };
+		7F5E6A611D7F06C4000B6076 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5E6A5E1D7F06C4000B6076 /* RxCocoa.framework */; };
+		7F5E6A621D7F06C4000B6076 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5E6A5F1D7F06C4000B6076 /* RxSwift.framework */; };
 		BE73AD241CDCD102006F8B98 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = BE73AD231CDCD102006F8B98 /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE73AD371CDCEAE0006F8B98 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73AD331CDCEAE0006F8B98 /* Action.swift */; };
 		BE73AD381CDCEAE0006F8B98 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73AD341CDCEAE0006F8B98 /* AlertAction.swift */; };
 		BE73AD391CDCEAE0006F8B98 /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73AD351CDCEAE0006F8B98 /* UIBarButtonItem+Action.swift */; };
 		BE73AD3A1CDCEAE0006F8B98 /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73AD361CDCEAE0006F8B98 /* UIButton+Rx.swift */; };
-		BE73AD3D1CDCF5E0006F8B98 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73AD3C1CDCF5E0006F8B98 /* RxBlocking.framework */; };
-		BE73AD3F1CDCF5F0006F8B98 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73AD3E1CDCF5F0006F8B98 /* RxCocoa.framework */; };
-		BE73AD411CDCF5FE006F8B98 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73AD401CDCF5FE006F8B98 /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F5E6A5D1D7F06C4000B6076 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-iphoneos/RxBlocking.framework"; sourceTree = "<group>"; };
+		7F5E6A5E1D7F06C4000B6076 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-iphoneos/RxCocoa.framework"; sourceTree = "<group>"; };
+		7F5E6A5F1D7F06C4000B6076 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-iphoneos/RxSwift.framework"; sourceTree = "<group>"; };
 		BE73AD201CDCD101006F8B98 /* Action.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Action.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE73AD231CDCD102006F8B98 /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		BE73AD251CDCD102006F8B98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -25,9 +28,6 @@
 		BE73AD341CDCEAE0006F8B98 /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = SOURCE_ROOT; };
 		BE73AD351CDCEAE0006F8B98 /* UIBarButtonItem+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Action.swift"; sourceTree = SOURCE_ROOT; };
 		BE73AD361CDCEAE0006F8B98 /* UIButton+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Rx.swift"; sourceTree = SOURCE_ROOT; };
-		BE73AD3C1CDCF5E0006F8B98 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
-		BE73AD3E1CDCF5F0006F8B98 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
-		BE73AD401CDCF5FE006F8B98 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,21 +35,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE73AD411CDCF5FE006F8B98 /* RxSwift.framework in Frameworks */,
-				BE73AD3F1CDCF5F0006F8B98 /* RxCocoa.framework in Frameworks */,
-				BE73AD3D1CDCF5E0006F8B98 /* RxBlocking.framework in Frameworks */,
+				7F5E6A601D7F06C4000B6076 /* RxBlocking.framework in Frameworks */,
+				7F5E6A611D7F06C4000B6076 /* RxCocoa.framework in Frameworks */,
+				7F5E6A621D7F06C4000B6076 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F5E6A5C1D7F06C4000B6076 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F5E6A5D1D7F06C4000B6076 /* RxBlocking.framework */,
+				7F5E6A5E1D7F06C4000B6076 /* RxCocoa.framework */,
+				7F5E6A5F1D7F06C4000B6076 /* RxSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BE73AD161CDCD101006F8B98 = {
 			isa = PBXGroup;
 			children = (
 				BE73AD221CDCD102006F8B98 /* Action */,
 				BE73AD211CDCD101006F8B98 /* Products */,
-				C1CBD66A1CEB2CE5002C025A /* Dependency Frameworks */,
+				7F5E6A5C1D7F06C4000B6076 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,16 +82,6 @@
 				BE73AD251CDCD102006F8B98 /* Info.plist */,
 			);
 			path = Action;
-			sourceTree = "<group>";
-		};
-		C1CBD66A1CEB2CE5002C025A /* Dependency Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BE73AD401CDCF5FE006F8B98 /* RxSwift.framework */,
-				BE73AD3E1CDCF5F0006F8B98 /* RxCocoa.framework */,
-				BE73AD3C1CDCF5E0006F8B98 /* RxBlocking.framework */,
-			);
-			name = "Dependency Frameworks";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,10 +278,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Action/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -302,10 +299,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Action/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
