@@ -34,8 +34,8 @@ public extension UIBarButtonItem {
 
                     self.rx.tap.subscribe(onNext: { (_) in
                         action.execute()
-                        }, onError: nil, onCompleted: nil, onDisposed: nil)
-                        .addDisposableTo(self.actionDisposeBag)
+                    }, onError: nil, onCompleted: nil, onDisposed: nil)
+                    .addDisposableTo(self.actionDisposeBag)
                 }
             }
         }

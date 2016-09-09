@@ -78,7 +78,7 @@ public final class Action<Input, Element> {
 
         self.inputs.subscribe(onNext: { [weak self] (input) in
             self?._execute(input)
-            }, onError: nil, onCompleted: nil, onDisposed: nil).addDisposableTo(disposeBag)
+        }, onError: nil, onCompleted: nil, onDisposed: nil).addDisposableTo(disposeBag)
     }
 }
 
