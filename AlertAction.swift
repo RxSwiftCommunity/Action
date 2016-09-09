@@ -4,7 +4,7 @@ import RxCocoa
 
 public extension UIAlertAction {
 
-    public static func Action(title: String?, style: UIAlertActionStyle) -> UIAlertAction {
+    public static func Action(_ title: String?, style: UIAlertActionStyle) -> UIAlertAction {
         return UIAlertAction(title: title, style: style, handler: { action in
             action.rx_action?.execute()
         })
@@ -48,9 +48,9 @@ extension UIAlertAction {
             MainScheduler.ensureExecutingOnScheduler()
 
             switch event {
-            case .Next(let value):
-                self?.enabled = value
-            case .Error(let error):
+            case .next(let value):
+                self?.isEnabled = value
+            case .error(let error):
                 let error = "Binding error to UI: \(error)"
                 #if DEBUG
                     rxFatalError(error)
@@ -58,7 +58,7 @@ extension UIAlertAction {
                     print(error)
                 #endif
                 break
-            case .Completed:
+            case .completed:
                 break
             }
         }

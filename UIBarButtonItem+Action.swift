@@ -29,13 +29,12 @@ public extension UIBarButtonItem {
                 if let action = newValue {
                     action
                         .enabled
-                        .bindTo(self.rx_enabled)
+                        .bindTo(self.rx.enabled)
                         .addDisposableTo(self.actionDisposeBag)
 
-                    self.rx_tap
-                        .subscribeNext {
-                            action.execute()
-                        }
+                    self.rx.tap.subscribe(onNext: { (_) in
+                        action.execute()
+                        }, onError: nil, onCompleted: nil, onDisposed: nil)
                         .addDisposableTo(self.actionDisposeBag)
                 }
             }

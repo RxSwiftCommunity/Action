@@ -13,9 +13,6 @@ target 'Demo' do
 
     # Dependencies
     pod 'Action', :path => '../'
-    pod 'RxSwift', '~> 2.6'
-    pod 'RxCocoa', '~> 2.6'
-    pod 'RxBlocking', '~> 2.6'
 
     # Testing libraries
     pod 'Quick'

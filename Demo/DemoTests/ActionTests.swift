@@ -377,7 +377,7 @@ class ActionTests: QuickSpec {
 
 
 
-extension String: ErrorType { }
+extension String: Error { }
 let TestError = "Test Error"
 
 func errorObservable() -> Observable<Void> {
@@ -412,16 +412,16 @@ func testExecutionObservablesSubject() -> Action<Void, String> {
 
 let TestElement = "Hi there"
 
-func testSubject(elements: [String]) -> Action<Void, String> {
+func testSubject(_ elements: [String]) -> Action<Void, String> {
     return Action(workFactory: { input in
         return elements.toObservable()
     })
 }
 
 class TestActionExecuter {
-    let execute: Action<Void, Void> -> Void
+    let execute: (Action<Void, Void>) -> Void
 
-    init(execute: Action<Void, Void> -> Void) {
+    init(execute: (Action<Void, Void>) -> Void) {
         self.execute = execute
     }
 }
