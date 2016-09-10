@@ -65,10 +65,8 @@ public final class Action<Input, Element> {
     fileprivate let executingQueue = DispatchQueue(label: "com.ashfurrow.Action.executingQueue", attributes: [])
     fileprivate let disposeBag = DisposeBag()
 
-    public init<B: ExpressibleByBooleanLiteral>(enabledIf: Observable<B> = Observable.just(true), workFactory: @escaping WorkFactory) {
-        self._enabledIf = enabledIf.map { (booleanLiteral) -> Bool in
-            return booleanLiteral as! Bool
-        }
+    public init(enabledIf: Observable<Bool> = Observable.just(true), workFactory: @escaping WorkFactory) {
+        self._enabledIf = enabledIf
         
         self.workFactory = workFactory
 
@@ -78,7 +76,7 @@ public final class Action<Input, Element> {
 
         self.inputs.subscribe(onNext: { [weak self] (input) in
             self?._execute(input)
-        }, onError: nil, onCompleted: nil, onDisposed: nil).addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 }
 
@@ -129,7 +127,7 @@ public extension Action {
         guard startedExecuting else {
             let error = ActionError.notEnabled
             self._errors.onNext(error)
-            buffer.onError(error as Error)
+            buffer.onError(error)
 
             return buffer
         }

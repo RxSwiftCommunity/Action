@@ -49,7 +49,7 @@ public extension UIButton {
                     controlEvent
                         .subscribe(onNext: {
                             action.execute()
-                        }, onError: nil, onCompleted: nil, onDisposed: nil)
+                        })
                         .addDisposableTo(self.actionDisposeBag)
                 }
             }
