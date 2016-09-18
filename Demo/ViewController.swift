@@ -28,17 +28,17 @@ class ViewController: UIViewController {
 				[weak self] observer -> Disposable in
 
 				// Demo: show an alert and complete the view's button action once the alert's OK button is pressed
-				let alertController = UIAlertController(title: "Hello world", message: "This alert was triggered by a button action", preferredStyle: .Alert)
-				let ok = UIAlertAction.Action("OK", style: .Default)
+				let alertController = UIAlertController(title: "Hello world", message: "This alert was triggered by a button action", preferredStyle: .alert)
+				let ok = UIAlertAction.Action("OK", style: .default)
 				ok.rx_action = CocoaAction {
 					print("Alert's OK button was pressed")
 					observer.onCompleted()
 					return .empty()
 				}
 				alertController.addAction(ok)
-				self!.presentViewController(alertController, animated: true, completion: nil)
+				self!.present(alertController, animated: true, completion: nil)
 
-				return NopDisposable.instance
+				return Disposables.create()
             }
         }
         button.rx_action = action
@@ -59,17 +59,18 @@ class ViewController: UIViewController {
                 return a || b
             }
             .distinctUntilChanged()
-            .subscribeNext {
+            .subscribe(onNext: {
                 // every time the execution status changes, spin an activity indicator
                 [weak self] executing in
-                self?.workingLabel.hidden = !executing
+                self?.workingLabel.isHidden = !executing
                 if (executing) {
                     self?.activityIndicator.startAnimating()
                 }
                 else {
                     self?.activityIndicator.stopAnimating()
                 }
-            }
+            })
+            
             .addDisposableTo(self.disposableBag)
     }
 }
