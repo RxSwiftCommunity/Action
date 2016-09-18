@@ -16,7 +16,7 @@ class ActionTests: QuickSpec {
             let subject = errorSubject()
             var receivedError: ActionError?
 
-            subject.errors.subscribeNext({ (value) -> Void in
+            subject.errors.subscribe(onNext: { (value) -> Void in
                 receivedError = value
             }).addDisposableTo(disposeBag)
 
@@ -29,7 +29,7 @@ class ActionTests: QuickSpec {
             let subject = errorSubject()
             var error: ActionError?
 
-            subject.errors.subscribeNext({ (value) -> Void in
+            subject.errors.subscribe(onNext: { (value) -> Void in
                 error = value
             }).addDisposableTo(disposeBag)
 
@@ -39,7 +39,7 @@ class ActionTests: QuickSpec {
                 fail("received error is nil."); return
             }
 
-            if case ActionError.UnderlyingError = receivedError {
+            if case ActionError.underlyingError = receivedError {
                 // Nop
             } else {
                 fail("Incorrect error type.")
@@ -50,7 +50,7 @@ class ActionTests: QuickSpec {
             let subject = errorSubject()
             var error: ActionError?
 
-            subject.errors.subscribeNext({ (value) -> Void in
+            subject.errors.subscribe(onNext: { (value) -> Void in
                 error = value
             }).addDisposableTo(disposeBag)
 
@@ -60,7 +60,7 @@ class ActionTests: QuickSpec {
                 fail("received error is nil."); return
             }
 
-            if case ActionError.UnderlyingError(let e) = receivedError {
+            if case ActionError.underlyingError(let e) = receivedError {
                 if let e = e as? String {
                     expect(e) == TestError
                 } else {
@@ -75,9 +75,9 @@ class ActionTests: QuickSpec {
 
             subject
                 .execute()
-                .subscribeError{ _ in
+                .subscribe(onError: { _ in
                     errored = true
-                }
+                })
                 .addDisposableTo(disposeBag)
 
             expect(errored) == true
@@ -89,9 +89,9 @@ class ActionTests: QuickSpec {
 
             subject
                 .elements
-                .subscribeError{ _ in
+                .subscribe(onError: { _ in
                     errored = true
-                }
+                })
                 .addDisposableTo(disposeBag)
 
             subject.execute()
@@ -106,9 +106,9 @@ class ActionTests: QuickSpec {
 
             subject
                 .errors
-                .subscribeError{ _ in
+                .subscribe(onError: { _ in
                     errored = true
-                }
+                })
                 .addDisposableTo(disposeBag)
 
             subject.execute()
@@ -121,7 +121,7 @@ class ActionTests: QuickSpec {
             var receivedInput: String?
             let subject = Action<String, Void>(workFactory: { (input) in
                 receivedInput = input
-                return .just()
+                return .just(())
             })
 
             subject.execute(testInput)
@@ -143,9 +143,9 @@ class ActionTests: QuickSpec {
             subject
                 .executing
                 .skip(1) // Skips initial value
-                .subscribeNext { value -> Void in
+                .subscribe(onNext: { value -> Void in
                     elements += [value]
-                }
+                })
                 .addDisposableTo(disposeBag)
 
             subject.execute()
@@ -153,7 +153,7 @@ class ActionTests: QuickSpec {
             expect(elements) == [true, false]
         }
 
-        sharedExamples("sending elements") { (context: QCKDSLSharedExampleContext!) -> Void in
+        sharedExamples("sending elements") { (context: @escaping SharedExampleContext) -> Void in
             var testItems: [String]!
 
             beforeEach {
@@ -164,14 +164,14 @@ class ActionTests: QuickSpec {
                 let subject = testSubject(testItems)
 
                 var receivedInputs: [Void] = []
-                subject.inputs.subscribeNext { (input) -> Void in
+                subject.inputs.subscribe(onNext: { (input) -> Void in
                     receivedInputs += [input]
-                    }.addDisposableTo(disposeBag)
+                    }).addDisposableTo(disposeBag)
 
                 var receivedElements: [String] = []
-                subject.elements.subscribeNext { (element) -> Void in
+                subject.elements.subscribe(onNext: { (element) -> Void in
                     receivedElements += [element]
-                    }.addDisposableTo(disposeBag)
+                    }).addDisposableTo(disposeBag)
 
                 subject.execute()
 
@@ -183,9 +183,9 @@ class ActionTests: QuickSpec {
                 let subject = testSubject(testItems)
                 var receivedElements: [String] = []
 
-                subject.elements.subscribeNext { (element) -> Void in
+                subject.elements.subscribe(onNext: { (element) -> Void in
                     receivedElements += [element]
-                    }.addDisposableTo(disposeBag)
+                    }).addDisposableTo(disposeBag)
 
                 subject.inputs.onNext()
 
@@ -196,9 +196,9 @@ class ActionTests: QuickSpec {
                 let subject = testSubject(testItems)
                 var receivedElements: [String] = []
 
-                subject.execute().subscribeNext { (element) -> Void in
+                subject.execute().subscribe(onNext: { (element) -> Void in
                     receivedElements += [element]
-                    }.addDisposableTo(disposeBag)
+                    }).addDisposableTo(disposeBag)
                 
                 expect(receivedElements) == testItems
             }
@@ -210,7 +210,7 @@ class ActionTests: QuickSpec {
                 
                 subject
                     .execute()
-                    .subscribeNext({ (string) in
+                    .subscribe(onNext: { (string) in
                         expect(string) == TestElement
                 }).addDisposableTo(disposeBag)
             })
@@ -234,9 +234,9 @@ class ActionTests: QuickSpec {
 
             subject
                 .execute()
-                .subscribeCompleted {
+                .subscribe(onCompleted: {
                     completed = true
-                }
+                })
                 .addDisposableTo(disposeBag)
 
             expect(completed) == true
@@ -254,7 +254,8 @@ class ActionTests: QuickSpec {
             expect(invocations) == 1
         }
 
-        sharedExamples("triggering execution") { (context: QCKDSLSharedExampleContext!) -> Void in
+
+        sharedExamples("triggering execution") { (context: @escaping SharedExampleContext) -> Void in
             var executer: TestActionExecuter!
 
             beforeEach {
@@ -274,7 +275,7 @@ class ActionTests: QuickSpec {
                     let subject = Action<Void, Void>(workFactory: { _ in
                         return Observable.create { (obsv) -> Disposable in
                             observer = obsv
-                            return NopDisposable.instance
+                            return Disposables.create()
                         }
                     })
 
@@ -309,9 +310,9 @@ class ActionTests: QuickSpec {
 
                     subject
                         .errors
-                        .subscribeNext { error in
+                        .subscribe(onNext: { error in
                             receivedError = error
-                        }
+                        })
                         .addDisposableTo(disposeBag)
 
                     executer.execute(subject)
@@ -328,9 +329,9 @@ class ActionTests: QuickSpec {
 
                     subject
                         .errors
-                        .subscribeNext { error in
+                        .subscribe(onNext: { error in
                             receivedError = error
-                        }
+                        })
                         .addDisposableTo(disposeBag)
 
                     executer.execute(subject)
@@ -339,7 +340,7 @@ class ActionTests: QuickSpec {
                         fail("Error is nil"); return
                     }
 
-                    if case ActionError.NotEnabled = error {
+                    if case ActionError.notEnabled = error {
                         // Nop
                     } else {
                         fail("Incorrect error returned.")
@@ -377,13 +378,13 @@ class ActionTests: QuickSpec {
 
 
 
-extension String: ErrorType { }
+extension String: Error { }
 let TestError = "Test Error"
 
 func errorObservable() -> Observable<Void> {
     return .create({ (observer) -> Disposable in
         observer.onError(TestError)
-        return NopDisposable.instance
+        return Disposables.create()
     })
 }
 
@@ -404,7 +405,7 @@ func testExecutionObservablesSubject() -> Action<Void, String> {
         return Observable.create({ (observer) -> Disposable in
             observer.onNext(TestElement)
             observer.onCompleted()
-            return NopDisposable.instance
+            return Disposables.create()
         })
     })
 }
@@ -412,16 +413,16 @@ func testExecutionObservablesSubject() -> Action<Void, String> {
 
 let TestElement = "Hi there"
 
-func testSubject(elements: [String]) -> Action<Void, String> {
+func testSubject(_ elements: [String]) -> Action<Void, String> {
     return Action(workFactory: { input in
-        return elements.toObservable()
+        return Observable.from(elements)
     })
 }
 
 class TestActionExecuter {
-    let execute: Action<Void, Void> -> Void
+    let execute: (Action<Void, Void>) -> Void
 
-    init(execute: Action<Void, Void> -> Void) {
+    init(execute: @escaping (Action<Void, Void>) -> Void) {
         self.execute = execute
     }
 }

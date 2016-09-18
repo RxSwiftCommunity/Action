@@ -29,7 +29,7 @@ public extension UIButton {
                 if let action = newValue {
                     action
                         .enabled
-                        .bindTo(self.rx_enabled)
+                        .bindTo(self.rx.enabled)
                         .addDisposableTo(self.actionDisposeBag)
 
                     // Technically, this file is only included on tv/iOS platforms,
@@ -39,7 +39,7 @@ public extension UIButton {
                     #if os(tvOS)
                         lookupControlEvent = self.rx_primaryAction
                     #elseif os(iOS)
-                        lookupControlEvent = self.rx_tap
+                        lookupControlEvent = self.rx.tap
                     #endif
 
                     guard let controlEvent = lookupControlEvent else {
@@ -47,9 +47,9 @@ public extension UIButton {
                     }
 
                     controlEvent
-                        .subscribeNext { _ -> Void in
+                        .subscribe(onNext: {
                             action.execute()
-                        }
+                        })
                         .addDisposableTo(self.actionDisposeBag)
                 }
             }
@@ -85,7 +85,7 @@ internal extension NSObject {
     }
 
     // Uses objc_sync on self to perform a locked operation.
-    internal func doLocked(closure: () -> Void) {
+    internal func doLocked(_ closure: () -> Void) {
         objc_sync_enter(self); defer { objc_sync_exit(self) }
         closure()
     }
