@@ -1,13 +1,8 @@
-matrix:
-  include:
-    - os: osx
-      language: objective-c
-      osx_image: xcode7.3
-    - os: osx
-      language: objective-c
-      osx_image: xcode8
+os: osx
+language: objective-c
+osx_image: xcode8
 
 script: 
   - set -o pipefail
-  - xcodebuild test -workspace Action.xcworkspace -scheme Action -sdk iphonesimulator -destination "name=iPhone 6s" | xcpretty -c --test
+  - xcodebuild build-for-testing test-without-building -workspace Action.xcworkspace -scheme Action -sdk iphonesimulator -destination "name=iPhone SE" | xcpretty -c
 
