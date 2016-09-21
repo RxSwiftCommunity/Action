@@ -15,6 +15,7 @@ Current master
 - Added inputs subject to trigger actins by observables. See [#37](https://github.com/RxSwiftCommunity/Action/pull/37).
 - Fixes a problem with observable deallocation related to `rx_action` button property. See [#33](https://github.com/RxSwiftCommunity/Action/pull/33).
 - Improved Carthage compatibility. See [#34](https://github.com/RxSwiftCommunity/Action/pull/34).
+- Swift 2.3 support.
 
 1.2.1
 -----
