@@ -4,6 +4,14 @@ Changelog
 Current master
 --------------
 
+2.0.0-beta.1
+------------
+
+- Adds Swift 3 support. See [#46](https://github.com/RxSwiftCommunity/Action/pull/46).
+
+1.2.2
+-----
+
 - Added inputs subject to trigger actins by observables. See [#37](https://github.com/RxSwiftCommunity/Action/pull/37).
 - Fixes a problem with observable deallocation related to `rx_action` button property. See [#33](https://github.com/RxSwiftCommunity/Action/pull/33).
 - Improved Carthage compatibility. See [#34](https://github.com/RxSwiftCommunity/Action/pull/34).
