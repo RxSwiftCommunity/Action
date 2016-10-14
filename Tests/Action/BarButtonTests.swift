@@ -9,7 +9,7 @@ class BarButtonTests: QuickSpec {
 		
 		it("is nil by default") {
 			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
-			expect(subject.rx_action).to( beNil() )
+			expect(subject.rx.action).to( beNil() )
 		}
 		
 		it("respects setter") {
@@ -17,9 +17,9 @@ class BarButtonTests: QuickSpec {
 			
 			let action = emptyAction()
 			
-			subject.rx_action = action
+			subject.rx.action = action
 			
-			expect(subject.rx_action) === action
+			expect(subject.rx.action) === action
 		}
 		
 		it("disables the button while executing") {
@@ -33,7 +33,7 @@ class BarButtonTests: QuickSpec {
 				}
 			})
 			
-			subject.rx_action = action
+			subject.rx.action = action
 			
 			action.execute()
 			expect(subject.isEnabled).toEventually( beFalse() )
@@ -45,7 +45,7 @@ class BarButtonTests: QuickSpec {
 		it("disables the button if the Action is disabled") {
 			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
-			subject.rx_action = emptyAction(.just(false))
+			subject.rx.action = emptyAction(.just(false))
 			
 			expect(subject.isEnabled) == false
 		}
@@ -54,7 +54,7 @@ class BarButtonTests: QuickSpec {
 			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var executed = false
-			subject.rx_action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
+			subject.rx.action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
 				executed = true
 				return .empty()
 			})
@@ -72,7 +72,7 @@ class BarButtonTests: QuickSpec {
 				executed = true
 				return .empty()
 			})
-			subject.rx_action = action
+			subject.rx.action = action
 			
 			_ = subject.target?.perform(subject.action, with: subject)
 			
@@ -87,7 +87,7 @@ class BarButtonTests: QuickSpec {
 				let disposeBag = DisposeBag()
 				
 				let action = emptyAction()
-				subject.rx_action = action
+				subject.rx.action = action
 				
 				action
 					.elements
@@ -97,7 +97,7 @@ class BarButtonTests: QuickSpec {
 					.addDisposableTo(disposeBag)
 			}
 			
-			subject.rx_action = nil
+			subject.rx.action = nil
 			
 			expect(disposed) == true
 		}

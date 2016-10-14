@@ -9,7 +9,7 @@ class ButtonTests: QuickSpec {
 
         it("is nil by default") {
             let subject = UIButton(type: .system)
-            expect(subject.rx_action).to( beNil() )
+            expect(subject.rx.action).to( beNil() )
         }
 
         it("respects setter") {
@@ -17,9 +17,9 @@ class ButtonTests: QuickSpec {
 
             let action = emptyAction()
 
-            subject.rx_action = action
+            subject.rx.action = action
 
-            expect(subject.rx_action) === action
+            expect(subject.rx.action) === action
         }
 
         it("disables the button while executing") {
@@ -33,7 +33,7 @@ class ButtonTests: QuickSpec {
                 }
             })
 
-            subject.rx_action = action
+            subject.rx.action = action
 
             action.execute()
             expect(subject.isEnabled).toEventually( beFalse() )
@@ -45,7 +45,7 @@ class ButtonTests: QuickSpec {
         it("disables the button if the Action is disabled") {
             let subject = UIButton(type: .system)
 
-            subject.rx_action = emptyAction(.just(false))
+            subject.rx.action = emptyAction(.just(false))
             
             expect(subject.isEnabled) == false
         }
@@ -54,7 +54,7 @@ class ButtonTests: QuickSpec {
             let subject = UIButton(type: .system)
 
             var executed = false
-            subject.rx_action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
+            subject.rx.action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
                 executed = true
                 return .empty()
             })
@@ -72,7 +72,7 @@ class ButtonTests: QuickSpec {
                 executed = true
                 return .empty()
             })
-            subject.rx_action = action
+            subject.rx.action = action
 
             // Normally I'd use subject.sendActionsForControlEvents(.TouchUpInside) but it's not working
             for case let target as NSObject in subject.allTargets {
@@ -92,7 +92,7 @@ class ButtonTests: QuickSpec {
                 let disposeBag = DisposeBag()
 
                 let action = emptyAction()
-                subject.rx_action = action
+                subject.rx.action = action
 
                 action
                     .elements
@@ -102,7 +102,7 @@ class ButtonTests: QuickSpec {
                     .addDisposableTo(disposeBag)
             }
 
-            subject.rx_action = nil
+            subject.rx.action = nil
 
             expect(disposed) == true
         }
@@ -121,8 +121,8 @@ class ButtonTests: QuickSpec {
                     }
                 }
                 
-                subject.rx_action = action
-                subject.rx_action?.execute()
+                subject.rx.action = action
+                subject.rx.action?.execute()
             }
             
             expect(disposed) == true

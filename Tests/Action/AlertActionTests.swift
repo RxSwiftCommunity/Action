@@ -8,7 +8,7 @@ class AlertActionTests: QuickSpec {
     override func spec() {
         it("is nil by default") {
             let subject = UIAlertAction.Action("Hi", style: .default)
-            expect(subject.rx_action).to( beNil() )
+            expect(subject.rx.action).to( beNil() )
         }
 
         it("respects setter") {
@@ -16,9 +16,9 @@ class AlertActionTests: QuickSpec {
 
             let action = emptyAction()
 
-            subject.rx_action = action
+            subject.rx.action = action
 
-            expect(subject.rx_action) === action
+            expect(subject.rx.action) === action
         }
 
         it("disables the alert action while executing") {
@@ -32,7 +32,7 @@ class AlertActionTests: QuickSpec {
                 }
             })
 
-            subject.rx_action = action
+            subject.rx.action = action
 
             action.execute()
             expect(subject.isEnabled).toEventually( beFalse() )
@@ -45,7 +45,7 @@ class AlertActionTests: QuickSpec {
             let subject = UIAlertAction.Action("Hi", style: .default)
             let disposeBag = DisposeBag()
 
-            subject.rx_action = emptyAction(.just(false))
+            subject.rx.action = emptyAction(.just(false))
             waitUntil { done in
                 subject.rx.observe(Bool.self, "enabled")
                     .take(1)
@@ -66,7 +66,7 @@ class AlertActionTests: QuickSpec {
                 let disposeBag = DisposeBag()
                 
                 let action = emptyAction()
-                subject.rx_action = action
+                subject.rx.action = action
                 
                 action
                     .elements
@@ -76,7 +76,7 @@ class AlertActionTests: QuickSpec {
                     .addDisposableTo(disposeBag)
             }
             
-            subject.rx_action = nil
+            subject.rx.action = nil
             
             expect(disposed) == true
         }

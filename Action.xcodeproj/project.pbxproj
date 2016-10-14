@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EBBAA181DB0E28800D7F400 /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA171DB0E28800D7F400 /* Action+Internal.swift */; };
 		7F53BBE71D7F0BBA0098EC20 /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53BBE31D7F0BBA0098EC20 /* ActionTests.swift */; };
 		7F53BBE81D7F0BBA0098EC20 /* AlertActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53BBE41D7F0BBA0098EC20 /* AlertActionTests.swift */; };
 		7F53BBE91D7F0BBA0098EC20 /* BarButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53BBE51D7F0BBA0098EC20 /* BarButtonTests.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5EBBAA171DB0E28800D7F400 /* Action+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Action+Internal.swift"; sourceTree = SOURCE_ROOT; };
 		7F53BBE11D7F0B140098EC20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F53BBE31D7F0BBA0098EC20 /* ActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
 		7F53BBE41D7F0BBA0098EC20 /* AlertActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertActionTests.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				BE73AD331CDCEAE0006F8B98 /* Action.swift */,
+				5EBBAA171DB0E28800D7F400 /* Action+Internal.swift */,
 				BE73AD341CDCEAE0006F8B98 /* AlertAction.swift */,
 				BE73AD351CDCEAE0006F8B98 /* UIBarButtonItem+Action.swift */,
 				BE73AD361CDCEAE0006F8B98 /* UIButton+Rx.swift */,
@@ -385,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE73AD381CDCEAE0006F8B98 /* AlertAction.swift in Sources */,
+				5EBBAA181DB0E28800D7F400 /* Action+Internal.swift in Sources */,
 				BE73AD391CDCEAE0006F8B98 /* UIBarButtonItem+Action.swift in Sources */,
 				BE73AD371CDCEAE0006F8B98 /* Action.swift in Sources */,
 				BE73AD3A1CDCEAE0006F8B98 /* UIButton+Rx.swift in Sources */,
