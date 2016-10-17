@@ -12,7 +12,7 @@ class AlertActionTests: QuickSpec {
         }
 
         it("respects setter") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
 
             let action = emptyAction()
 
@@ -22,7 +22,7 @@ class AlertActionTests: QuickSpec {
         }
 
         it("disables the alert action while executing") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
 
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
@@ -42,7 +42,7 @@ class AlertActionTests: QuickSpec {
         }
 
         it("disables the alert action if the Action is disabled") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
             let disposeBag = DisposeBag()
 
             subject.rx.action = emptyAction(.just(false))
@@ -59,7 +59,7 @@ class AlertActionTests: QuickSpec {
         }
         
         it("disposes of old action subscriptions when re-set") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
             
             var disposed = false
             autoreleasepool {

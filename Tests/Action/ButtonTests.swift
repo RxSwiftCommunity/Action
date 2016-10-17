@@ -13,7 +13,7 @@ class ButtonTests: QuickSpec {
         }
 
         it("respects setter") {
-            let subject = UIButton(type: .system)
+            var subject = UIButton(type: .system)
 
             let action = emptyAction()
 
@@ -23,7 +23,7 @@ class ButtonTests: QuickSpec {
         }
 
         it("disables the button while executing") {
-            let subject = UIButton(type: .system)
+            var subject = UIButton(type: .system)
 
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
@@ -43,7 +43,7 @@ class ButtonTests: QuickSpec {
         }
 
         it("disables the button if the Action is disabled") {
-            let subject = UIButton(type: .system)
+            var subject = UIButton(type: .system)
 
             subject.rx.action = emptyAction(.just(false))
             
@@ -51,7 +51,7 @@ class ButtonTests: QuickSpec {
         }
 
         it("doesn't execute a disabled action when tapped") {
-            let subject = UIButton(type: .system)
+            var subject = UIButton(type: .system)
 
             var executed = false
             subject.rx.action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
@@ -65,7 +65,7 @@ class ButtonTests: QuickSpec {
         }
 
         it("executes the action when tapped") {
-            let subject = UIButton(type: .system)
+            var subject = UIButton(type: .system)
 
             var executed = false
             let action = CocoaAction(workFactory: { _ in
@@ -85,7 +85,7 @@ class ButtonTests: QuickSpec {
         }
 
         it("disposes of old action subscriptions when re-set") {
-            let subject = UIButton(type: .system)
+            var subject = UIButton(type: .system)
 
             var disposed = false
             autoreleasepool {
@@ -112,7 +112,7 @@ class ButtonTests: QuickSpec {
             var disposed = false
             
             autoreleasepool {
-                let subject = UIButton(type: .system)
+                var subject = UIButton(type: .system)
                 let action = CocoaAction {
                     return Observable.create {_ in
                         Disposables.create {

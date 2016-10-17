@@ -13,7 +13,7 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("respects setter") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			let action = emptyAction()
 			
@@ -23,7 +23,7 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("disables the button while executing") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var observer: AnyObserver<Void>!
 			let action = CocoaAction(workFactory: { _ in
@@ -43,7 +43,7 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("disables the button if the Action is disabled") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			subject.rx.action = emptyAction(.just(false))
 			
@@ -51,7 +51,7 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("doesn't execute a disabled action when tapped") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var executed = false
 			subject.rx.action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
@@ -65,7 +65,7 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("executes the action when tapped") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var executed = false
 			let action = CocoaAction(workFactory: { _ in
@@ -80,7 +80,7 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("disposes of old action subscriptions when re-set") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var disposed = false
 			autoreleasepool {
