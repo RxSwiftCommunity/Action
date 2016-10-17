@@ -6,18 +6,22 @@ public extension UIAlertAction {
 
     public static func Action(_ title: String?, style: UIAlertActionStyle) -> UIAlertAction {
         return UIAlertAction(title: title, style: style, handler: { action in
-            action.rx_action?.execute()
+            action.rx.action?.execute()
+            return
         })
     }
+}
+
+public extension Reactive where Base: UIAlertAction {
 
     /// Binds enabled state of action to button, and subscribes to rx_tap to execute action.
     /// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     /// them, set the rx_action to nil or another action.
-    public var rx_action: CocoaAction? {
+    public var action: CocoaAction? {
         get {
             var action: CocoaAction?
             doLocked {
-                action = objc_getAssociatedObject(self, &AssociatedKeys.Action) as? Action
+                action = objc_getAssociatedObject(base, &AssociatedKeys.Action) as? Action
             }
             return action
         }
@@ -25,42 +29,40 @@ public extension UIAlertAction {
         set {
             doLocked {
                 // Store new value.
-                objc_setAssociatedObject(self, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(base, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
                 // This effectively disposes of any existing subscriptions.
-                self.resetActionDisposeBag()
+                self.base.resetActionDisposeBag()
 
                 // Set up new bindings, if applicable.
                 if let action = newValue {
                     action
                         .enabled
-                        .bindTo(self.rx_enabled)
-                        .addDisposableTo(self.actionDisposeBag)
+                        .bindTo(self.enabled)
+                        .addDisposableTo(self.base.actionDisposeBag)
                 }
             }
         }
     }
-}
-
-extension UIAlertAction {
-    var rx_enabled: AnyObserver<Bool> {
-        return AnyObserver { [weak self] event in
-            MainScheduler.ensureExecutingOnScheduler()
-
-            switch event {
-            case .next(let value):
-                self?.isEnabled = value
-            case .error(let error):
-                let error = "Binding error to UI: \(error)"
-                #if DEBUG
-                    rxFatalError(error)
-                #else
-                    print(error)
-                #endif
-                break
-            case .completed:
-                break
-            }
-        }
-    }
+	
+	public var enabled: AnyObserver<Bool> {
+		return AnyObserver { [weak base] event in
+			MainScheduler.ensureExecutingOnScheduler()
+			
+			switch event {
+			case .next(let value):
+				base?.isEnabled = value
+			case .error(let error):
+				let error = "Binding error to UI: \(error)"
+				#if DEBUG
+					rxFatalError(error)
+				#else
+					print(error)
+				#endif
+				break
+			case .completed:
+				break
+			}
+		}
+	}
 }

@@ -3,16 +3,16 @@ import RxSwift
 import RxCocoa
 import ObjectiveC
 
-public extension UIBarButtonItem {
+public extension Reactive where Base: UIBarButtonItem {
 
     /// Binds enabled state of action to bar button item, and subscribes to rx_tap to execute action.
     /// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     /// them, set the rx_action to nil or another action.
-    public var rx_action: CocoaAction? {
+    public var action: CocoaAction? {
         get {
             var action: CocoaAction?
             doLocked {
-                action = objc_getAssociatedObject(self, &AssociatedKeys.Action) as? Action
+                action = objc_getAssociatedObject(self.base, &AssociatedKeys.Action) as? Action
             }
             return action
         }
@@ -20,22 +20,22 @@ public extension UIBarButtonItem {
         set {
             doLocked {
                 // Store new value.
-                objc_setAssociatedObject(self, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self.base, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
                 // This effectively disposes of any existing subscriptions.
-                self.resetActionDisposeBag()
+                self.base.resetActionDisposeBag()
 
                 // Set up new bindings, if applicable.
                 if let action = newValue {
                     action
                         .enabled
-                        .bindTo(self.rx.enabled)
-                        .addDisposableTo(self.actionDisposeBag)
+                        .bindTo(self.enabled)
+                        .addDisposableTo(self.base.actionDisposeBag)
 
-                    self.rx.tap.subscribe(onNext: { (_) in
+                    self.tap.subscribe(onNext: { (_) in
                         action.execute()
                     })
-                    .addDisposableTo(self.actionDisposeBag)
+                    .addDisposableTo(self.base.actionDisposeBag)
                 }
             }
         }

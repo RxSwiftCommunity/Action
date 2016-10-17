@@ -165,6 +165,11 @@ private extension Action {
     }
 }
 
+fileprivate let executingQueue = DispatchQueue(label: "com.ashfurrow.Action.executingQueue", attributes: [])
+internal func doLocked(_ closure: () -> Void) {
+    executingQueue.sync(execute: closure)
+}
+
 internal extension BehaviorSubject where Element: ExpressibleByBooleanLiteral {
     var valueOrFalse: Element {
         guard let value = try? value() else { return false }

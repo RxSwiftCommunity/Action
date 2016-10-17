@@ -9,21 +9,21 @@ class BarButtonTests: QuickSpec {
 		
 		it("is nil by default") {
 			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
-			expect(subject.rx_action).to( beNil() )
+			expect(subject.rx.action).to( beNil() )
 		}
 		
 		it("respects setter") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			let action = emptyAction()
 			
-			subject.rx_action = action
+			subject.rx.action = action
 			
-			expect(subject.rx_action) === action
+			expect(subject.rx.action) === action
 		}
 		
 		it("disables the button while executing") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var observer: AnyObserver<Void>!
 			let action = CocoaAction(workFactory: { _ in
@@ -33,7 +33,7 @@ class BarButtonTests: QuickSpec {
 				}
 			})
 			
-			subject.rx_action = action
+			subject.rx.action = action
 			
 			action.execute()
 			expect(subject.isEnabled).toEventually( beFalse() )
@@ -43,18 +43,18 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("disables the button if the Action is disabled") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
-			subject.rx_action = emptyAction(.just(false))
+			subject.rx.action = emptyAction(.just(false))
 			
 			expect(subject.isEnabled) == false
 		}
 		
 		it("doesn't execute a disabled action when tapped") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var executed = false
-			subject.rx_action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
+			subject.rx.action = CocoaAction(enabledIf: .just(false), workFactory: { _ in
 				executed = true
 				return .empty()
 			})
@@ -65,14 +65,14 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("executes the action when tapped") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var executed = false
 			let action = CocoaAction(workFactory: { _ in
 				executed = true
 				return .empty()
 			})
-			subject.rx_action = action
+			subject.rx.action = action
 			
 			_ = subject.target?.perform(subject.action, with: subject)
 			
@@ -80,14 +80,14 @@ class BarButtonTests: QuickSpec {
 		}
 		
 		it("disposes of old action subscriptions when re-set") {
-			let subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			var disposed = false
 			autoreleasepool {
 				let disposeBag = DisposeBag()
 				
 				let action = emptyAction()
-				subject.rx_action = action
+				subject.rx.action = action
 				
 				action
 					.elements
@@ -97,7 +97,7 @@ class BarButtonTests: QuickSpec {
 					.addDisposableTo(disposeBag)
 			}
 			
-			subject.rx_action = nil
+			subject.rx.action = nil
 			
 			expect(disposed) == true
 		}

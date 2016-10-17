@@ -8,21 +8,21 @@ class AlertActionTests: QuickSpec {
     override func spec() {
         it("is nil by default") {
             let subject = UIAlertAction.Action("Hi", style: .default)
-            expect(subject.rx_action).to( beNil() )
+            expect(subject.rx.action).to( beNil() )
         }
 
         it("respects setter") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
 
             let action = emptyAction()
 
-            subject.rx_action = action
+            subject.rx.action = action
 
-            expect(subject.rx_action) === action
+            expect(subject.rx.action) === action
         }
 
         it("disables the alert action while executing") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
 
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
@@ -32,7 +32,7 @@ class AlertActionTests: QuickSpec {
                 }
             })
 
-            subject.rx_action = action
+            subject.rx.action = action
 
             action.execute()
             expect(subject.isEnabled).toEventually( beFalse() )
@@ -42,10 +42,10 @@ class AlertActionTests: QuickSpec {
         }
 
         it("disables the alert action if the Action is disabled") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
             let disposeBag = DisposeBag()
 
-            subject.rx_action = emptyAction(.just(false))
+            subject.rx.action = emptyAction(.just(false))
             waitUntil { done in
                 subject.rx.observe(Bool.self, "enabled")
                     .take(1)
@@ -59,14 +59,14 @@ class AlertActionTests: QuickSpec {
         }
         
         it("disposes of old action subscriptions when re-set") {
-            let subject = UIAlertAction.Action("Hi", style: .default)
+            var subject = UIAlertAction.Action("Hi", style: .default)
             
             var disposed = false
             autoreleasepool {
                 let disposeBag = DisposeBag()
                 
                 let action = emptyAction()
-                subject.rx_action = action
+                subject.rx.action = action
                 
                 action
                     .elements
@@ -76,7 +76,7 @@ class AlertActionTests: QuickSpec {
                     .addDisposableTo(disposeBag)
             }
             
-            subject.rx_action = nil
+            subject.rx.action = nil
             
             expect(disposed) == true
         }
