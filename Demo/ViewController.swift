@@ -29,7 +29,7 @@ class ViewController: UIViewController {
 
 				// Demo: show an alert and complete the view's button action once the alert's OK button is pressed
 				let alertController = UIAlertController(title: "Hello world", message: "This alert was triggered by a button action", preferredStyle: .alert)
-				let ok = UIAlertAction.Action("OK", style: .default)
+				var ok = UIAlertAction.Action("OK", style: .default)
 				ok.rx.action = CocoaAction {
 					print("Alert's OK button was pressed")
 					observer.onCompleted()
