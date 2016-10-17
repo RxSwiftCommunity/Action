@@ -12,7 +12,7 @@ public extension Reactive where Base: UIBarButtonItem {
         get {
             var action: CocoaAction?
             doLocked {
-                action = objc_getAssociatedObject(self, &AssociatedKeys.Action) as? Action
+                action = objc_getAssociatedObject(self.base, &AssociatedKeys.Action) as? Action
             }
             return action
         }
@@ -20,7 +20,7 @@ public extension Reactive where Base: UIBarButtonItem {
         set {
             doLocked {
                 // Store new value.
-                objc_setAssociatedObject(self, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self.base, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
                 // This effectively disposes of any existing subscriptions.
                 self.base.resetActionDisposeBag()
