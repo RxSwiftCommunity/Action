@@ -150,7 +150,7 @@ class ActionTests: QuickSpec {
 
             subject.execute()
 
-            expect(elements) == [true, false]
+            expect(elements).toEventually(equal([true, false]))
         }
 
         sharedExamples("sending elements") { (context: @escaping SharedExampleContext) -> Void in
@@ -175,8 +175,8 @@ class ActionTests: QuickSpec {
 
                 subject.execute()
 
-                expect(receivedInputs.count) == 1
-                expect(receivedElements) == testItems
+                expect(receivedInputs.count).toEventually(equal(1))
+                expect(receivedElements).toEventually(equal(testItems))
             }
 
             it("sends next elements on elements observable when inputs receives next elements") {
@@ -189,7 +189,7 @@ class ActionTests: QuickSpec {
 
                 subject.inputs.onNext()
 
-                expect(receivedElements) == testItems
+                expect(receivedElements).toEventually(equal(testItems))
             }
 
             it("sends next elements on observable returned from execte()") {
@@ -200,7 +200,7 @@ class ActionTests: QuickSpec {
                     receivedElements += [element]
                     }).addDisposableTo(disposeBag)
                 
-                expect(receivedElements) == testItems
+                expect(receivedElements).toEventually(equal(testItems))
             }
         }
         
@@ -267,7 +267,7 @@ class ActionTests: QuickSpec {
                     let subject = emptySubject()
 
                     let enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled) == true
+                    expect(enabled).toEventually(beTrue())
                 }
 
                 it("is externally disabled while executing") {
@@ -282,12 +282,12 @@ class ActionTests: QuickSpec {
                     executer.execute(subject)
 
                     var enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled) == false
+                    expect(enabled).toEventually(beFalse())
 
                     observer.onCompleted()
 
                     enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled) == true
+                    expect(enabled).toEventually(beTrue())
                 }
             }
 
@@ -298,7 +298,7 @@ class ActionTests: QuickSpec {
                     })
 
                     let enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled) == false
+                    expect(enabled).toEventually(beFalse())
                 }
                 
                 it("errors observable sends error as next event when execute() is called") {
