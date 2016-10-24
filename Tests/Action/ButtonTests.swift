@@ -46,6 +46,7 @@ class ButtonTests: QuickSpec {
             var subject = UIButton(type: .system)
 
             subject.rx.action = emptyAction(.just(false))
+            expect(subject.allTargets).toEventuallyNot( beEmpty() )
             
             expect(subject.isEnabled) == false
         }
@@ -74,6 +75,9 @@ class ButtonTests: QuickSpec {
             })
             subject.rx.action = action
 
+            // Setting the action has an asynchronous effect of adding a target.
+            expect(subject.allTargets).toEventuallyNot( beEmpty() )
+
             // Normally I'd use subject.sendActionsForControlEvents(.TouchUpInside) but it's not working
             for case let target as NSObject in subject.allTargets {
                 for action in subject.actions(forTarget: target, forControlEvent: .touchUpInside) ?? [] {
@@ -81,7 +85,7 @@ class ButtonTests: QuickSpec {
                 }
             }
 
-            expect(executed) == true
+            expect(executed).toEventually( beTrue() )
         }
 
         it("disposes of old action subscriptions when re-set") {
@@ -110,19 +114,22 @@ class ButtonTests: QuickSpec {
         it("cancels the observable if the button is deallocated") {
             
             var disposed = false
-            
-            autoreleasepool {
-                var subject = UIButton(type: .system)
-                let action = CocoaAction {
-                    return Observable.create {_ in
-                        Disposables.create {
-                            disposed = true
+
+            waitUntil { done in
+                autoreleasepool {
+                    var subject = UIButton(type: .system)
+                    let action = CocoaAction {
+                        return Observable.create {_ in
+                            Disposables.create {
+                                disposed = true
+                                done()
+                            }
                         }
                     }
+
+                    subject.rx.action = action
+                    subject.rx.action?.execute()
                 }
-                
-                subject.rx.action = action
-                subject.rx.action?.execute()
             }
             
             expect(disposed) == true
