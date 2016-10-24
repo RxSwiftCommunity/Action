@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Action"
-  s.version      = "2.0.0-beta.1"
+  s.version      = "2.0.0"
   s.summary      = "Abstracts actions to be performed in RxSwift."
   s.description  = <<-DESC
     Encapsulates an action to be performed, usually by a UIButton press.
@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
   s.source_files  = "*.{swift}"
 
   s.frameworks  = "Foundation"
-  s.dependency "RxSwift"
-  s.dependency "RxCocoa"
+  s.dependency "RxSwift", "~> 3.0"
+  s.dependency "RxCocoa", "~> 3.0"
 
   s.watchos.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift", "AlertAction.swift"
   s.osx.exclude_files = "UIButton+Rx.swift", "UIBarButtonItem+Action.swift", "AlertAction.swift"
