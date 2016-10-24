@@ -73,12 +73,15 @@ class ActionTests: QuickSpec {
             let subject = errorSubject()
             var errored = false
 
-            subject
-                .execute()
-                .subscribe(onError: { _ in
-                    errored = true
-                })
-                .addDisposableTo(disposeBag)
+            waitUntil { done in
+                subject
+                    .execute()
+                    .subscribe(onError: { _ in
+                        errored = true
+                        done()
+                    })
+                    .addDisposableTo(disposeBag)
+            }
 
             expect(errored) == true
         }
@@ -148,9 +151,17 @@ class ActionTests: QuickSpec {
                 })
                 .addDisposableTo(disposeBag)
 
-            subject.execute()
+            waitUntil { done in
+                subject
+                    .execute()
+                    .subscribe(onCompleted: {
+                        done()
+                    })
+                    .addDisposableTo(disposeBag)
+            }
 
-            expect(elements) == [true, false]
+
+            expect(elements).toEventually( equal([true, false]) )
         }
 
         sharedExamples("sending elements") { (context: @escaping SharedExampleContext) -> Void in
@@ -196,9 +207,11 @@ class ActionTests: QuickSpec {
                 let subject = testSubject(testItems)
                 var receivedElements: [String] = []
 
-                subject.execute().subscribe(onNext: { (element) -> Void in
-                    receivedElements += [element]
-                    }).addDisposableTo(disposeBag)
+                waitUntil { done in
+                    subject.execute().subscribe(onNext: { (element) -> Void in
+                        receivedElements += [element]
+                        }, onCompleted: done).addDisposableTo(disposeBag)
+                }
                 
                 expect(receivedElements) == testItems
             }
@@ -232,12 +245,15 @@ class ActionTests: QuickSpec {
             let subject = emptySubject()
             var completed = false
 
-            subject
-                .execute()
-                .subscribe(onCompleted: {
-                    completed = true
-                })
-                .addDisposableTo(disposeBag)
+            waitUntil { done in
+                subject
+                    .execute()
+                    .subscribe(onCompleted: {
+                        completed = true
+                        done()
+                    })
+                    .addDisposableTo(disposeBag)
+            }
 
             expect(completed) == true
         }
@@ -249,7 +265,13 @@ class ActionTests: QuickSpec {
                 return .empty()
             })
 
-            subject.execute()
+            waitUntil { done in
+                subject.execute()
+                    .subscribe(onCompleted: {
+                        done()
+                    })
+                    .addDisposableTo(disposeBag)
+            }
 
             expect(invocations) == 1
         }
@@ -281,13 +303,23 @@ class ActionTests: QuickSpec {
 
                     executer.execute(subject)
 
-                    var enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled) == false
+                    expect(try! subject.enabled.toBlocking().first()).toEventually( beFalse() )
+                }
+
+                it("is externally re-enabled after executing") {
+                    var observer: AnyObserver<Void>!
+                    let subject = Action<Void, Void>(workFactory: { _ in
+                        return Observable.create { (obsv) -> Disposable in
+                            observer = obsv
+                            return Disposables.create()
+                        }
+                    })
+
+                    executer.execute(subject)
 
                     observer.onCompleted()
 
-                    enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled) == true
+                    expect(try! subject.enabled.toBlocking().first()).toEventually( beTrue() )
                 }
             }
 

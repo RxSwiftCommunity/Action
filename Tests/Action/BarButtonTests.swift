@@ -46,6 +46,7 @@ class BarButtonTests: QuickSpec {
 			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 			
 			subject.rx.action = emptyAction(.just(false))
+            expect(subject.target).toEventuallyNot( beNil() )
 			
 			expect(subject.isEnabled) == false
 		}
@@ -73,7 +74,9 @@ class BarButtonTests: QuickSpec {
 				return .empty()
 			})
 			subject.rx.action = action
-			
+            // Setting the action has the asynchronous effect of adding a target.
+            expect(subject.target).toEventuallyNot( beNil() )
+
 			_ = subject.target?.perform(subject.action, with: subject)
 			
 			expect(executed) == true
