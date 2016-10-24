@@ -303,13 +303,23 @@ class ActionTests: QuickSpec {
 
                     executer.execute(subject)
 
-                    var enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled).toEventually( beFalse() )
+                    expect(try! subject.enabled.toBlocking().first()).toEventually( beFalse() )
+                }
+
+                it("is externally re-enabled after executing") {
+                    var observer: AnyObserver<Void>!
+                    let subject = Action<Void, Void>(workFactory: { _ in
+                        return Observable.create { (obsv) -> Disposable in
+                            observer = obsv
+                            return Disposables.create()
+                        }
+                    })
+
+                    executer.execute(subject)
 
                     observer.onCompleted()
 
-                    enabled = try! subject.enabled.toBlocking().first()
-                    expect(enabled).toEventually( beTrue() )
+                    expect(try! subject.enabled.toBlocking().first()).toEventually( beTrue() )
                 }
             }
 
