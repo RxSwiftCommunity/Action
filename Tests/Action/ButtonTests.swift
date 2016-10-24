@@ -47,7 +47,7 @@ class ButtonTests: QuickSpec {
 
             subject.rx.action = emptyAction(.just(false))
             
-            expect(subject.isEnabled) == false
+            expect(subject.isEnabled).toEventually(beFalse())
         }
 
         it("doesn't execute a disabled action when tapped") {
@@ -125,7 +125,7 @@ class ButtonTests: QuickSpec {
                 subject.rx.action?.execute()
             }
             
-            expect(disposed) == true
+            expect(disposed).toEventually(beTrue())
         }
     }
 }

@@ -47,7 +47,7 @@ class BarButtonTests: QuickSpec {
 			
 			subject.rx.action = emptyAction(.just(false))
 			
-			expect(subject.isEnabled) == false
+			expect(subject.isEnabled).toEventually(beFalse())
 		}
 		
 		it("doesn't execute a disabled action when tapped") {
