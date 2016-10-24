@@ -29,7 +29,7 @@ public extension Reactive where Base: UIBarButtonItem {
                 if let action = newValue {
                     action
                         .enabled
-                        .bindTo(self.enabled)
+                        .bindTo(self.isEnabled)
                         .addDisposableTo(self.base.actionDisposeBag)
 
                     self.tap.subscribe(onNext: { (_) in
