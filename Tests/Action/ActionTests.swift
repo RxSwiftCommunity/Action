@@ -10,7 +10,7 @@ class ActionTests: QuickSpec {
         var scheduler: TestScheduler!
         var disposeBag: DisposeBag!
 
-        var errors: TestableObserver<String>!
+        var errors: TestableObserver<ActionError>!
         var elements: TestableObserver<String>!
         var enabled: TestableObserver<Bool>!
         var executing: TestableObserver<Bool>!
@@ -19,7 +19,7 @@ class ActionTests: QuickSpec {
             scheduler = TestScheduler(initialClock: 0)
             disposeBag = DisposeBag()
             
-            errors = scheduler.createObserver(String.self)
+            errors = scheduler.createObserver(ActionError.self)
             elements = scheduler.createObserver(String.self)
             enabled = scheduler.createObserver(Bool.self)
             executing = scheduler.createObserver(Bool.self)
@@ -27,7 +27,6 @@ class ActionTests: QuickSpec {
 
         func bindAction(action: Action<String, String>) {
             action.errors
-                .map { _ in TestError }
                 .bindTo(errors)
                 .addDisposableTo(disposeBag)
             
@@ -110,8 +109,8 @@ class ActionTests: QuickSpec {
             sharedExamples("send errors to errors observable") {
                 it("errors observable receives generated errors") {
                     XCTAssertEqual(errors.events, [
-                        next(10, TestError),
-                        next(20, TestError),
+                        next(10, .underlyingError(TestError)),
+                        next(20, .underlyingError(TestError)),
                     ])
                 }
                 
@@ -564,7 +563,19 @@ class ActionTests: QuickSpec {
     }
 }
 
-
+extension ActionError: Equatable {
+    // Not accurate but convenient for testing.
+    public static func ==(lhs: ActionError, rhs: ActionError) -> Bool {
+        switch (lhs, rhs) {
+        case (.notEnabled, .notEnabled):
+            return true
+        case (.underlyingError, .underlyingError):
+            return true
+        default:
+            return false
+        }
+    }
+}
 
 extension String: Error { }
 let TestError = "Test Error"
