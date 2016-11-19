@@ -2,14 +2,169 @@ import Quick
 import Nimble
 import RxSwift
 import RxBlocking
+import RxTest
 import Action
 
 class ActionTests: QuickSpec {
     override func spec() {
+        var scheduler: TestScheduler!
         var disposeBag: DisposeBag!
 
+        var errors: TestableObserver<ActionError>!
+        var elements: TestableObserver<String>!
+        var enabled: TestableObserver<Bool>!
+        var executing: TestableObserver<Bool>!
+
         beforeEach {
+            scheduler = TestScheduler(initialClock: 0)
             disposeBag = DisposeBag()
+            
+            errors = scheduler.createObserver(ActionError.self)
+            elements = scheduler.createObserver(String.self)
+            enabled = scheduler.createObserver(Bool.self)
+            executing = scheduler.createObserver(Bool.self)
+        }
+
+        func bindAction(action: Action<String, String>) {
+            action.errors
+                .bindTo(errors)
+                .addDisposableTo(disposeBag)
+            
+            action.elements
+                .bindTo(elements)
+                .addDisposableTo(disposeBag)
+            
+            action.enabled
+                .bindTo(enabled)
+                .addDisposableTo(disposeBag)
+            
+            action.executing
+                .bindTo(executing)
+                .addDisposableTo(disposeBag)
+        }
+
+        describe("element handling") {
+            sharedExamples("send elements to elements observable") {
+                it("errors observable receives nothing") {
+                    XCTAssertEqual(errors.events, [])
+                }
+                
+                it("elements observable receives generated elements") {
+                    XCTAssertEqual(elements.events, [
+                        next(10, "a"),
+                        next(20, "b"),
+                    ])
+                }
+                
+                it("disabled until element returns") {
+                    XCTAssertEqual(enabled.events, [
+                        next(0, true),
+                        next(10, false),
+                        next(10, true),
+                        next(20, false),
+                        next(20, true),
+                    ])
+                }
+                
+                it("executing until element returns") {
+                    XCTAssertEqual(executing.events, [
+                        next(0, false),
+                        next(10, true),
+                        next(10, false),
+                        next(20, true),
+                        next(20, false),
+                    ])
+                }
+            }
+
+            var action: Action<String, String>!
+
+            beforeEach {
+                action = Action { Observable.just($0) }
+                bindAction(action: action)
+            }
+
+            context("trigger via inputs subject") {
+                beforeEach {
+                    scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                    scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                    scheduler.start()
+                }
+
+                itBehavesLike("send elements to elements observable")
+            }
+
+            context("trigger via execute() method") {
+                beforeEach {
+                    scheduler.scheduleAt(10) { action.execute("a") }
+                    scheduler.scheduleAt(20) { action.execute("b") }
+                    scheduler.start()
+                }
+
+                itBehavesLike("send elements to elements observable")
+            }
+        }
+
+        describe("error handling") {
+            sharedExamples("send errors to errors observable") {
+                it("errors observable receives generated errors") {
+                    XCTAssertEqual(errors.events, [
+                        next(10, .underlyingError(TestError)),
+                        next(20, .underlyingError(TestError)),
+                    ])
+                }
+                
+                it("elements observable receives nothing") {
+                    XCTAssertEqual(elements.events, [])
+                }
+                
+                it("disabled until error returns") {
+                    XCTAssertEqual(enabled.events, [
+                        next(0, true),
+                        next(10, false),
+                        next(10, true),
+                        next(20, false),
+                        next(20, true),
+                    ])
+                }
+                
+                it("executing until error returns") {
+                    XCTAssertEqual(executing.events, [
+                        next(0, false),
+                        next(10, true),
+                        next(10, false),
+                        next(20, true),
+                        next(20, false),
+                    ])
+                }
+            }
+
+            var action: Action<String, String>!
+
+            beforeEach {
+                action = Action { _ in Observable.error(TestError) }
+                bindAction(action: action)
+            }
+
+            context("trigger via inputs subject") {
+                beforeEach {
+                    scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                    scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                    scheduler.start()
+                }
+
+                itBehavesLike("send errors to errors observable")
+            }
+
+            context("trigger via execute() method") {
+                beforeEach {
+                    scheduler.scheduleAt(10) { action.execute("a") }
+                    scheduler.scheduleAt(20) { action.execute("b") }
+                    scheduler.start()
+                }
+
+                itBehavesLike("send errors to errors observable")
+            }
         }
 
         it("sends errors on errors observable as Next events") {
@@ -408,7 +563,19 @@ class ActionTests: QuickSpec {
     }
 }
 
-
+extension ActionError: Equatable {
+    // Not accurate but convenient for testing.
+    public static func ==(lhs: ActionError, rhs: ActionError) -> Bool {
+        switch (lhs, rhs) {
+        case (.notEnabled, .notEnabled):
+            return true
+        case (.underlyingError, .underlyingError):
+            return true
+        default:
+            return false
+        }
+    }
+}
 
 extension String: Error { }
 let TestError = "Test Error"
