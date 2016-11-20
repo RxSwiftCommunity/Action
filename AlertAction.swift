@@ -20,27 +20,23 @@ public extension Reactive where Base: UIAlertAction {
     public var action: CocoaAction? {
         get {
             var action: CocoaAction?
-            doLocked {
-                action = objc_getAssociatedObject(base, &AssociatedKeys.Action) as? Action
-            }
+            action = objc_getAssociatedObject(base, &AssociatedKeys.Action) as? Action
             return action
         }
 
         set {
-            doLocked {
-                // Store new value.
-                objc_setAssociatedObject(base, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
-                // This effectively disposes of any existing subscriptions.
-                self.base.resetActionDisposeBag()
-
-                // Set up new bindings, if applicable.
-                if let action = newValue {
-                    action
-                        .enabled
-                        .bindTo(self.enabled)
-                        .addDisposableTo(self.base.actionDisposeBag)
-                }
+            // Store new value.
+            objc_setAssociatedObject(base, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            // This effectively disposes of any existing subscriptions.
+            self.base.resetActionDisposeBag()
+            
+            // Set up new bindings, if applicable.
+            if let action = newValue {
+                action
+                    .enabled
+                    .bindTo(self.enabled)
+                    .addDisposableTo(self.base.actionDisposeBag)
             }
         }
     }
