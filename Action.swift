@@ -93,9 +93,8 @@ public final class Action<Input, Element> {
             .of(notEnabledError, underlyingError)
             .merge()
 
-        let executionStart = executionObservables.catchError { _ in Observable.empty() }
+        let executionStart = executionObservables
         let executionEnd = executionObservables
-            .catchError { _ in Observable.empty() }
             .flatMap { observable -> Observable<Void> in
                 return observable
                     .flatMap { _ in Observable<Void>.empty() }
