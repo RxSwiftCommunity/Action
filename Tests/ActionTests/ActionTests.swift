@@ -21,6 +21,7 @@ class ActionTests: QuickSpec {
             var errors: TestableObserver<ActionError>!
             var enabled: TestableObserver<Bool>!
             var executing: TestableObserver<Bool>!
+            var executionObservables: TestableObserver<Observable<String>>!
 
             beforeEach {
                 inputs = scheduler.createObserver(String.self)
@@ -28,6 +29,7 @@ class ActionTests: QuickSpec {
                 errors = scheduler.createObserver(ActionError.self)
                 enabled = scheduler.createObserver(Bool.self)
                 executing = scheduler.createObserver(Bool.self)
+                executionObservables = scheduler.createObserver(Observable<String>.self)
             }
 
             func bindAction(action: Action<String, String>) {
@@ -50,6 +52,18 @@ class ActionTests: QuickSpec {
                 action.executing
                     .bindTo(executing)
                     .addDisposableTo(disposeBag)
+
+                action.executionObservables
+                    .bindTo(executionObservables)
+                    .addDisposableTo(disposeBag)
+
+                // Dummy subscription for multiple subcription tests
+                action.inputs.subscribe().addDisposableTo(disposeBag)
+                action.elements.subscribe().addDisposableTo(disposeBag)
+                action.errors.subscribe().addDisposableTo(disposeBag)
+                action.enabled.subscribe().addDisposableTo(disposeBag)
+                action.executing.subscribe().addDisposableTo(disposeBag)
+                action.executionObservables.subscribe().addDisposableTo(disposeBag)
             }
 
             describe("single element action") {
@@ -90,6 +104,10 @@ class ActionTests: QuickSpec {
                             next(20, true),
                             next(20, false),
                         ])
+                    }
+
+                    it("executes twice") {
+                        XCTAssertEqual(executionObservables.events.count, 2)
                     }
                 }
 
@@ -163,6 +181,10 @@ class ActionTests: QuickSpec {
                             next(20, true),
                             next(20, false),
                         ])
+                    }
+
+                    it("executes twice") {
+                        XCTAssertEqual(executionObservables.events.count, 2)
                     }
                 }
 
@@ -242,6 +264,10 @@ class ActionTests: QuickSpec {
                             next(20, false),
                         ])
                     }
+
+                    it("executes twice") {
+                        XCTAssertEqual(executionObservables.events.count, 2)
+                    }
                 }
 
                 var action: Action<String, String>!
@@ -303,6 +329,10 @@ class ActionTests: QuickSpec {
                             next(0, false),
                         ])
                     }
+
+                    it("never executes") {
+                        XCTAssertEqual(executionObservables.events.count, 0)
+                    }
                 }
 
                 var action: Action<String, String>!
@@ -337,19 +367,31 @@ class ActionTests: QuickSpec {
         describe("execute function return value") {
             var action: Action<String, String>!
             var element: TestableObserver<String>!
+            var executionObservables: TestableObserver<Observable<String>>!
+
+            beforeEach {
+                element = scheduler.createObserver(String.self)
+                executionObservables = scheduler.createObserver(Observable<String>.self)
+            }
+
+            func bindAndExecute(action: Action<String, String>) {
+                action.executionObservables
+                    .bindTo(executionObservables)
+                    .addDisposableTo(disposeBag)
+                
+                scheduler.scheduleAt(10) {
+                    action.execute("a")
+                        .bindTo(element)
+                        .addDisposableTo(disposeBag)
+                }
+
+                scheduler.start()
+            }
 
             context("single element action") {
                 beforeEach {
                     action = Action { Observable.just($0) }
-                    element = scheduler.createObserver(String.self)
-                    
-                    scheduler.scheduleAt(10) {
-                        action.execute("a")
-                            .bindTo(element)
-                            .addDisposableTo(disposeBag)
-                    }
-
-                    scheduler.start()
+                    bindAndExecute(action: action)
                 }
 
                 it("element receives single value") {
@@ -358,20 +400,16 @@ class ActionTests: QuickSpec {
                         completed(10),
                     ])
                 }
+
+                it("executes once") {
+                    XCTAssertEqual(executionObservables.events.count, 1)
+                }
             }
 
             context("multiple element action") {
                 beforeEach {
                     action = Action { Observable.of($0, $0, $0) }
-                    element = scheduler.createObserver(String.self)
-                    
-                    scheduler.scheduleAt(10) {
-                        action.execute("a")
-                            .bindTo(element)
-                            .addDisposableTo(disposeBag)
-                    }
-
-                    scheduler.start()
+                    bindAndExecute(action: action)
                 }
 
                 it("element receives mutiple values") {
@@ -382,20 +420,16 @@ class ActionTests: QuickSpec {
                         completed(10),
                     ])
                 }
+
+                it("executes once") {
+                    XCTAssertEqual(executionObservables.events.count, 1)
+                }
             }
 
             context("error action") {
                 beforeEach {
                     action = Action { _ in Observable.error(TestError) }
-                    element = scheduler.createObserver(String.self)
-                    
-                    scheduler.scheduleAt(10) {
-                        action.execute("a")
-                            .bindTo(element)
-                            .addDisposableTo(disposeBag)
-                    }
-
-                    scheduler.start()
+                    bindAndExecute(action: action)
                 }
 
                 it("element fails with underlyingError") {
@@ -403,26 +437,26 @@ class ActionTests: QuickSpec {
                         error(10, ActionError.underlyingError(TestError))
                     ])
                 }
+
+                it("executes once") {
+                    XCTAssertEqual(executionObservables.events.count, 1)
+                }
             }
 
             context("disabled") {
                 beforeEach {
                     action = Action(enabledIf: Observable.just(false)) { Observable.just($0) }
-                    element = scheduler.createObserver(String.self)
-                    
-                    scheduler.scheduleAt(10) {
-                        action.execute("a")
-                            .bindTo(element)
-                            .addDisposableTo(disposeBag)
-                    }
-
-                    scheduler.start()
+                    bindAndExecute(action: action)
                 }
 
                 it("element fails with notEnabled") {
                     XCTAssertEqual(element.events, [
                         error(10, ActionError.notEnabled)
                     ])
+                }
+
+                it("never executes") {
+                    XCTAssertEqual(executionObservables.events.count, 0)
                 }
             }
         }
