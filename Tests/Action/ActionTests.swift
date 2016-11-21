@@ -293,10 +293,8 @@ class ActionTests: QuickSpec {
                 }
 
                 it("is externally disabled while executing") {
-                    var observer: AnyObserver<Void>!
                     let subject = Action<Void, Void>(workFactory: { _ in
                         return Observable.create { (obsv) -> Disposable in
-                            observer = obsv
                             return Disposables.create()
                         }
                     })
