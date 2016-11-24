@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS)
 import UIKit
 import RxSwift
 import RxCocoa
@@ -62,3 +63,4 @@ public extension Reactive where Base: UIAlertAction {
 		}
 	}
 }
+#endif
