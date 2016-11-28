@@ -107,7 +107,7 @@ class ActionTests: QuickSpec {
                     }
 
                     it("executes twice") {
-                        XCTAssertEqual(executionObservables.events.count, 2)
+                        expect(executionObservables.events.count) == 2
                     }
                 }
 
@@ -184,7 +184,7 @@ class ActionTests: QuickSpec {
                     }
 
                     it("executes twice") {
-                        XCTAssertEqual(executionObservables.events.count, 2)
+                        expect(executionObservables.events.count) == 2
                     }
                 }
 
@@ -266,7 +266,7 @@ class ActionTests: QuickSpec {
                     }
 
                     it("executes twice") {
-                        XCTAssertEqual(executionObservables.events.count, 2)
+                        expect(executionObservables.events.count) == 2
                     }
                 }
 
@@ -331,7 +331,7 @@ class ActionTests: QuickSpec {
                     }
 
                     it("never executes") {
-                        XCTAssertEqual(executionObservables.events.count, 0)
+                        expect(executionObservables.events).to(beEmpty())
                     }
                 }
 
@@ -402,7 +402,7 @@ class ActionTests: QuickSpec {
                 }
 
                 it("executes once") {
-                    XCTAssertEqual(executionObservables.events.count, 1)
+                    expect(executionObservables.events.count) == 1
                 }
             }
 
@@ -422,7 +422,7 @@ class ActionTests: QuickSpec {
                 }
 
                 it("executes once") {
-                    XCTAssertEqual(executionObservables.events.count, 1)
+                    expect(executionObservables.events.count) == 1
                 }
             }
 
@@ -439,7 +439,7 @@ class ActionTests: QuickSpec {
                 }
 
                 it("executes once") {
-                    XCTAssertEqual(executionObservables.events.count, 1)
+                    expect(executionObservables.events.count) == 1
                 }
             }
 
@@ -456,7 +456,7 @@ class ActionTests: QuickSpec {
                 }
 
                 it("never executes") {
-                    XCTAssertEqual(executionObservables.events.count, 0)
+                    expect(executionObservables.events).to(beEmpty())
                 }
             }
         }
