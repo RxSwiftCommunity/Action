@@ -4,6 +4,12 @@ Changelog
 Current master
 --------------
 
+2.1.0
+-----
+
+- Refactors internal implementation. See [#56](https://github.com/RxSwiftCommunity/Action/pull/56) and [#59](https://github.com/RxSwiftCommunity/Action/pull/59).
+- Adds SwiftPM support. See [#58](https://github.com/RxSwiftCommunity/Action/pull/58).
+
 2.0.0-beta.1
 ------------
 
