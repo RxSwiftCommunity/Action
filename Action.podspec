@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
 
   s.source       = { :git => "https://github.com/RxSwiftCommunity/Action.git", :tag => s.version }
-  s.source_files  = "*.{swift}"
+  s.source_files  = "Sources/**/*.{swift}"
 
   s.frameworks  = "Foundation"
   s.dependency "RxSwift", "~> 3.0"
