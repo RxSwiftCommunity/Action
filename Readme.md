@@ -67,6 +67,8 @@ let action = UIAlertAction.Action("Hi", style: .Default)
 Installing
 ----------
 
+### CocoaPods
+
 Just add the line below to your Podfile:
 
 ```ruby
@@ -74,6 +76,20 @@ pod 'Action'
 ```
 
 Then run `pod install` and that'll be 👌
+
+### Carthage
+
+Add this to `Cartfile`
+
+```
+github "RxSwiftCommunity/Action" ~> 2.1.0
+```
+
+then run
+
+```
+$ carthage update 
+```
 
 Thanks
 ------
