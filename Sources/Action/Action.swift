@@ -11,7 +11,12 @@ public enum ActionError: Error {
     case underlyingError(Error)
 }
 
-/// TODO: Add some documentation.
+/**
+Represents a value that accepts a workFactory which takes some Observable<Input> as its input
+and produces an Observable<Element> as its output.
+
+When this excuted via execute() or inputs subject, it passes its parameter to this closure and subscribes to the work.
+*/
 public final class Action<Input, Element> {
     public typealias WorkFactory = (Input) -> Observable<Element>
 
