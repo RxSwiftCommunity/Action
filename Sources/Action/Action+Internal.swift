@@ -10,7 +10,7 @@ internal struct AssociatedKeys {
 // So be careful!
 internal extension NSObject {
 
-    // A dispose bag to be used exclusively for the instance's rx_action.
+    // A dispose bag to be used exclusively for the instance's rx.action.
     internal var actionDisposeBag: DisposeBag {
         var disposeBag: DisposeBag
 
