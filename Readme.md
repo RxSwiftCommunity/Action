@@ -51,7 +51,7 @@ Note that `enabledIf` isn't the same as the `enabled` property. You pass in `ena
 What's _really_ cool is the `UIButton` extension. It accepts a `CocoaAction`, which is just `Action<Void, Void>`.
 
 ```swift
-button.rx_action = action
+button.rx.action = action
 ```
 
 Now when the button is pressed, the action is executed. The button's `enabled` state is bound to the action's `enabled` property. That means you can feed your form-validation logic into the action as a signal, and your button's enabled state is handled for you. Also, the user can't press the button again before the action is done executing, since it only handles one thing at a time. Cool. Check out [this code example of CocoaAction _in_ action](https://github.com/artsy/eidolon/blob/cb31168fa29dcc7815fd4a2e30e7c000bd1820ce/Kiosk/Bid%20Fulfillment/GenericFormValidationViewModel.swift).

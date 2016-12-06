@@ -7,7 +7,7 @@ import ObjectiveC
 public extension Reactive where Base: UIButton {
     /// Binds enabled state of action to button, and subscribes to rx_tap to execute action.
     /// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
-    /// them, set the rx_action to nil or another action.
+    /// them, set the rx.action to nil or another action.
     public var action: CocoaAction? {
         get {
             var action: CocoaAction?

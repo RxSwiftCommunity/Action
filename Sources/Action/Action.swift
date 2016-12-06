@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-/// Typealias for compatibility with UIButton's rx_action property.
+/// Typealias for compatibility with UIButton's rx.action property.
 public typealias CocoaAction = Action<Void, Void>
 
 /// Possible errors from invoking execute()
