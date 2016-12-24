@@ -374,7 +374,7 @@ class ActionTests: QuickSpec {
                 executionObservables = scheduler.createObserver(Observable<String>.self)
             }
 
-            func bindAndExecute(action: Action<String, String>) {
+            func bindAndExecuteTwice(action: Action<String, String>) {
                 action.executionObservables
                     .bindTo(executionObservables)
                     .addDisposableTo(disposeBag)
@@ -385,73 +385,87 @@ class ActionTests: QuickSpec {
                         .addDisposableTo(disposeBag)
                 }
 
+                scheduler.scheduleAt(20) {
+                    action.execute("b")
+                        .bindTo(element)
+                        .addDisposableTo(disposeBag)
+                }
+
                 scheduler.start()
             }
 
             context("single element action") {
                 beforeEach {
                     action = Action { Observable.just($0) }
-                    bindAndExecute(action: action)
+                    bindAndExecuteTwice(action: action)
                 }
 
-                it("element receives single value") {
+                it("element receives single value for each execution") {
                     XCTAssertEqual(element.events, [
                         next(10, "a"),
                         completed(10),
+                        next(20, "b"),
+                        completed(20),
                     ])
                 }
 
-                it("executes once") {
-                    expect(executionObservables.events.count) == 1
+                it("executes twice") {
+                    expect(executionObservables.events.count) == 2
                 }
             }
 
             context("multiple element action") {
                 beforeEach {
                     action = Action { Observable.of($0, $0, $0) }
-                    bindAndExecute(action: action)
+                    bindAndExecuteTwice(action: action)
                 }
 
-                it("element receives mutiple values") {
+                it("element receives 3 values for each execution") {
                     XCTAssertEqual(element.events, [
                         next(10, "a"),
                         next(10, "a"),
                         next(10, "a"),
                         completed(10),
+                        next(20, "b"),
+                        next(20, "b"),
+                        next(20, "b"),
+                        completed(20),
                     ])
                 }
 
-                it("executes once") {
-                    expect(executionObservables.events.count) == 1
+                it("executes twice") {
+                    expect(executionObservables.events.count) == 2
                 }
             }
 
             context("error action") {
                 beforeEach {
                     action = Action { _ in Observable.error(TestError) }
-                    bindAndExecute(action: action)
+                    bindAndExecuteTwice(action: action)
                 }
 
                 it("element fails with underlyingError") {
                     XCTAssertEqual(element.events, [
-                        error(10, ActionError.underlyingError(TestError))
+                        error(10, ActionError.underlyingError(TestError)),
+                        error(20, ActionError.underlyingError(TestError)),
                     ])
                 }
 
-                it("executes once") {
-                    expect(executionObservables.events.count) == 1
+                it("executes twice") {
+                    expect(executionObservables.events.count) == 2
                 }
             }
 
             context("disabled") {
                 beforeEach {
                     action = Action(enabledIf: Observable.just(false)) { Observable.just($0) }
-                    bindAndExecute(action: action)
+                    bindAndExecuteTwice(action: action)
                 }
 
                 it("element fails with notEnabled") {
                     XCTAssertEqual(element.events, [
-                        error(10, ActionError.notEnabled)
+                        error(10, ActionError.notEnabled),
+                        error(20, ActionError.notEnabled),
                     ])
                 }
 
