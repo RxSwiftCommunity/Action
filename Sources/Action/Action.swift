@@ -120,20 +120,26 @@ public final class Action<Input, Element> {
 
     @discardableResult
     public func execute(_ value: Input) -> Observable<Element> {
-        let subject = ReplaySubject<Element>.createUnbounded()
-
-        executionObservables
+        defer {
+            inputs.onNext(value)
+        }
+        
+        let execution = executionObservables
             .take(1)
-            .flatMap { $0.catchError { _ in Observable.never() } }
-            .bindTo(subject)
-            .addDisposableTo(disposeBag)
+            .flatMap { $0 }
+            .catchError { throw ActionError.underlyingError($0) }
 
-        errors
-            .map { throw $0 }
-            .bindTo(subject)
-            .addDisposableTo(disposeBag)
+        let notEnabledError = inputs
+            .takeUntil(executionObservables)
+            .withLatestFrom(enabled)
+            .flatMap { $0 ? Observable<Element>.empty() : Observable.error(ActionError.notEnabled) }
 
-        inputs.onNext(value)
+        let subject = ReplaySubject<Element>.createUnbounded()
+        Observable
+            .of(execution, notEnabledError)
+            .merge()
+            .subscribe(subject)
+            .addDisposableTo(disposeBag)
 
         return subject.asObservable()
     }

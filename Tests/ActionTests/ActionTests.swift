@@ -473,6 +473,56 @@ class ActionTests: QuickSpec {
                     expect(executionObservables.events).to(beEmpty())
                 }
             }
+
+            context("execute while executing") {
+                var secondElement: TestableObserver<String>!
+                var trigger: PublishSubject<Void>!
+                
+                beforeEach {
+                    secondElement = scheduler.createObserver(String.self)
+                    trigger = PublishSubject<Void>()
+                    action = Action { Observable.just($0).sample(trigger) }
+                    
+                    action.executionObservables
+                        .bindTo(executionObservables)
+                        .addDisposableTo(disposeBag)
+                    
+                    scheduler.scheduleAt(10) {
+                        action.execute("a")
+                            .bindTo(element)
+                            .addDisposableTo(disposeBag)
+                    }
+
+                    scheduler.scheduleAt(20) {
+                        action.execute("b")
+                            .bindTo(secondElement)
+                            .addDisposableTo(disposeBag)
+                    }
+
+                    scheduler.scheduleAt(30) {
+                        trigger.onNext()
+                    }
+
+                    scheduler.start()
+                }
+
+                it("first element receives single value") {
+                    XCTAssertEqual(element.events, [
+                        next(30, "a"),
+                        completed(30),
+                    ])
+                }
+
+                it("second element fails with notEnabled error") {
+                    XCTAssertEqual(secondElement.events, [
+                        error(20, ActionError.notEnabled)
+                    ])
+                }
+
+                it("executes once") {
+                    expect(executionObservables.events.count) == 1
+                }
+            }
         }
     }
 }
