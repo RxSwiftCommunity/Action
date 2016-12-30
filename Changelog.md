@@ -4,6 +4,11 @@ Changelog
 Current master
 --------------
 
+2.1.1
+-----
+
+- Not replay `executionObservables` to fix `execute(_:)`. See [#64](https://github.com/RxSwiftCommunity/Action/pull/56).
+
 2.1.0
 -----
 
