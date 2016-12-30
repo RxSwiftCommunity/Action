@@ -82,7 +82,7 @@ Then run `pod install` and that'll be 👌
 Add this to `Cartfile`
 
 ```
-github "RxSwiftCommunity/Action" ~> 2.1.0
+github "RxSwiftCommunity/Action" ~> 2.1.1
 ```
 
 then run
