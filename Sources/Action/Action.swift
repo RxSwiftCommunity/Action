@@ -110,6 +110,7 @@ public final class Action<Input, Element> {
         executing = Observable
             .of(executionStart.map { _ in true }, executionEnd.map { _ in false })
             .merge()
+            .shareReplay(1)
             .startWith(false)
 
         Observable
