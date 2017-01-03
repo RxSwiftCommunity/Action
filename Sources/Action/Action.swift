@@ -98,19 +98,14 @@ public final class Action<Input, Element> {
             .of(notEnabledError, underlyingError)
             .merge()
 
-        let executionStart = executionObservables
-        let executionEnd = executionObservables
-            .flatMap { observable -> Observable<Void> in
-                return observable
-                    .flatMap { _ in Observable<Void>.empty() }
-                    .concat(Observable.just())
-                    .catchErrorJustReturn()
+        executing = executionObservables.flatMap {
+                Observable
+                    .just(true)
+                    .concat($0.ignoreElements().map { _ in true }.catchError { _ in Observable.empty() })
+                    .concat(Observable.just(false))
             }
-
-        executing = Observable
-            .of(executionStart.map { _ in true }, executionEnd.map { _ in false })
-            .merge()
             .startWith(false)
+            .shareReplay(1)
 
         Observable
             .combineLatest(executing, enabledIf) { !$0 && $1 }
