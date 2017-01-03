@@ -98,10 +98,14 @@ public final class Action<Input, Element> {
             .merge()
 
         executing = executionObservables.flatMap {
-                Observable.concat([
-                    Observable.just(true),
-                    $0.ignoreElements().map { _ in true }.catchError { _ in Observable.empty() },
-                    Observable.just(false)])
+                execution -> Observable<Bool> in
+                let execution = execution
+                    .flatMap { _ in Observable<Bool>.empty() }
+                    .catchError { _ in Observable.empty()}
+
+                return Observable.concat([Observable.just(true),
+                                          execution,
+                                          Observable.just(false)])
             }
             .startWith(false)
             .shareReplay(1)
@@ -117,7 +121,7 @@ public final class Action<Input, Element> {
         defer {
             inputs.onNext(value)
         }
-        
+
         let execution = executionObservables
             .take(1)
             .flatMap { $0 }
