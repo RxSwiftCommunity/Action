@@ -38,7 +38,6 @@ public final class Action<Input, Element> {
     public let elements: Observable<Element>
 
     /// Whether or not we're currently executing. 
-    /// Always observed on MainScheduler.
     public let executing: Observable<Bool>
 
     /// Observables returned by the workFactory.
@@ -98,20 +97,18 @@ public final class Action<Input, Element> {
             .of(notEnabledError, underlyingError)
             .merge()
 
-        let executionStart = executionObservables
-        let executionEnd = executionObservables
-            .flatMap { observable -> Observable<Void> in
-                return observable
-                    .flatMap { _ in Observable<Void>.empty() }
-                    .concat(Observable.just())
-                    .catchErrorJustReturn()
-            }
+        executing = executionObservables.flatMap {
+                execution -> Observable<Bool> in
+                let execution = execution
+                    .flatMap { _ in Observable<Bool>.empty() }
+                    .catchError { _ in Observable.empty()}
 
-        executing = Observable
-            .of(executionStart.map { _ in true }, executionEnd.map { _ in false })
-            .merge()
-            .shareReplay(1)
+                return Observable.concat([Observable.just(true),
+                                          execution,
+                                          Observable.just(false)])
+            }
             .startWith(false)
+            .shareReplay(1)
 
         Observable
             .combineLatest(executing, enabledIf) { !$0 && $1 }
@@ -124,7 +121,7 @@ public final class Action<Input, Element> {
         defer {
             inputs.onNext(value)
         }
-        
+
         let execution = executionObservables
             .take(1)
             .flatMap { $0 }
