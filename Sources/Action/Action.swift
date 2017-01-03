@@ -98,10 +98,10 @@ public final class Action<Input, Element> {
             .merge()
 
         executing = executionObservables.flatMap {
-                Observable
-                    .just(true)
-                    .concat($0.ignoreElements().map { _ in true }.catchError { _ in Observable.empty() })
-                    .concat(Observable.just(false))
+                Observable.concat([
+                    Observable.just(true),
+                    $0.ignoreElements().map { _ in true }.catchError { _ in Observable.empty() },
+                    Observable.just(false)])
             }
             .startWith(false)
             .shareReplay(1)
