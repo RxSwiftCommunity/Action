@@ -38,7 +38,6 @@ public final class Action<Input, Element> {
     public let elements: Observable<Element>
 
     /// Whether or not we're currently executing. 
-    /// Always observed on MainScheduler.
     public let executing: Observable<Bool>
 
     /// Observables returned by the workFactory.
