@@ -51,5 +51,48 @@ public extension Reactive where Base: UIButton {
             }
         }
     }
+    public var controlAction: ControlAction? {
+        get {
+            var controlAction: ControlAction?
+            controlAction = objc_getAssociatedObject(self.base, &AssociatedKeys.ControlAction) as? ControlAction
+            return controlAction
+        }
+        
+        set {
+            // Store new value.
+            objc_setAssociatedObject(self.base, &AssociatedKeys.ControlAction, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            // This effectively disposes of any existing subscriptions.
+            self.base.resetActionDisposeBag()
+            
+            // Set up new bindings, if applicable.
+            if let action = newValue {
+                action
+                    .enabled
+                    .bindTo(self.isEnabled)
+                    .addDisposableTo(self.base.actionDisposeBag)
+                
+                // Technically, this file is only included on tv/iOS platforms,
+                // so this optional will never be nil. But let's be safe 😉
+                let lookupControlEvent: ControlEvent<Void>?
+                
+                #if os(tvOS)
+                    lookupControlEvent = self.primaryAction
+                #elseif os(iOS)
+                    lookupControlEvent = self.tap
+                #endif
+                
+                guard let controlEvent = lookupControlEvent else {
+                    return
+                }
+                
+                controlEvent
+                    .subscribe(onNext: {
+                        action.execute($0)
+                    })
+                    .addDisposableTo(self.base.actionDisposeBag)
+            }
+        }
+    }
 }
 #endif

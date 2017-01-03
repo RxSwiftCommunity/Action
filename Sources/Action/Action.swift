@@ -5,6 +5,72 @@ import RxCocoa
 /// Typealias for compatibility with UIButton's rx.action property.
 public typealias CocoaAction = Action<Void, Void>
 
+
+public final class ControlAction: NSObject {
+    /// The selector for message senders.
+    
+    public typealias Sender = Any
+        
+    /// Whether the action is enabled.
+    ///
+    /// This property will only change on the main thread.
+    public let enabled: Observable<Bool>
+    
+    /// Whether the action is executing.
+    ///
+    /// This property will only change on the main thread.
+    public let executing: Observable<Bool>
+    
+    private let _execute: (Sender) -> Void
+    
+    /// Initialize a CocoaAction that invokes the given Action by mapping the
+    /// sender to the input type of the Action.
+    ///
+    /// - parameters:
+    ///   - action: The Action.
+    ///   - inputTransform: A closure that maps Sender to the input type of the
+    ///                     Action.
+    public init<Input, Output>(_ action: Action<Input, Output>, _ inputTransform: @escaping (Sender) -> Input) {
+        _execute = { sender in
+            let observer = action.execute(inputTransform(sender))
+            _ = observer.subscribe()
+        }
+        
+        
+        self.enabled = action.enabled
+        self.executing = action.executing
+        super.init()
+    }
+    
+    /// Initialize a CocoaAction that invokes the given Action.
+    ///
+    /// - parameters:
+    ///   - action: The Action.
+    public convenience init<Output>(_ action: Action<(), Output>) {
+        self.init(action, { _ in })
+    }
+    
+    /// Initialize a CocoaAction that invokes the given Action with the given
+    /// constant.
+    ///
+    /// - parameters:
+    ///   - action: The Action.
+    ///   - input: The constant value as the input to the action.
+    public convenience init<Input, Output>(_ action: Action<Input, Output>, input: Input) {
+        self.init(action, { _ in input })
+    }
+    
+    /// Attempt to execute the underlying action with the given input, subject
+    /// to the behavior described by the initializer that was used.
+    ///
+    /// - parameters:
+    ///   - sender: The sender which initiates the attempt.
+    @IBAction public func execute(_ sender: Any) {
+        _execute(sender )
+    }
+}
+
+
 /// Possible errors from invoking execute()
 public enum ActionError: Error {
     case notEnabled

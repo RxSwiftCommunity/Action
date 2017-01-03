@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 
 internal struct AssociatedKeys {
+    static var ControlAction = "rx_controlAction"
     static var Action = "rx_action"
     static var DisposeBag = "rx_disposeBag"
 }
