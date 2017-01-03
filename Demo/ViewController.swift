@@ -11,6 +11,19 @@ import RxSwift
 import RxCocoa
 import Action
 
+enum Input {
+    case button
+    case barButton
+    var title:String{
+        switch self {
+        case .barButton:
+            return "UIBarButtonItem"
+        default:
+            return "UIButton"
+        }
+    }
+}
+
 class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var workingLabel: UILabel!
@@ -22,8 +35,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         // Demo: add an action to a button in the view
-        let action = CocoaAction {
-			print("Button was pressed, showing an alert and keeping the activity indicator spinning while alert is displayed")
+        let action = Action<Input,Void> { input in
+			print("\(input.title) was pressed")
+            if (input != .button) {
+                return .empty()
+            }
+            
+            
             return Observable.create {
 				[weak self] observer -> Disposable in
 
@@ -41,23 +59,15 @@ class ViewController: UIViewController {
 				return Disposables.create()
             }
         }
-        button.rx.action = action
+        button.rx.controlAction = ControlAction(action, input:.button)
 
         // Demo: add an action to a UIBarButtonItem in the navigation item
-        self.navigationItem.rightBarButtonItem!.rx.action = CocoaAction {
-            print("Bar button item was pressed, simulating a 2 second action")
-            return Observable.empty().delaySubscription(2, scheduler: MainScheduler.instance)
-        }
+        self.navigationItem.rightBarButtonItem!.rx.controlAction = ControlAction(action, input:.barButton)
 
         // Demo: observe the output of both actions, spin an activity indicator
         // while performing the work
-        Observable.combineLatest(
-            button.rx.action!.executing,
-            self.navigationItem.rightBarButtonItem!.rx.action!.executing) {
-                // we combine two boolean observable and output one boolean
-                a,b in
-                return a || b
-            }
+            action
+            .executing
             .distinctUntilChanged()
             .subscribe(onNext: {
                 // every time the execution status changes, spin an activity indicator
