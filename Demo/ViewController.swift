@@ -11,13 +11,26 @@ import RxSwift
 import RxCocoa
 import Action
 
+enum SharedInput {
+    case button(String)
+    case barButton
+}
+
 class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var workingLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
+    
+    @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var button2: UIButton!
+    
     var disposableBag = DisposeBag()
-
+    let sharedAction = Action <SharedInput, String> { input in
+        switch input {
+        case .barButton: return Observable.just("UIBarButtonItem with 3 seconds delay").delaySubscription(3, scheduler: MainScheduler.instance)
+        case .button (let title) : return .just("UIButton " + title)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +54,7 @@ class ViewController: UIViewController {
 				return Disposables.create()
             }
         }
+        
         button.rx.action = action
 
         // Demo: add an action to a UIBarButtonItem in the navigation item
@@ -72,5 +86,27 @@ class ViewController: UIViewController {
             })
             
             .addDisposableTo(self.disposableBag)
+        
+        
+        button1.rx.bindToAction(sharedAction, input: .button("Button 1"))
+        
+        button2.rx.bindToAction(sharedAction) { _ in
+            return .button("Button 2")
+        }
+        self.navigationItem.leftBarButtonItem?.rx.bindToAction(sharedAction, input: .barButton)
+        
+        sharedAction.executing.debounce(0, scheduler: MainScheduler.instance).subscribe(onNext:{[weak self] executing in
+            if (executing) {
+                self?.activityIndicator.startAnimating()
+            }
+            else {
+                self?.activityIndicator.stopAnimating()
+            }
+        }).addDisposableTo(self.disposableBag)
+        sharedAction.elements.subscribe(onNext: { string in
+            print (string  + " pressed")
+        }).addDisposableTo(self.disposableBag)
+        
+        
     }
 }
