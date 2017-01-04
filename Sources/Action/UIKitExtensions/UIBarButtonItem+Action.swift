@@ -42,16 +42,16 @@ public extension Reactive where Base: UIBarButtonItem {
         
         self.base.resetActionDisposeBag()
         
-        if (action == nil) {
+        guard let action = action else {
             return
         }
         
         self.tap
             .map { return inputTransform(self.base) }
-            .bindTo(action!.inputs)
+            .bindTo(action.inputs)
             .addDisposableTo(self.base.actionDisposeBag)
         
-        action!
+        action
             .enabled
             .bindTo(self.isEnabled)
             .addDisposableTo(self.base.actionDisposeBag)
