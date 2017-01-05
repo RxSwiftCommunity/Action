@@ -61,13 +61,19 @@ public final class Action<Input, Element> {
 
         let enabledSubject = BehaviorSubject<Bool>(value: false)
         enabled = enabledSubject.asObservable()
+
+        let errorsSubject = PublishSubject<ActionError>()
+        errors = errorsSubject.asObservable()
         
         executionObservables = inputs
             .withLatestFrom(enabled) { $0 }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
-                    return Observable.of(workFactory(input).shareReplay(1))
+                    return Observable.of(workFactory(input)
+                                             .do(onError: { error in errorsSubject.onNext(.underlyingError(error)) })
+                                             .shareReplay(1))
                 } else {
+                    errorsSubject.onNext(.notEnabled)
                     return Observable.empty()
                 }
             }
@@ -75,27 +81,6 @@ public final class Action<Input, Element> {
 
         elements = executionObservables
             .flatMap { $0.catchError { _ in Observable.empty() } }
-
-        let notEnabledError = inputs
-            .withLatestFrom(enabled)
-            .flatMap { $0 ? Observable.empty() : Observable.of(ActionError.notEnabled) }
-
-        let underlyingError = executionObservables
-            .flatMap { elements in
-                return elements
-                    .flatMap { _ in Observable<ActionError>.never() }
-                    .catchError { error in
-                        if let actionError = error as? ActionError {
-                            return Observable.of(actionError)
-                        } else {
-                            return Observable.of(.underlyingError(error))
-                        }
-                    }
-            }
-        
-        errors = Observable
-            .of(notEnabledError, underlyingError)
-            .merge()
 
         executing = executionObservables.flatMap {
                 execution -> Observable<Bool> in
