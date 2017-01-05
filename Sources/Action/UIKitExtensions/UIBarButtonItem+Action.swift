@@ -4,7 +4,6 @@ import RxSwift
 import RxCocoa
 import ObjectiveC
 
-
 public extension Reactive where Base: UIBarButtonItem {
 
     /// Binds enabled state of action to bar button item, and subscribes to rx_tap to execute action.
@@ -38,8 +37,8 @@ public extension Reactive where Base: UIBarButtonItem {
             }
         }
     }
-    public func bindToAction <Input,Output>(_ action:Action<Input,Output>?,_ inputTransform: @escaping (Base) -> (Input))   {
-        
+
+    public func bindToAction <Input,Output>(_ action:Action<Input,Output>?, _ inputTransform: @escaping (Base) -> (Input)) {
         self.base.resetActionDisposeBag()
         
         guard let action = action else {
@@ -57,8 +56,9 @@ public extension Reactive where Base: UIBarButtonItem {
             .addDisposableTo(self.base.actionDisposeBag)
         
     }
+
     public func bindToAction <Input,Output>(_ action:Action<Input,Output>?, input:Input) {
-        self.bindToAction(action) {_ in return input}
+        self.bindToAction(action) { _ in input}
     }
     
 }
