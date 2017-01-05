@@ -33,31 +33,30 @@ public extension Reactive where Base: UIBarButtonItem {
                 self.tap.subscribe(onNext: { (_) in
                     action.execute()
                 })
-                    .addDisposableTo(self.base.actionDisposeBag)
+                .addDisposableTo(self.base.actionDisposeBag)
             }
         }
     }
 
-    public func bindToAction <Input,Output>(_ action:Action<Input,Output>?, _ inputTransform: @escaping (Base) -> (Input)) {
+    public func bindToAction<Input, Output>(_ action: Action<Input, Output>?, _ inputTransform: @escaping (Base) -> (Input)) {
         self.base.resetActionDisposeBag()
         
         guard let action = action else {
             return
         }
-        
+
         self.tap
-            .map { return inputTransform(self.base) }
+            .map { inputTransform(self.base) }
             .bindTo(action.inputs)
             .addDisposableTo(self.base.actionDisposeBag)
-        
+
         action
             .enabled
             .bindTo(self.isEnabled)
             .addDisposableTo(self.base.actionDisposeBag)
-        
     }
 
-    public func bindToAction <Input,Output>(_ action:Action<Input,Output>?, input:Input) {
+    public func bindToAction<Input, Output>(_ action: Action<Input,Output>?, input: Input) {
         self.bindToAction(action) { _ in input}
     }
     
