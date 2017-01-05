@@ -56,7 +56,7 @@ public extension Reactive where Base: UIBarButtonItem {
             .addDisposableTo(self.base.actionDisposeBag)
     }
 
-    public func bindTo<Input, Output>(action: Action<Input,Output>?, input: Input) {
+    public func bindTo<Input, Output>(action: Action<Input, Output>?, input: Input) {
         self.bindTo(action: action) { _ in input}
     }
     
