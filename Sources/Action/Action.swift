@@ -70,7 +70,7 @@ public final class Action<Input, Element> {
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
-                                             .do(onError: { error in errorsSubject.onNext(.underlyingError(error)) })
+                                             .do(onError: { errorsSubject.onNext(.underlyingError($0)) })
                                              .shareReplay(1))
                 } else {
                     errorsSubject.onNext(.notEnabled)
@@ -107,23 +107,20 @@ public final class Action<Input, Element> {
             inputs.onNext(value)
         }
 
-        let execution = executionObservables
-            .take(1)
-            .flatMap { $0 }
-            .catchError { throw ActionError.underlyingError($0) }
+		let subject = ReplaySubject<Element>.createUnbounded()
+		
+		let work = executionObservables
+			.map { $0.catchError { throw ActionError.underlyingError($0) } }
+		
+		let error = errors
+			.map { Observable<Element>.error($0) }
 
-        let notEnabledError = inputs
-            .takeUntil(executionObservables)
-            .withLatestFrom(enabled)
-            .flatMap { $0 ? Observable<Element>.empty() : Observable.error(ActionError.notEnabled) }
-
-        let subject = ReplaySubject<Element>.createUnbounded()
-        Observable
-            .of(execution, notEnabledError)
-            .merge()
-            .subscribe(subject)
-            .addDisposableTo(disposeBag)
-
-        return subject.asObservable()
+		work.amb(error)
+			.take(1)
+			.flatMap { $0 }
+			.subscribe(subject)
+			.addDisposableTo(disposeBag)
+		
+		return subject.asObservable()
     }
 }
