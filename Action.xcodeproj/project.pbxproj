@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3D37A3961DB4A97C0028BC0E /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C98331DB4A87B004A9F7C /* RxTest.framework */; };
+		5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
+		7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */; };
 		7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
 		7F0569E91DE28587007E1D0D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
@@ -72,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		3D9C98331DB4A87B004A9F7C /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Checkouts/RxSwift/build/Debug/RxTest.framework; sourceTree = "<group>"; };
+		5ED520231E1EA199007621B9 /* BindToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindToTests.swift; path = ActionTests/BindToTests.swift; sourceTree = "<group>"; };
+		7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Rx.swift"; sourceTree = "<group>"; };
 		7F0569E01DE28587007E1D0D /* Action+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Action+Internal.swift"; sourceTree = "<group>"; };
 		7F0569E11DE28587007E1D0D /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		7F0569E21DE28587007E1D0D /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				7F0569E51DE28587007E1D0D /* AlertAction.swift */,
 				7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */,
 				7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */,
+				7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */,
 			);
 			path = UIKitExtensions;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				7F0569F01DE288EB007E1D0D /* ActionTests.swift */,
+				5ED520231E1EA199007621B9 /* BindToTests.swift */,
 				7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */,
 				7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */,
 				7F0569F31DE288EB007E1D0D /* ButtonTests.swift */,
@@ -382,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F0569F71DE288EB007E1D0D /* BarButtonTests.swift in Sources */,
+				5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */,
 				7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */,
 				7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */,
 				7F0569F81DE288EB007E1D0D /* ButtonTests.swift in Sources */,
@@ -404,6 +411,7 @@
 				7F0569EC1DE28587007E1D0D /* AlertAction.swift in Sources */,
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
+				7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */,
 				7F0569EA1DE28587007E1D0D /* Action.swift in Sources */,
 				7F0569EE1DE28587007E1D0D /* UIButton+Rx.swift in Sources */,
 			);

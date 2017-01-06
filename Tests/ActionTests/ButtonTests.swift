@@ -78,12 +78,7 @@ class ButtonTests: QuickSpec {
             // Setting the action has an asynchronous effect of adding a target.
             expect(subject.allTargets).toEventuallyNot( beEmpty() )
 
-            // Normally I'd use subject.sendActionsForControlEvents(.TouchUpInside) but it's not working
-            for case let target as NSObject in subject.allTargets {
-                for action in subject.actions(forTarget: target, forControlEvent: .touchUpInside) ?? [] {
-                    target.perform(Selector(action), with: subject)
-                }
-            }
+            subject.test_executeTap()
 
             expect(executed).toEventually( beTrue() )
         }
