@@ -64,5 +64,38 @@ class BindToTests: QuickSpec {
 
             expect(called).toEventually( beTrue() )
         }
+
+        describe("unbinding") {
+            it("unbinds actions for UIButton") {
+                let button = UIButton()
+                let action = Action<String, String>(workFactory: { _ in
+                    assertionFailure()
+                    return .empty()
+                })
+                button.rx.bindTo(action: action, input: "Hi there!")
+                // Setting the action has an asynchronous effect of adding a target.
+                expect(button.allTargets).toEventuallyNot( beEmpty() )
+
+                button.rx.unbindAction()
+                button.test_executeTap()
+
+                expect(button.allTargets).toEventually( beEmpty() )
+            }
+
+            it("actives a UIBarButtonItem") {
+                var called = false
+                let item = UIBarButtonItem()
+                let action = Action<String, String>(workFactory: { _ in
+                    called = true
+                    return .empty()
+                })
+                item.rx.bindTo(action: action, input: "Hi there!")
+
+                item.rx.unbindAction()
+                _ = item.target?.perform(item.action!, with: item)
+
+                expect(called).to( beFalse() )
+            }
+        }
     }
 }
