@@ -4,6 +4,12 @@ Changelog
 Current master
 --------------
 
+2.2.0
+-----
+
+- Fixes [#63](https://github.com/RxSwiftCommunity/Action/issues/63), related to the default enabled state.
+- Adds `bindTo(action:)` for non-CocoaAction.
+
 2.1.1
 -----
 
