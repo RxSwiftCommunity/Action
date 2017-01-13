@@ -4,6 +4,11 @@ Changelog
 Current master
 --------------
 
+2.2.1
+-----
+
+- Loosens dependency on RxSwift.
+
 2.2.0
 -----
 
