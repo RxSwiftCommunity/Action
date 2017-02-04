@@ -37,7 +37,7 @@ Notice that the first generic parameter is the type of the input, and the second
 You can also specify an `enabledIf` parameter to the `Action` initializer.
 
 ```swift
-let validEmailAddress = emailTextField.rx_text.map(isValidEmail)
+let validEmailAddress = emailTextField.rx.text.map(isValidEmail)
 
 action: Action<String, Bool> = Action(enabledIf: validEmailAddress, workFactory: { input in
     return networkLibrary.checkEmailExists(input)
@@ -79,7 +79,7 @@ A more complex use case can be a single action related to a `UIViewController` t
 There's also a really cool extension on `UIAlertAction`, used by [`UIAlertController`](http://ashfurrow.com/blog/uialertviewcontroller-example/). One catch: because of the limitations of that class, you can't instantiate it with the normal initializer. Instead, call this class method:
 
 ```swift
-let action = UIAlertAction.Action("Hi", style: .Default)
+let action = UIAlertAction.Action("Hi", style: .default)
 ```
 
 Installing
