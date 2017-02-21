@@ -33,7 +33,6 @@
 		7F612AC31D7F110800B93BC5 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAD1D7F106900B93BC5 /* RxBlocking.framework */; };
 		7F612AC51D7F110E00B93BC5 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAB1D7F106900B93BC5 /* RxSwift.framework */; };
 		7F612AC61D7F110E00B93BC5 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAC1D7F106900B93BC5 /* RxCocoa.framework */; };
-		7F612AC71D7F110E00B93BC5 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAD1D7F106900B93BC5 /* RxBlocking.framework */; };
 		7F612ACF1D7F13B800B93BC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F612ACE1D7F13B800B93BC5 /* AppDelegate.swift */; };
 		7F612AD11D7F13B800B93BC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F612AD01D7F13B800B93BC5 /* ViewController.swift */; };
 		7F612AD41D7F13B800B93BC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F612AD21D7F13B800B93BC5 /* Main.storyboard */; };
@@ -41,7 +40,6 @@
 		7F612AD91D7F13B800B93BC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F612AD71D7F13B800B93BC5 /* LaunchScreen.storyboard */; };
 		7FB791E91D7F1BB200789D53 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAB1D7F106900B93BC5 /* RxSwift.framework */; };
 		7FB791EA1D7F1BB200789D53 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAC1D7F106900B93BC5 /* RxCocoa.framework */; };
-		7FB791EB1D7F1BB200789D53 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAD1D7F106900B93BC5 /* RxBlocking.framework */; };
 		7FB791EC1D7F1BB600789D53 /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73AD201CDCD101006F8B98 /* Action.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,7 +124,6 @@
 				7FB791EC1D7F1BB600789D53 /* Action.framework in Frameworks */,
 				7FB791E91D7F1BB200789D53 /* RxSwift.framework in Frameworks */,
 				7FB791EA1D7F1BB200789D53 /* RxCocoa.framework in Frameworks */,
-				7FB791EB1D7F1BB200789D53 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +133,6 @@
 			files = (
 				7F612AC51D7F110E00B93BC5 /* RxSwift.framework in Frameworks */,
 				7F612AC61D7F110E00B93BC5 /* RxCocoa.framework in Frameworks */,
-				7F612AC71D7F110E00B93BC5 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
