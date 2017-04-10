@@ -41,26 +41,26 @@ public extension Reactive where Base: UIAlertAction {
             }
         }
     }
-	
-	public var enabled: AnyObserver<Bool> {
-		return AnyObserver { [weak base] event in
-			MainScheduler.ensureExecutingOnScheduler()
-			
-			switch event {
-			case .next(let value):
-				base?.isEnabled = value
-			case .error(let error):
-				let error = "Binding error to UI: \(error)"
-				#if DEBUG
-					rxFatalError(error)
-				#else
-					print(error)
-				#endif
-				break
-			case .completed:
-				break
-			}
-		}
-	}
+
+    public var enabled: AnyObserver<Bool> {
+        return AnyObserver { [weak base] event in
+            MainScheduler.ensureExecutingOnScheduler()
+
+            switch event {
+            case .next(let value):
+                base?.isEnabled = value
+            case .error(let error):
+                let error = "Binding error to UI: \(error)"
+                #if DEBUG
+                    fatalError(error)
+                #else
+                    print(error)
+                #endif
+                break
+            case .completed:
+                break
+            }
+        }
+    }
 }
 #endif
