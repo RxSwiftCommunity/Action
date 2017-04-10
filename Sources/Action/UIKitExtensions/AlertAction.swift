@@ -52,7 +52,7 @@ public extension Reactive where Base: UIAlertAction {
 			case .error(let error):
 				let error = "Binding error to UI: \(error)"
 				#if DEBUG
-					rxFatalError(error)
+					fatalError(error)
 				#else
 					print(error)
 				#endif
