@@ -4,6 +4,9 @@ Changelog
 Current master
 --------------
 
+2.2.2
+-----
+
 - Remove `RxBlocking` from Linked Libraries in `Action` target
 
 2.2.1
