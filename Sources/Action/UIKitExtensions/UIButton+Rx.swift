@@ -55,7 +55,7 @@ public extension Reactive where Base: UIButton {
     /// Binds enabled state of action to button, and subscribes to rx_tap to execute action with given input transform.
     /// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     /// them, call bindToAction with another action or call unbindAction().
-    public func bindTo<Input, Output>(action:Action<Input, Output>, inputTransform: @escaping (Base) -> (Input))   {
+    public func bind<Input, Output>(to action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input))   {
         // This effectively disposes of any existing subscriptions.
         unbindAction()
      
@@ -72,14 +72,14 @@ public extension Reactive where Base: UIButton {
         guard let controlEvent = lookupControlEvent else {
             return
         }
-        self.bind(to: action: action, controlEvent: controlEvent, inputTransform: inputTransform)
+        self.bind(to: action, controlEvent: controlEvent, inputTransform: inputTransform)
     }
     
     /// Binds enabled state of action to button, and subscribes to rx_tap to execute action with given input value.
     /// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     /// them, call bindToAction with another action or call unbindAction().
-    public func bindTo<Input, Output>(action: Action<Input, Output>, input: Input) {
-        self.bind(to: action: action) { _ in input }
+    public func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
+        self.bind(to: action) { _ in input }
     }
 }
 #endif

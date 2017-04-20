@@ -38,7 +38,7 @@ public extension Reactive where Base: UIBarButtonItem {
         }
     }
 
-    public func bindTo<Input, Output>(action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input)) {
+    public func bind<Input, Output>(to action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input)) {
         unbindAction()
 
         self.tap
@@ -52,8 +52,8 @@ public extension Reactive where Base: UIBarButtonItem {
             .addDisposableTo(self.base.actionDisposeBag)
     }
 
-    public func bindTo<Input, Output>(action: Action<Input, Output>, input: Input) {
-        self.bind(to: action: action) { _ in input}
+    public func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
+        self.bind(to: action) { _ in input}
     }
 
     /// Unbinds any existing action, disposing of all subscriptions.
