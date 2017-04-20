@@ -34,27 +34,27 @@ class ActionTests: QuickSpec {
 
             func bindAction(action: Action<String, String>) {
                 action.inputs
-                    .bindTo(inputs)
+                    .bind(to: inputs)
                     .addDisposableTo(disposeBag)
 
                 action.elements
-                    .bindTo(elements)
+                    .bind(to: elements)
                     .addDisposableTo(disposeBag)
 
                 action.errors
-                    .bindTo(errors)
+                    .bind(to: errors)
                     .addDisposableTo(disposeBag)
                 
                 action.enabled
-                    .bindTo(enabled)
+                    .bind(to: enabled)
                     .addDisposableTo(disposeBag)
                 
                 action.executing
-                    .bindTo(executing)
+                    .bind(to: executing)
                     .addDisposableTo(disposeBag)
 
                 action.executionObservables
-                    .bindTo(executionObservables)
+                    .bind(to: executionObservables)
                     .addDisposableTo(disposeBag)
 
                 // Dummy subscription for multiple subcription tests
@@ -376,18 +376,18 @@ class ActionTests: QuickSpec {
 
             func bindAndExecuteTwice(action: Action<String, String>) {
                 action.executionObservables
-                    .bindTo(executionObservables)
+                    .bind(to: executionObservables)
                     .addDisposableTo(disposeBag)
                 
                 scheduler.scheduleAt(10) {
                     action.execute("a")
-                        .bindTo(element)
+                        .bind(to: element)
                         .addDisposableTo(disposeBag)
                 }
 
                 scheduler.scheduleAt(20) {
                     action.execute("b")
-                        .bindTo(element)
+                        .bind(to: element)
                         .addDisposableTo(disposeBag)
                 }
 
@@ -484,18 +484,18 @@ class ActionTests: QuickSpec {
                     action = Action { Observable.just($0).sample(trigger) }
                     
                     action.executionObservables
-                        .bindTo(executionObservables)
+                        .bind(to: executionObservables)
                         .addDisposableTo(disposeBag)
                     
                     scheduler.scheduleAt(10) {
                         action.execute("a")
-                            .bindTo(element)
+                            .bind(to: element)
                             .addDisposableTo(disposeBag)
                     }
 
                     scheduler.scheduleAt(20) {
                         action.execute("b")
-                            .bindTo(secondElement)
+                            .bind(to: secondElement)
                             .addDisposableTo(disposeBag)
                     }
 

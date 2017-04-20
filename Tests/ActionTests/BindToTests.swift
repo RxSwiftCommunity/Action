@@ -26,7 +26,7 @@ class BindToTests: QuickSpec {
                 called = true
                 return .empty()
             })
-            button.rx.bindTo(action: action, input: "Hi there!")
+            button.rx.bind(to: action, input: "Hi there!")
             // Setting the action has an asynchronous effect of adding a target.
             expect(button.allTargets).toEventuallyNot( beEmpty() )
 
@@ -42,7 +42,7 @@ class BindToTests: QuickSpec {
                 called = true
                 return .empty()
             })
-            button.rx.bindTo(action: action, controlEvent: button.rx.tap, inputTransform: { input in "\(input)" })
+            button.rx.bind(to: action, controlEvent: button.rx.tap, inputTransform: { input in "\(input)" })
             // Setting the action has an asynchronous effect of adding a target.
             expect(button.allTargets).toEventuallyNot( beEmpty() )
 
@@ -58,7 +58,7 @@ class BindToTests: QuickSpec {
                 called = true
                 return .empty()
             })
-            item.rx.bindTo(action: action, input: "Hi there!")
+            item.rx.bind(to: action, input: "Hi there!")
 
             _ = item.target!.perform(item.action!, with: item)
 
@@ -72,7 +72,7 @@ class BindToTests: QuickSpec {
                     assertionFailure()
                     return .empty()
                 })
-                button.rx.bindTo(action: action, input: "Hi there!")
+                button.rx.bind(to: action, input: "Hi there!")
                 // Setting the action has an asynchronous effect of adding a target.
                 expect(button.allTargets).toEventuallyNot( beEmpty() )
 
@@ -89,7 +89,7 @@ class BindToTests: QuickSpec {
                     called = true
                     return .empty()
                 })
-                item.rx.bindTo(action: action, input: "Hi there!")
+                item.rx.bind(to: action, input: "Hi there!")
 
                 item.rx.unbindAction()
                 _ = item.target?.perform(item.action!, with: item)

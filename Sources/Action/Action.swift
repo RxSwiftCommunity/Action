@@ -97,7 +97,7 @@ public final class Action<Input, Element> {
 
         Observable
             .combineLatest(executing, enabledIf) { !$0 && $1 }
-            .bindTo(enabledSubject)
+            .bind(to: enabledSubject)
             .addDisposableTo(disposeBag)
     }
 

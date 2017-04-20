@@ -4,6 +4,12 @@ Changelog
 Current master
 --------------
 
+3.0.0
+-----
+
+- Change `bindTo([...])` methods to `bind(to: [...])` to better align with the revised Rx API
+- Update Rx invocations to resolve deprecation warnings related to same
+
 2.2.2
 -----
 
