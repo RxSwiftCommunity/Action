@@ -83,12 +83,12 @@ class ViewController: UIViewController {
             })
             .addDisposableTo(self.disposableBag)
 
-        button1.rx.bindTo(action: sharedAction, input: .button("Button 1"))
+        button1.rx.bind(to: action: sharedAction, input: .button("Button 1"))
 
-        button2.rx.bindTo(action: sharedAction) { _ in
+        button2.rx.bind(to: action: sharedAction) { _ in
             return .button("Button 2")
         }
-        self.navigationItem.leftBarButtonItem?.rx.bindTo(action: sharedAction, input: .barButton)
+        self.navigationItem.leftBarButtonItem?.rx.bind(to: action: sharedAction, input: .barButton)
 
         sharedAction.executing.debounce(0, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] executing in
             if (executing) {

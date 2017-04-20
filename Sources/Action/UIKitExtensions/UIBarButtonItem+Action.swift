@@ -27,7 +27,7 @@ public extension Reactive where Base: UIBarButtonItem {
             if let action = newValue {
                 action
                     .enabled
-                    .bindTo(self.isEnabled)
+                    .bind(to: self.isEnabled)
                     .addDisposableTo(self.base.actionDisposeBag)
                 
                 self.tap.subscribe(onNext: { (_) in
@@ -43,17 +43,17 @@ public extension Reactive where Base: UIBarButtonItem {
 
         self.tap
             .map { inputTransform(self.base) }
-            .bindTo(action.inputs)
+            .bind(to: action.inputs)
             .addDisposableTo(self.base.actionDisposeBag)
 
         action
             .enabled
-            .bindTo(self.isEnabled)
+            .bind(to: self.isEnabled)
             .addDisposableTo(self.base.actionDisposeBag)
     }
 
     public func bindTo<Input, Output>(action: Action<Input, Output>, input: Input) {
-        self.bindTo(action: action) { _ in input}
+        self.bind(to: action: action) { _ in input}
     }
 
     /// Unbinds any existing action, disposing of all subscriptions.

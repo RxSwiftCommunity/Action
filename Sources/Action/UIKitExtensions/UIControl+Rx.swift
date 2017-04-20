@@ -14,13 +14,13 @@ public extension Reactive where Base: UIControl {
         // For each tap event, use the inputTransform closure to provide an Input value to the action
         controlEvent
             .map { inputTransform(self.base) }
-            .bindTo(action.inputs)
+            .bind(to: action.inputs)
             .addDisposableTo(self.base.actionDisposeBag)
 
         // Bind the enabled state of the control to the enabled state of the action
         action
             .enabled
-            .bindTo(self.isEnabled)
+            .bind(to: self.isEnabled)
             .addDisposableTo(self.base.actionDisposeBag)
     }
 
