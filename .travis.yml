@@ -5,5 +5,8 @@ osx_image: xcode8
 script: 
   - set -o pipefail
   - xcodebuild build-for-testing test-without-building -workspace Action.xcworkspace -scheme Action -sdk iphonesimulator -destination "name=iPhone SE" | xcpretty -c
+  - xcodebuild build -workspace Action.xcworkspace -scheme Action-watchOS -sdk watchsimulator -destination "name=Apple Watch - 38mm" | xcpretty -c
+  - xcodebuild build -workspace Action.xcworkspace -scheme Action-macOS -sdk macosx -destination "arch=x86_64" | xcpretty -c
+  - xcodebuild build -workspace Action.xcworkspace -scheme Action-tvOS -sdk appletvsimulator -destination "name=Apple TV 1080p" | xcpretty -c
   - swift build
 
