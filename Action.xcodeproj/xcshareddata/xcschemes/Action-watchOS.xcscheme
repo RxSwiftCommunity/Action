@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FCDDA811EAC3295006EB95B"
-               BuildableName = "Action.framework"
-               BlueprintName = "Action-macOS"
+               BlueprintIdentifier = "1FCDDA951EAC33B0006EB95B"
+               BuildableName = "Action-watchOS.framework"
+               BlueprintName = "Action-watchOS"
                ReferencedContainer = "container:Action.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1FCDDA811EAC3295006EB95B"
-            BuildableName = "Action.framework"
-            BlueprintName = "Action-macOS"
+            BlueprintIdentifier = "1FCDDA951EAC33B0006EB95B"
+            BuildableName = "Action-watchOS.framework"
+            BlueprintName = "Action-watchOS"
             ReferencedContainer = "container:Action.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1FCDDA811EAC3295006EB95B"
-            BuildableName = "Action.framework"
-            BlueprintName = "Action-macOS"
+            BlueprintIdentifier = "1FCDDA951EAC33B0006EB95B"
+            BuildableName = "Action-watchOS.framework"
+            BlueprintName = "Action-watchOS"
             ReferencedContainer = "container:Action.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
