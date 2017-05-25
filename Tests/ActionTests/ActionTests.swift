@@ -35,35 +35,35 @@ class ActionTests: QuickSpec {
             func bindAction(action: Action<String, String>) {
                 action.inputs
                     .bind(to: inputs)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
 
                 action.elements
                     .bind(to: elements)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
 
                 action.errors
                     .bind(to: errors)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
                 
                 action.enabled
                     .bind(to: enabled)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
                 
                 action.executing
                     .bind(to: executing)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
 
                 action.executionObservables
                     .bind(to: executionObservables)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
 
                 // Dummy subscription for multiple subcription tests
-                action.inputs.subscribe().addDisposableTo(disposeBag)
-                action.elements.subscribe().addDisposableTo(disposeBag)
-                action.errors.subscribe().addDisposableTo(disposeBag)
-                action.enabled.subscribe().addDisposableTo(disposeBag)
-                action.executing.subscribe().addDisposableTo(disposeBag)
-                action.executionObservables.subscribe().addDisposableTo(disposeBag)
+                action.inputs.subscribe().disposed(by: disposeBag)
+                action.elements.subscribe().disposed(by: disposeBag)
+                action.errors.subscribe().disposed(by: disposeBag)
+                action.enabled.subscribe().disposed(by: disposeBag)
+                action.executing.subscribe().disposed(by: disposeBag)
+                action.executionObservables.subscribe().disposed(by: disposeBag)
             }
 
             describe("single element action") {
@@ -377,18 +377,18 @@ class ActionTests: QuickSpec {
             func bindAndExecuteTwice(action: Action<String, String>) {
                 action.executionObservables
                     .bind(to: executionObservables)
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
                 
                 scheduler.scheduleAt(10) {
                     action.execute("a")
                         .bind(to: element)
-                        .addDisposableTo(disposeBag)
+                        .disposed(by: disposeBag)
                 }
 
                 scheduler.scheduleAt(20) {
                     action.execute("b")
                         .bind(to: element)
-                        .addDisposableTo(disposeBag)
+                        .disposed(by: disposeBag)
                 }
 
                 scheduler.start()
@@ -485,18 +485,18 @@ class ActionTests: QuickSpec {
                     
                     action.executionObservables
                         .bind(to: executionObservables)
-                        .addDisposableTo(disposeBag)
+                        .disposed(by: disposeBag)
                     
                     scheduler.scheduleAt(10) {
                         action.execute("a")
                             .bind(to: element)
-                            .addDisposableTo(disposeBag)
+                            .disposed(by: disposeBag)
                     }
 
                     scheduler.scheduleAt(20) {
                         action.execute("b")
                             .bind(to: secondElement)
-                            .addDisposableTo(disposeBag)
+                            .disposed(by: disposeBag)
                     }
 
                     scheduler.scheduleAt(30) {

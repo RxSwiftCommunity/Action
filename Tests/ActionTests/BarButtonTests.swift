@@ -97,7 +97,7 @@ class BarButtonTests: QuickSpec {
 					.subscribe(onNext: nil, onError: nil, onCompleted: nil, onDisposed: {
 						disposed = true
 					})
-					.addDisposableTo(disposeBag)
+					.disposed(by: disposeBag)
 			}
 			
 			subject.rx.action = nil

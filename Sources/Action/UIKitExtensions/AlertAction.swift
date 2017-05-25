@@ -37,7 +37,7 @@ public extension Reactive where Base: UIAlertAction {
                 action
                     .enabled
                     .bind(to: self.enabled)
-                    .addDisposableTo(self.base.actionDisposeBag)
+                    .disposed(by: self.base.actionDisposeBag)
             }
         }
     }

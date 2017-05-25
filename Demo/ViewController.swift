@@ -81,7 +81,7 @@ class ViewController: UIViewController {
                     self?.activityIndicator.stopAnimating()
                 }
             })
-            .addDisposableTo(self.disposableBag)
+            .disposed(by: self.disposableBag)
 
         button1.rx.bind(to: sharedAction, input: .button("Button 1"))
 
@@ -97,10 +97,12 @@ class ViewController: UIViewController {
             else {
                 self?.activityIndicator.stopAnimating()
             }
-        }).addDisposableTo(self.disposableBag)
+        })
+        .disposed(by: self.disposableBag)
 
         sharedAction.elements.subscribe(onNext: { string in
             print(string  + " pressed")
-        }).addDisposableTo(self.disposableBag)
+        })
+        .disposed(by: self.disposableBag)
     }
 }

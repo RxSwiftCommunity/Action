@@ -52,7 +52,7 @@ class AlertActionTests: QuickSpec {
                     .subscribe(onNext: { _ in
                         done()
                     })
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
             }
 
             expect(subject.isEnabled) == false
@@ -73,7 +73,7 @@ class AlertActionTests: QuickSpec {
                     .subscribe(onNext: nil, onError: nil, onCompleted: nil, onDisposed: {
                         disposed = true
                     })
-                    .addDisposableTo(disposeBag)
+                    .disposed(by: disposeBag)
             }
             
             subject.rx.action = nil

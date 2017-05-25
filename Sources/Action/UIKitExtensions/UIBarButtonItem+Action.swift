@@ -28,12 +28,12 @@ public extension Reactive where Base: UIBarButtonItem {
                 action
                     .enabled
                     .bind(to: self.isEnabled)
-                    .addDisposableTo(self.base.actionDisposeBag)
+                    .disposed(by: self.base.actionDisposeBag)
                 
                 self.tap.subscribe(onNext: { (_) in
                     action.execute()
                 })
-                .addDisposableTo(self.base.actionDisposeBag)
+                .disposed(by: self.base.actionDisposeBag)
             }
         }
     }
@@ -44,12 +44,12 @@ public extension Reactive where Base: UIBarButtonItem {
         self.tap
             .map { inputTransform(self.base) }
             .bind(to: action.inputs)
-            .addDisposableTo(self.base.actionDisposeBag)
+            .disposed(by: self.base.actionDisposeBag)
 
         action
             .enabled
             .bind(to: self.isEnabled)
-            .addDisposableTo(self.base.actionDisposeBag)
+            .disposed(by: self.base.actionDisposeBag)
     }
 
     public func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
