@@ -58,6 +58,10 @@
 		7FB791E91D7F1BB200789D53 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAB1D7F106900B93BC5 /* RxSwift.framework */; };
 		7FB791EA1D7F1BB200789D53 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F612AAC1D7F106900B93BC5 /* RxCocoa.framework */; };
 		7FB791EC1D7F1BB600789D53 /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE73AD201CDCD101006F8B98 /* Action.framework */; };
+		CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C71ED6979400BB327A /* InputSubject.swift */; };
+		CA2861CA1ED6A41700BB327A /* InputSubjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */; };
+		CA2861CB1ED6B08300BB327A /* InputSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C71ED6979400BB327A /* InputSubject.swift */; };
+		CA2861CC1ED6B08400BB327A /* InputSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C71ED6979400BB327A /* InputSubject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +130,8 @@
 		7F612AD81D7F13B800B93BC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F612ADA1D7F13B800B93BC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE73AD201CDCD101006F8B98 /* Action.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Action.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA2861C71ED6979400BB327A /* InputSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSubject.swift; sourceTree = "<group>"; };
+		CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSubjectTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +211,7 @@
 			children = (
 				7F0569E21DE28587007E1D0D /* Action.swift */,
 				7F0569E01DE28587007E1D0D /* Action+Internal.swift */,
+				CA2861C71ED6979400BB327A /* InputSubject.swift */,
 				7F0569E41DE28587007E1D0D /* UIKitExtensions */,
 				7F0569EF1DE28598007E1D0D /* Supporting Files */,
 			);
@@ -258,6 +265,7 @@
 				7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */,
 				7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */,
 				7F0569F31DE288EB007E1D0D /* ButtonTests.swift */,
+				CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */,
 				7F0569F41DE288EB007E1D0D /* Info.plist */,
 			);
 			path = Tests;
@@ -563,6 +571,7 @@
 				1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */,
 				1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */,
 				1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */,
+				CA2861CB1ED6B08300BB327A /* InputSubject.swift in Sources */,
 				1FCDDA681EAC31EF006EB95B /* UIButton+Rx.swift in Sources */,
 				1FCDDA691EAC31EF006EB95B /* UIControl+Rx.swift in Sources */,
 			);
@@ -572,6 +581,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2861CC1ED6B08400BB327A /* InputSubject.swift in Sources */,
 				1FCDDA8A1EAC329E006EB95B /* Action.swift in Sources */,
 				1FCDDA8B1EAC329E006EB95B /* Action+Internal.swift in Sources */,
 			);
@@ -593,6 +603,7 @@
 				7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */,
 				7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */,
 				7F0569F81DE288EB007E1D0D /* ButtonTests.swift in Sources */,
+				CA2861CA1ED6A41700BB327A /* InputSubjectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +624,7 @@
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
 				7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */,
+				CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */,
 				7F0569EA1DE28587007E1D0D /* Action.swift in Sources */,
 				7F0569EE1DE28587007E1D0D /* UIButton+Rx.swift in Sources */,
 			);
