@@ -15,13 +15,13 @@ public extension Reactive where Base: UIControl {
         controlEvent
             .map { inputTransform(self.base) }
             .bind(to: action.inputs)
-            .addDisposableTo(self.base.actionDisposeBag)
+            .disposed(by: self.base.actionDisposeBag)
 
         // Bind the enabled state of the control to the enabled state of the action
         action
             .enabled
             .bind(to: self.isEnabled)
-            .addDisposableTo(self.base.actionDisposeBag)
+            .disposed(by: self.base.actionDisposeBag)
     }
 
     /// Unbinds any existing action, disposing of all subscriptions.

@@ -27,7 +27,7 @@ public extension Reactive where Base: UIButton {
                 action
                     .enabled
                     .bind(to: self.isEnabled)
-                    .addDisposableTo(self.base.actionDisposeBag)
+                    .disposed(by: self.base.actionDisposeBag)
                 
                 // Technically, this file is only included on tv/iOS platforms,
                 // so this optional will never be nil. But let's be safe 😉
@@ -47,7 +47,7 @@ public extension Reactive where Base: UIButton {
                     .subscribe(onNext: {
                         action.execute()
                     })
-                    .addDisposableTo(self.base.actionDisposeBag)
+                    .disposed(by: self.base.actionDisposeBag)
             }
         }
     }

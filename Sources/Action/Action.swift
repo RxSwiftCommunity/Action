@@ -98,7 +98,7 @@ public final class Action<Input, Element> {
         Observable
             .combineLatest(executing, enabledIf) { !$0 && $1 }
             .bind(to: enabledSubject)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     @discardableResult
@@ -119,7 +119,7 @@ public final class Action<Input, Element> {
 			.take(1)
 			.flatMap { $0 }
 			.subscribe(subject)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		return subject.asObservable()
     }
