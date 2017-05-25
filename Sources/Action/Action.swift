@@ -27,7 +27,7 @@ public final class Action<Input, Element> {
     /// This subject also includes inputs as aguments of execute().
     /// All inputs are always appear in this subject even if the action is not enabled.
     /// Thus, inputs count equals elements count + errors count.
-    public let inputs = PublishSubject<Input>()
+    public let inputs = InputSubject<Input>()
 
     /// Errors aggrevated from invocations of execute().
     /// Delivered on whatever scheduler they were sent from.
