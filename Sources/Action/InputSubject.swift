@@ -23,7 +23,10 @@ public class InputSubject<Element>: ObservableType, Cancelable, SubjectType, Obs
 
     /// Indicates whether the subject has been isDisposed.
     public var isDisposed: Bool {
-        return _isDisposed
+        _lock.lock()
+        let isDisposed = _isDisposed
+        _lock.unlock()
+        return isDisposed
     }
 
     /// Creates a subject.
