@@ -4,6 +4,8 @@ Changelog
 Current master
 --------------
 
+- Replace `PublishSubject` with `InputSubject` [#92](https://github.com/RxSwiftCommunity/Action/pull/92)
+
 3.0.0
 -----
 
