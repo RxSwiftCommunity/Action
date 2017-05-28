@@ -5,6 +5,7 @@ Current master
 --------------
 
 - Replace `PublishSubject` with `InputSubject` [#92](https://github.com/RxSwiftCommunity/Action/pull/92)
+- Added missing sources for watchOS target [#95](https://github.com/RxSwiftCommunity/Action/pull/95)
 
 3.0.0
 -----
