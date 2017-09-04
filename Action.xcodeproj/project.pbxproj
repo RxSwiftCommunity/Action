@@ -36,7 +36,8 @@
 		3DD965CC1F5DC31D00C180FE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD965D21F5DC31D00C180FE /* RxCocoa.framework */; };
 		3DD965CD1F5DC31D00C180FE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD965D31F5DC31D00C180FE /* RxSwift.framework */; };
 		3DD965CE1F5DC31D00C180FE /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD965D41F5DC31D00C180FE /* RxTest.framework */; };
-		3DD965D71F5DF5A900C180FE /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
+		3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DD1F5DF86B00C180FE /* BindToTests.swift */; };
+		3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */; };
 		5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
 		7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */; };
 		7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
@@ -133,8 +134,9 @@
 		3DD965D21F5DC31D00C180FE /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965D31F5DC31D00C180FE /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965D41F5DC31D00C180FE /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSButtonTests.swift; path = ActionTests/NSButtonTests.swift; sourceTree = "<group>"; };
-		5ED520231E1EA199007621B9 /* BindToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindToTests.swift; path = ActionTests/BindToTests.swift; sourceTree = "<group>"; };
+		3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonTests.swift; sourceTree = "<group>"; };
+		3DD965DD1F5DF86B00C180FE /* BindToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
+		5ED520231E1EA199007621B9 /* BindToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
 		7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Rx.swift"; sourceTree = "<group>"; };
 		7F0569E01DE28587007E1D0D /* Action+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Action+Internal.swift"; sourceTree = "<group>"; };
 		7F0569E11DE28587007E1D0D /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
@@ -144,9 +146,9 @@
 		7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Action.swift"; sourceTree = "<group>"; };
 		7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Rx.swift"; sourceTree = "<group>"; };
 		7F0569F01DE288EB007E1D0D /* ActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTests.swift; path = ActionTests/ActionTests.swift; sourceTree = "<group>"; };
-		7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertActionTests.swift; path = ActionTests/AlertActionTests.swift; sourceTree = "<group>"; };
-		7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarButtonTests.swift; path = ActionTests/BarButtonTests.swift; sourceTree = "<group>"; };
-		7F0569F31DE288EB007E1D0D /* ButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonTests.swift; path = ActionTests/ButtonTests.swift; sourceTree = "<group>"; };
+		7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertActionTests.swift; sourceTree = "<group>"; };
+		7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonTests.swift; sourceTree = "<group>"; };
+		7F0569F31DE288EB007E1D0D /* ButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
 		7F0569F41DE288EB007E1D0D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ActionTests/Info.plist; sourceTree = "<group>"; };
 		7F5E6A671D7F08D2000B6076 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F612AAB1D7F106900B93BC5 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +255,26 @@
 			path = AppKitExtensions;
 			sourceTree = "<group>";
 		};
+		3DD965DB1F5DF83700C180FE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */,
+				7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */,
+				7F0569F31DE288EB007E1D0D /* ButtonTests.swift */,
+				5ED520231E1EA199007621B9 /* BindToTests.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		3DD965DC1F5DF84800C180FE /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */,
+				3DD965DD1F5DF86B00C180FE /* BindToTests.swift */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
 		7F0569DE1DE28587007E1D0D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,13 +344,10 @@
 		7F5E6A681D7F08D2000B6076 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3DD965DC1F5DF84800C180FE /* macOS */,
+				3DD965DB1F5DF83700C180FE /* iOS */,
 				7F0569F01DE288EB007E1D0D /* ActionTests.swift */,
-				5ED520231E1EA199007621B9 /* BindToTests.swift */,
-				7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */,
-				7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */,
-				7F0569F31DE288EB007E1D0D /* ButtonTests.swift */,
 				CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */,
-				3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */,
 				7F0569F41DE288EB007E1D0D /* Info.plist */,
 			);
 			path = Tests;
@@ -698,9 +717,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */,
 				3DD965C61F5DC2E100C180FE /* ActionTests.swift in Sources */,
+				3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */,
 				3DD965C81F5DC2E700C180FE /* InputSubjectTests.swift in Sources */,
-				3DD965D71F5DF5A900C180FE /* BindToTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
