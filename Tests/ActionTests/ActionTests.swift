@@ -500,7 +500,11 @@ class ActionTests: QuickSpec {
                     }
 
                     scheduler.scheduleAt(30) {
-                        trigger.onNext()
+						#if swift(>=3.2)
+							trigger.onNext(())
+						#else
+							trigger.onNext()
+						#endif
                     }
 
                     scheduler.start()
