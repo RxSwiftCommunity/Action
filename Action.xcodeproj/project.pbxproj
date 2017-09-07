@@ -127,7 +127,7 @@
 		3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSButton+Action.swift"; sourceTree = "<group>"; };
 		3D3D42761F5DBAAE008CF951 /* NSControl+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSControl+Action.swift"; sourceTree = "<group>"; };
 		3D9C98331DB4A87B004A9F7C /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Checkouts/RxSwift/build/Debug/RxTest.framework; sourceTree = "<group>"; };
-		3DD965BB1F5DC0E400C180FE /* Tests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DD965BB1F5DC0E400C180FE /* macOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965CF1F5DC31D00C180FE /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965D01F5DC31D00C180FE /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965D11F5DC31D00C180FE /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +150,7 @@
 		7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonTests.swift; sourceTree = "<group>"; };
 		7F0569F31DE288EB007E1D0D /* ButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
 		7F0569F41DE288EB007E1D0D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ActionTests/Info.plist; sourceTree = "<group>"; };
-		7F5E6A671D7F08D2000B6076 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F5E6A671D7F08D2000B6076 /* iOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F612AAB1D7F106900B93BC5 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F612AAC1D7F106900B93BC5 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F612AAD1D7F106900B93BC5 /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,7 +255,7 @@
 			path = AppKitExtensions;
 			sourceTree = "<group>";
 		};
-		3DD965DB1F5DF83700C180FE /* iOS */ = {
+		3DD965DB1F5DF83700C180FE /* iOS-Tests */ = {
 			isa = PBXGroup;
 			children = (
 				7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */,
@@ -263,16 +263,16 @@
 				7F0569F31DE288EB007E1D0D /* ButtonTests.swift */,
 				5ED520231E1EA199007621B9 /* BindToTests.swift */,
 			);
-			path = iOS;
+			path = "iOS-Tests";
 			sourceTree = "<group>";
 		};
-		3DD965DC1F5DF84800C180FE /* macOS */ = {
+		3DD965DC1F5DF84800C180FE /* macOS-Tests */ = {
 			isa = PBXGroup;
 			children = (
 				3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */,
 				3DD965DD1F5DF86B00C180FE /* BindToTests.swift */,
 			);
-			path = macOS;
+			path = "macOS-Tests";
 			sourceTree = "<group>";
 		};
 		7F0569DE1DE28587007E1D0D /* Sources */ = {
@@ -344,8 +344,8 @@
 		7F5E6A681D7F08D2000B6076 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				3DD965DC1F5DF84800C180FE /* macOS */,
-				3DD965DB1F5DF83700C180FE /* iOS */,
+				3DD965DC1F5DF84800C180FE /* macOS-Tests */,
+				3DD965DB1F5DF83700C180FE /* iOS-Tests */,
 				7F0569F01DE288EB007E1D0D /* ActionTests.swift */,
 				CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */,
 				7F0569F41DE288EB007E1D0D /* Info.plist */,
@@ -381,12 +381,12 @@
 			isa = PBXGroup;
 			children = (
 				BE73AD201CDCD101006F8B98 /* Action.framework */,
-				7F5E6A671D7F08D2000B6076 /* Tests.xctest */,
+				7F5E6A671D7F08D2000B6076 /* iOS-Tests.xctest */,
 				7F612ACC1D7F13B800B93BC5 /* Demo.app */,
 				1FCDDA5B1EAC315A006EB95B /* Action.framework */,
 				1FCDDA821EAC3295006EB95B /* Action.framework */,
 				1FCDDA961EAC33B0006EB95B /* Action.framework */,
-				3DD965BB1F5DC0E400C180FE /* Tests-macOS.xctest */,
+				3DD965BB1F5DC0E400C180FE /* macOS-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -483,9 +483,9 @@
 			productReference = 1FCDDA961EAC33B0006EB95B /* Action.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		3DD965BA1F5DC0E400C180FE /* Tests-macOS */ = {
+		3DD965BA1F5DC0E400C180FE /* macOS-Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DD965C51F5DC0E400C180FE /* Build configuration list for PBXNativeTarget "Tests-macOS" */;
+			buildConfigurationList = 3DD965C51F5DC0E400C180FE /* Build configuration list for PBXNativeTarget "macOS-Tests" */;
 			buildPhases = (
 				3DD965B71F5DC0E400C180FE /* Sources */,
 				3DD965B81F5DC0E400C180FE /* Frameworks */,
@@ -496,14 +496,14 @@
 			dependencies = (
 				3DD965C21F5DC0E400C180FE /* PBXTargetDependency */,
 			);
-			name = "Tests-macOS";
+			name = "macOS-Tests";
 			productName = "Tests-macOS1";
-			productReference = 3DD965BB1F5DC0E400C180FE /* Tests-macOS.xctest */;
+			productReference = 3DD965BB1F5DC0E400C180FE /* macOS-Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7F5E6A661D7F08D2000B6076 /* Tests */ = {
+		7F5E6A661D7F08D2000B6076 /* iOS-Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F5E6A6F1D7F08D2000B6076 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildConfigurationList = 7F5E6A6F1D7F08D2000B6076 /* Build configuration list for PBXNativeTarget "iOS-Tests" */;
 			buildPhases = (
 				7F5E6A631D7F08D2000B6076 /* Sources */,
 				7F5E6A641D7F08D2000B6076 /* Frameworks */,
@@ -515,9 +515,9 @@
 			dependencies = (
 				7F5E6A6E1D7F08D2000B6076 /* PBXTargetDependency */,
 			);
-			name = Tests;
+			name = "iOS-Tests";
 			productName = Tests;
-			productReference = 7F5E6A671D7F08D2000B6076 /* Tests.xctest */;
+			productReference = 7F5E6A671D7F08D2000B6076 /* iOS-Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		7F612ACB1D7F13B800B93BC5 /* Demo */ = {
@@ -613,8 +613,8 @@
 				1FCDDA5A1EAC315A006EB95B /* Action-tvOS */,
 				1FCDDA811EAC3295006EB95B /* Action-macOS */,
 				1FCDDA951EAC33B0006EB95B /* Action-watchOS */,
-				7F5E6A661D7F08D2000B6076 /* Tests */,
-				3DD965BA1F5DC0E400C180FE /* Tests-macOS */,
+				7F5E6A661D7F08D2000B6076 /* iOS-Tests */,
+				3DD965BA1F5DC0E400C180FE /* macOS-Tests */,
 				7F612ACB1D7F13B800B93BC5 /* Demo */,
 			);
 		};
@@ -1216,7 +1216,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DD965C51F5DC0E400C180FE /* Build configuration list for PBXNativeTarget "Tests-macOS" */ = {
+		3DD965C51F5DC0E400C180FE /* Build configuration list for PBXNativeTarget "macOS-Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DD965C31F5DC0E400C180FE /* Debug */,
@@ -1225,7 +1225,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F5E6A6F1D7F08D2000B6076 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+		7F5E6A6F1D7F08D2000B6076 /* Build configuration list for PBXNativeTarget "iOS-Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F5E6A701D7F08D2000B6076 /* Debug */,

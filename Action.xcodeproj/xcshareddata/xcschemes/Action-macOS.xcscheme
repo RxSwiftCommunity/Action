@@ -34,8 +34,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3DD965BA1F5DC0E400C180FE"
-               BuildableName = "Tests-macOS.xctest"
-               BlueprintName = "Tests-macOS"
+               BuildableName = "macOS-Tests.xctest"
+               BlueprintName = "macOS-Tests"
                ReferencedContainer = "container:Action.xcodeproj">
             </BuildableReference>
          </TestableReference>
