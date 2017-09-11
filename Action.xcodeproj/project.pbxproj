@@ -12,7 +12,6 @@
 		1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
 		1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* AlertAction.swift */; };
 		1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */; };
-		1FCDDA681EAC31EF006EB95B /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */; };
 		1FCDDA6C1EAC3221006EB95B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA6A1EAC3221006EB95B /* RxCocoa.framework */; };
 		1FCDDA6D1EAC3221006EB95B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA6B1EAC3221006EB95B /* RxSwift.framework */; };
 		1FCDDA8A1EAC329E006EB95B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
@@ -24,10 +23,12 @@
 		1FCDDAA11EAC33D3006EB95B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA9F1EAC33D3006EB95B /* RxCocoa.framework */; };
 		1FCDDAA21EAC33D3006EB95B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDAA01EAC33D3006EB95B /* RxSwift.framework */; };
 		3D37A3961DB4A97C0028BC0E /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C98331DB4A87B004A9F7C /* RxTest.framework */; };
-		3D3D42771F5DBACF008CF951 /* NSButton+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */; };
 		3D730DE31F673BE4008534D3 /* Control+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE21F673BE4008534D3 /* Control+Action.swift */; };
 		3D730DE41F673C64008534D3 /* Control+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE21F673BE4008534D3 /* Control+Action.swift */; };
 		3D730DE51F673C65008534D3 /* Control+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE21F673BE4008534D3 /* Control+Action.swift */; };
+		3D730DE91F673FD9008534D3 /* Button+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE81F673FD9008534D3 /* Button+Action.swift */; };
+		3D730DEA1F674043008534D3 /* Button+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE81F673FD9008534D3 /* Button+Action.swift */; };
+		3D730DEB1F674044008534D3 /* Button+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE81F673FD9008534D3 /* Button+Action.swift */; };
 		3DD965C01F5DC0E400C180FE /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA821EAC3295006EB95B /* Action.framework */; };
 		3DD965C61F5DC2E100C180FE /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F01DE288EB007E1D0D /* ActionTests.swift */; };
 		3DD965C81F5DC2E700C180FE /* InputSubjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */; };
@@ -45,7 +46,6 @@
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
 		7F0569EC1DE28587007E1D0D /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* AlertAction.swift */; };
 		7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */; };
-		7F0569EE1DE28587007E1D0D /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */; };
 		7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F01DE288EB007E1D0D /* ActionTests.swift */; };
 		7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */; };
 		7F0569F71DE288EB007E1D0D /* BarButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */; };
@@ -124,8 +124,8 @@
 		1FCDDA961EAC33B0006EB95B /* Action.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Action.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDDA9F1EAC33D3006EB95B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-watchos/RxCocoa.framework"; sourceTree = "<group>"; };
 		1FCDDAA01EAC33D3006EB95B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-watchos/RxSwift.framework"; sourceTree = "<group>"; };
-		3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSButton+Action.swift"; sourceTree = "<group>"; };
 		3D730DE21F673BE4008534D3 /* Control+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Control+Action.swift"; sourceTree = "<group>"; };
+		3D730DE81F673FD9008534D3 /* Button+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Action.swift"; sourceTree = "<group>"; };
 		3D9C98331DB4A87B004A9F7C /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Checkouts/RxSwift/build/Debug/RxTest.framework; sourceTree = "<group>"; };
 		3DD965BB1F5DC0E400C180FE /* macOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965CF1F5DC31D00C180FE /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,7 +143,6 @@
 		7F0569E31DE28587007E1D0D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F0569E51DE28587007E1D0D /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
 		7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Action.swift"; sourceTree = "<group>"; };
-		7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Rx.swift"; sourceTree = "<group>"; };
 		7F0569F01DE288EB007E1D0D /* ActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTests.swift; path = ActionTests/ActionTests.swift; sourceTree = "<group>"; };
 		7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertActionTests.swift; sourceTree = "<group>"; };
 		7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonTests.swift; sourceTree = "<group>"; };
@@ -245,18 +244,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D3D42741F5DBAAE008CF951 /* AppKitExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */,
-			);
-			path = AppKitExtensions;
-			sourceTree = "<group>";
-		};
 		3D730DE11F673BCB008534D3 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
 				3D730DE21F673BE4008534D3 /* Control+Action.swift */,
+				3D730DE81F673FD9008534D3 /* Button+Action.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -296,7 +288,6 @@
 				7F0569E01DE28587007E1D0D /* Action+Internal.swift */,
 				CA2861C71ED6979400BB327A /* InputSubject.swift */,
 				3D730DE11F673BCB008534D3 /* CommonUI */,
-				3D3D42741F5DBAAE008CF951 /* AppKitExtensions */,
 				7F0569E41DE28587007E1D0D /* UIKitExtensions */,
 				7F0569EF1DE28598007E1D0D /* Supporting Files */,
 			);
@@ -308,7 +299,6 @@
 			children = (
 				7F0569E51DE28587007E1D0D /* AlertAction.swift */,
 				7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */,
-				7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */,
 			);
 			path = UIKitExtensions;
 			sourceTree = "<group>";
@@ -691,10 +681,10 @@
 				1FCDDA641EAC31EF006EB95B /* Action.swift in Sources */,
 				1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */,
 				1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */,
+				3D730DEA1F674043008534D3 /* Button+Action.swift in Sources */,
 				1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */,
 				CA2861CB1ED6B08300BB327A /* InputSubject.swift in Sources */,
 				3D730DE41F673C64008534D3 /* Control+Action.swift in Sources */,
-				1FCDDA681EAC31EF006EB95B /* UIButton+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +695,7 @@
 				CA2861CC1ED6B08400BB327A /* InputSubject.swift in Sources */,
 				3D730DE51F673C65008534D3 /* Control+Action.swift in Sources */,
 				1FCDDA8A1EAC329E006EB95B /* Action.swift in Sources */,
-				3D3D42771F5DBACF008CF951 /* NSButton+Action.swift in Sources */,
+				3D730DEB1F674044008534D3 /* Button+Action.swift in Sources */,
 				1FCDDA8B1EAC329E006EB95B /* Action+Internal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -760,10 +750,10 @@
 				7F0569EC1DE28587007E1D0D /* AlertAction.swift in Sources */,
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
+				3D730DE91F673FD9008534D3 /* Button+Action.swift in Sources */,
 				CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */,
 				3D730DE31F673BE4008534D3 /* Control+Action.swift in Sources */,
 				7F0569EA1DE28587007E1D0D /* Action.swift in Sources */,
-				7F0569EE1DE28587007E1D0D /* UIButton+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
