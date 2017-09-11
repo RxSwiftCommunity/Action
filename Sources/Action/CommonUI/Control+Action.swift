@@ -1,8 +1,15 @@
-import Cocoa
+import Foundation
+#if os(iOS) || os(tvOS)
+	import UIKit
+	public typealias Control = UIKit.UIControl
+#elseif os(macOS)
+	import Cocoa
+	public typealias Control = Cocoa.NSControl
+#endif
 import RxSwift
 import RxCocoa
 
-public extension Reactive where Base: NSControl {
+public extension Reactive where Base: Control {
 	/// Binds enabled state of action to control, and subscribes action's execution to provided controlEvents.
 	/// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
 	/// them, set the rx.action to nil or another action, or call unbindAction().

@@ -13,7 +13,6 @@
 		1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* AlertAction.swift */; };
 		1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */; };
 		1FCDDA681EAC31EF006EB95B /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */; };
-		1FCDDA691EAC31EF006EB95B /* UIControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */; };
 		1FCDDA6C1EAC3221006EB95B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA6A1EAC3221006EB95B /* RxCocoa.framework */; };
 		1FCDDA6D1EAC3221006EB95B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA6B1EAC3221006EB95B /* RxSwift.framework */; };
 		1FCDDA8A1EAC329E006EB95B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
@@ -26,7 +25,9 @@
 		1FCDDAA21EAC33D3006EB95B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDAA01EAC33D3006EB95B /* RxSwift.framework */; };
 		3D37A3961DB4A97C0028BC0E /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C98331DB4A87B004A9F7C /* RxTest.framework */; };
 		3D3D42771F5DBACF008CF951 /* NSButton+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */; };
-		3D3D42781F5DBAD2008CF951 /* NSControl+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D42761F5DBAAE008CF951 /* NSControl+Action.swift */; };
+		3D730DE31F673BE4008534D3 /* Control+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE21F673BE4008534D3 /* Control+Action.swift */; };
+		3D730DE41F673C64008534D3 /* Control+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE21F673BE4008534D3 /* Control+Action.swift */; };
+		3D730DE51F673C65008534D3 /* Control+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE21F673BE4008534D3 /* Control+Action.swift */; };
 		3DD965C01F5DC0E400C180FE /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA821EAC3295006EB95B /* Action.framework */; };
 		3DD965C61F5DC2E100C180FE /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F01DE288EB007E1D0D /* ActionTests.swift */; };
 		3DD965C81F5DC2E700C180FE /* InputSubjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */; };
@@ -39,7 +40,6 @@
 		3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DD1F5DF86B00C180FE /* BindToTests.swift */; };
 		3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */; };
 		5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
-		7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */; };
 		7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
 		7F0569E91DE28587007E1D0D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
@@ -125,7 +125,7 @@
 		1FCDDA9F1EAC33D3006EB95B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-watchos/RxCocoa.framework"; sourceTree = "<group>"; };
 		1FCDDAA01EAC33D3006EB95B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-watchos/RxSwift.framework"; sourceTree = "<group>"; };
 		3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSButton+Action.swift"; sourceTree = "<group>"; };
-		3D3D42761F5DBAAE008CF951 /* NSControl+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSControl+Action.swift"; sourceTree = "<group>"; };
+		3D730DE21F673BE4008534D3 /* Control+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Control+Action.swift"; sourceTree = "<group>"; };
 		3D9C98331DB4A87B004A9F7C /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Checkouts/RxSwift/build/Debug/RxTest.framework; sourceTree = "<group>"; };
 		3DD965BB1F5DC0E400C180FE /* macOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD965CF1F5DC31D00C180FE /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,7 +137,6 @@
 		3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonTests.swift; sourceTree = "<group>"; };
 		3DD965DD1F5DF86B00C180FE /* BindToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
 		5ED520231E1EA199007621B9 /* BindToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
-		7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Rx.swift"; sourceTree = "<group>"; };
 		7F0569E01DE28587007E1D0D /* Action+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Action+Internal.swift"; sourceTree = "<group>"; };
 		7F0569E11DE28587007E1D0D /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		7F0569E21DE28587007E1D0D /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -250,9 +249,16 @@
 			isa = PBXGroup;
 			children = (
 				3D3D42751F5DBAAE008CF951 /* NSButton+Action.swift */,
-				3D3D42761F5DBAAE008CF951 /* NSControl+Action.swift */,
 			);
 			path = AppKitExtensions;
+			sourceTree = "<group>";
+		};
+		3D730DE11F673BCB008534D3 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				3D730DE21F673BE4008534D3 /* Control+Action.swift */,
+			);
+			path = CommonUI;
 			sourceTree = "<group>";
 		};
 		3DD965DB1F5DF83700C180FE /* iOS-Tests */ = {
@@ -289,6 +295,7 @@
 				7F0569E21DE28587007E1D0D /* Action.swift */,
 				7F0569E01DE28587007E1D0D /* Action+Internal.swift */,
 				CA2861C71ED6979400BB327A /* InputSubject.swift */,
+				3D730DE11F673BCB008534D3 /* CommonUI */,
 				3D3D42741F5DBAAE008CF951 /* AppKitExtensions */,
 				7F0569E41DE28587007E1D0D /* UIKitExtensions */,
 				7F0569EF1DE28598007E1D0D /* Supporting Files */,
@@ -302,7 +309,6 @@
 				7F0569E51DE28587007E1D0D /* AlertAction.swift */,
 				7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */,
 				7F0569E71DE28587007E1D0D /* UIButton+Rx.swift */,
-				7BD1C7541E1D5562000D82DA /* UIControl+Rx.swift */,
 			);
 			path = UIKitExtensions;
 			sourceTree = "<group>";
@@ -571,6 +577,7 @@
 					};
 					1FCDDA811EAC3295006EB95B = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = K42G4S78CE;
 						ProvisioningStyle = Automatic;
 					};
 					1FCDDA951EAC33B0006EB95B = {
@@ -579,6 +586,7 @@
 					};
 					3DD965BA1F5DC0E400C180FE = {
 						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = K42G4S78CE;
 						ProvisioningStyle = Automatic;
 					};
 					7F5E6A661D7F08D2000B6076 = {
@@ -685,8 +693,8 @@
 				1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */,
 				1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */,
 				CA2861CB1ED6B08300BB327A /* InputSubject.swift in Sources */,
+				3D730DE41F673C64008534D3 /* Control+Action.swift in Sources */,
 				1FCDDA681EAC31EF006EB95B /* UIButton+Rx.swift in Sources */,
-				1FCDDA691EAC31EF006EB95B /* UIControl+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,7 +703,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA2861CC1ED6B08400BB327A /* InputSubject.swift in Sources */,
-				3D3D42781F5DBAD2008CF951 /* NSControl+Action.swift in Sources */,
+				3D730DE51F673C65008534D3 /* Control+Action.swift in Sources */,
 				1FCDDA8A1EAC329E006EB95B /* Action.swift in Sources */,
 				3D3D42771F5DBACF008CF951 /* NSButton+Action.swift in Sources */,
 				1FCDDA8B1EAC329E006EB95B /* Action+Internal.swift in Sources */,
@@ -752,8 +760,8 @@
 				7F0569EC1DE28587007E1D0D /* AlertAction.swift in Sources */,
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
-				7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */,
 				CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */,
+				3D730DE31F673BE4008534D3 /* Control+Action.swift in Sources */,
 				7F0569EA1DE28587007E1D0D /* Action.swift in Sources */,
 				7F0569EE1DE28587007E1D0D /* UIButton+Rx.swift in Sources */,
 			);
@@ -844,9 +852,10 @@
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = K42G4S78CE;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -871,6 +880,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = K42G4S78CE;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -949,7 +959,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K42G4S78CE;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Tests/ActionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -978,7 +988,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K42G4S78CE;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Tests/ActionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
