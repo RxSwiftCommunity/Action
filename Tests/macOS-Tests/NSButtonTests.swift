@@ -36,11 +36,7 @@ class NSButtonTests: QuickSpec {
 			
 			subject.rx.action = action
 			
-			#if swift(>=3.2)
 			action.execute(())
-			#else
-			action.execute()
-			#endif
 			expect(subject.isEnabled).toEventually( beFalse() )
 			
 			observer.onCompleted()
