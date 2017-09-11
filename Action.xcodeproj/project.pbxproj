@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06D161301F66954F00F8E336 /* NSButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D1612E1F66954F00F8E336 /* NSButton+Rx.swift */; };
+		06D161311F66954F00F8E336 /* NSButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D1612E1F66954F00F8E336 /* NSButton+Rx.swift */; };
+		06D161321F66954F00F8E336 /* NSControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D1612F1F66954F00F8E336 /* NSControl+Rx.swift */; };
+		06D161331F66954F00F8E336 /* NSControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D1612F1F66954F00F8E336 /* NSControl+Rx.swift */; };
 		1FCDDA631EAC31DD006EB95B /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1FCDDA641EAC31EF006EB95B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
 		1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
@@ -95,6 +99,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		06D1612E1F66954F00F8E336 /* NSButton+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSButton+Rx.swift"; path = "AppKitExtensions/NSButton+Rx.swift"; sourceTree = "<group>"; };
+		06D1612F1F66954F00F8E336 /* NSControl+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSControl+Rx.swift"; path = "AppKitExtensions/NSControl+Rx.swift"; sourceTree = "<group>"; };
 		1FCDDA5B1EAC315A006EB95B /* Action.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Action.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDDA6A1EAC3221006EB95B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-appletvos/RxCocoa.framework"; sourceTree = "<group>"; };
 		1FCDDA6B1EAC3221006EB95B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Carthage/Checkouts/RxSwift/build/Debug-appletvos/RxSwift.framework"; sourceTree = "<group>"; };
@@ -201,6 +207,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06D1612D1F6694DA00F8E336 /* AppKitExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				06D1612E1F66954F00F8E336 /* NSButton+Rx.swift */,
+				06D1612F1F66954F00F8E336 /* NSControl+Rx.swift */,
+			);
+			name = AppKitExtensions;
+			sourceTree = "<group>";
+		};
 		7F0569DE1DE28587007E1D0D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +231,7 @@
 				7F0569E01DE28587007E1D0D /* Action+Internal.swift */,
 				CA2861C71ED6979400BB327A /* InputSubject.swift */,
 				7F0569E41DE28587007E1D0D /* UIKitExtensions */,
+				06D1612D1F6694DA00F8E336 /* AppKitExtensions */,
 				7F0569EF1DE28598007E1D0D /* Supporting Files */,
 			);
 			path = Action;
@@ -585,7 +601,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA2861CC1ED6B08400BB327A /* InputSubject.swift in Sources */,
+				06D161331F66954F00F8E336 /* NSControl+Rx.swift in Sources */,
 				1FCDDA8A1EAC329E006EB95B /* Action.swift in Sources */,
+				06D161311F66954F00F8E336 /* NSButton+Rx.swift in Sources */,
 				1FCDDA8B1EAC329E006EB95B /* Action+Internal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,8 +648,10 @@
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
 				7BD1C7551E1D5562000D82DA /* UIControl+Rx.swift in Sources */,
+				06D161321F66954F00F8E336 /* NSControl+Rx.swift in Sources */,
 				CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */,
 				7F0569EA1DE28587007E1D0D /* Action.swift in Sources */,
+				06D161301F66954F00F8E336 /* NSButton+Rx.swift in Sources */,
 				7F0569EE1DE28587007E1D0D /* UIButton+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1011,6 +1031,7 @@
 				1FCDDA611EAC315A006EB95B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FCDDA871EAC3295006EB95B /* Build configuration list for PBXNativeTarget "Action-macOS" */ = {
 			isa = XCConfigurationList;
@@ -1019,6 +1040,7 @@
 				1FCDDA891EAC3295006EB95B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FCDDA9B1EAC33B0006EB95B /* Build configuration list for PBXNativeTarget "Action-watchOS" */ = {
 			isa = XCConfigurationList;
@@ -1027,6 +1049,7 @@
 				1FCDDA9D1EAC33B0006EB95B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7F5E6A6F1D7F08D2000B6076 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
