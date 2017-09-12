@@ -4,6 +4,10 @@ Changelog
 Current master
 --------------
 
+3.2.0
+-----
+- Add macOS bindings for NSControl and NSButton
+
 3.1.1
 -----
 
