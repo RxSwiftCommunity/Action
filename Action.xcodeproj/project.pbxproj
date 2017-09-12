@@ -10,7 +10,7 @@
 		1FCDDA631EAC31DD006EB95B /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1FCDDA641EAC31EF006EB95B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
 		1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
-		1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* AlertAction.swift */; };
+		1FCDDA661EAC31EF006EB95B /* UIAlertAction+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */; };
 		1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */; };
 		1FCDDA6C1EAC3221006EB95B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA6A1EAC3221006EB95B /* RxCocoa.framework */; };
 		1FCDDA6D1EAC3221006EB95B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA6B1EAC3221006EB95B /* RxSwift.framework */; };
@@ -44,7 +44,7 @@
 		7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
 		7F0569E91DE28587007E1D0D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
-		7F0569EC1DE28587007E1D0D /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* AlertAction.swift */; };
+		7F0569EC1DE28587007E1D0D /* UIAlertAction+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */; };
 		7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */; };
 		7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F01DE288EB007E1D0D /* ActionTests.swift */; };
 		7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */; };
@@ -141,7 +141,7 @@
 		7F0569E11DE28587007E1D0D /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		7F0569E21DE28587007E1D0D /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		7F0569E31DE28587007E1D0D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7F0569E51DE28587007E1D0D /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Action.swift"; sourceTree = "<group>"; };
 		7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Action.swift"; sourceTree = "<group>"; };
 		7F0569F01DE288EB007E1D0D /* ActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTests.swift; path = ActionTests/ActionTests.swift; sourceTree = "<group>"; };
 		7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertActionTests.swift; sourceTree = "<group>"; };
@@ -297,7 +297,7 @@
 		7F0569E41DE28587007E1D0D /* UIKitExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				7F0569E51DE28587007E1D0D /* AlertAction.swift */,
+				7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */,
 				7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */,
 			);
 			path = UIKitExtensions;
@@ -680,7 +680,7 @@
 			files = (
 				1FCDDA641EAC31EF006EB95B /* Action.swift in Sources */,
 				1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */,
-				1FCDDA661EAC31EF006EB95B /* AlertAction.swift in Sources */,
+				1FCDDA661EAC31EF006EB95B /* UIAlertAction+Action.swift in Sources */,
 				3D730DEA1F674043008534D3 /* Button+Action.swift in Sources */,
 				1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */,
 				CA2861CB1ED6B08300BB327A /* InputSubject.swift in Sources */,
@@ -747,7 +747,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F0569EC1DE28587007E1D0D /* AlertAction.swift in Sources */,
+				7F0569EC1DE28587007E1D0D /* UIAlertAction+Action.swift in Sources */,
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
 				3D730DE91F673FD9008534D3 /* Button+Action.swift in Sources */,
