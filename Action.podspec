@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.dependency "RxSwift", "~> 3.4"
   s.dependency "RxCocoa", "~> 3.4"
 
-  s.watchos.exclude_files = "Button+Action.swift", "UIBarButtonItem+Action.swift", "UIAlertAction+Action.swift"
+  s.watchos.exclude_files = "Control+Action.swift", "Button+Action.swift", "UIBarButtonItem+Action.swift", "UIAlertAction+Action.swift"
   s.osx.exclude_files = "UIBarButtonItem+Action.swift", "UIAlertAction+Action.swift"
   s.tvos.exclude_files = "UIBarButtonItem+Action.swift", "UIAlertAction+Action.swift"
 end
