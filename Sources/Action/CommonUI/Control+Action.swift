@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(macOS)
 import Foundation
 #if os(iOS) || os(tvOS)
 	import UIKit
@@ -35,3 +36,4 @@ public extension Reactive where Base: Control {
 		self.base.resetActionDisposeBag()
 	}
 }
+#endif
