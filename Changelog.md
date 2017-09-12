@@ -4,6 +4,8 @@ Changelog
 Current master
 --------------
 
+- Update dependency Libraries for Carthage
+
 3.1.1
 -----
 
