@@ -66,7 +66,7 @@ public final class Action<Input, Element> {
         errors = errorsSubject.asObservable()
         
         executionObservables = inputs
-            .withLatestFrom(enabled) { $0 }
+            .withLatestFrom(enabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
