@@ -35,7 +35,7 @@ class ButtonTests: QuickSpec {
 
             subject.rx.action = action
 
-            action.execute()
+            action.execute(())
             expect(subject.isEnabled).toEventually( beFalse() )
 
             observer.onCompleted()
@@ -123,7 +123,7 @@ class ButtonTests: QuickSpec {
                     }
 
                     subject.rx.action = action
-                    subject.rx.action?.execute()
+                    subject.rx.action?.execute(())
                 }
             }
             
