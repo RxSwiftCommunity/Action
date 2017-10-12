@@ -71,7 +71,7 @@ public final class Action<Input, Element> {
                 if enabled {
                     return Observable.of(workFactory(input)
                                              .do(onError: { errorsSubject.onNext(.underlyingError($0)) })
-                                             .shareReplay(1))
+                                             .share(replay: 1, scope: .forever))
                 } else {
                     errorsSubject.onNext(.notEnabled)
                     return Observable.empty()
@@ -93,7 +93,7 @@ public final class Action<Input, Element> {
                                           Observable.just(false)])
             }
             .startWith(false)
-            .shareReplay(1)
+            .share(replay: 1, scope: .forever)
 
         Observable
             .combineLatest(executing, enabledIf) { !$0 && $1 }
