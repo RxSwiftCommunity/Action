@@ -4,6 +4,22 @@ Changelog
 Current master
 --------------
 
+3.4.0
+-----
+- Added full support for Swift 4.0
+- Added full support for RxSwift 4.0.0
+- Preserved old behavior for `shareReplay(1)` api changes from `RxSwift`. [#110](https://github.com/RxSwiftCommunity/Action/pull/110)
+
+
+Version table
+-------------
+
+| Swift version | RxSwift version | Action version |
+| ------------- | --------------- | -------------- |
+| Swift 3.0     | v3.2.*   	      | v2.2.0 		   |
+| Swift 3.2     | v3.6.*   	      | v3.2.0 		   |
+| **Swift 4**   | **v4.0.0**      | **v3.4.0**     |
+
 3.2.0
 -----
 - Add macOS bindings for NSControl and NSButton
