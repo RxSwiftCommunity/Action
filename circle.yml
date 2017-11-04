@@ -5,9 +5,9 @@ machine:
     LANG: en_US.UTF-8
 dependencies:
   override:
-    - echo "Skipping CocoaPods Specs install."
-    - carthage version
-    - carthage bootstrap
+    - bin/bootstrap-if-needed
+  cache_directories:
+    - "Carthage"
 test:
   override:
   - set -o pipefail
