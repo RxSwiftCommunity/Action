@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Borrowed from https://robots.thoughtbot.com/caching-carthage-con-circleci
+
+if ! cmp -s Cartfile.resolved Carthage/Cartfile.resolved; then
+  bin/bootstrap
+fi
+
