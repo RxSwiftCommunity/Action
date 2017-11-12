@@ -4,6 +4,8 @@ import RxCocoa
 
 /// Typealias for compatibility with UIButton's rx.action property.
 public typealias CocoaAction = Action<Void, Void>
+/// Typealias for actions with work factory returns `Completable`.
+public typealias CompletableAction<Input> = Action<Input, Never>
 
 /// Possible errors from invoking execute()
 public enum ActionError: Error {
