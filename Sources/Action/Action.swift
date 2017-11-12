@@ -52,10 +52,19 @@ public final class Action<Input, Element> {
 
     private let disposeBag = DisposeBag()
 
+    public convenience init<O: ObservableConvertibleType>(
+        enabledIf: Observable<Bool> = Observable.just(true),
+        workFactory: @escaping (Input) -> O
+    ) where O.E == Element {
+        self.init(enabledIf: enabledIf) {
+            workFactory($0).asObservable()
+        }
+    }
+
     public init(
         enabledIf: Observable<Bool> = Observable.just(true),
         workFactory: @escaping WorkFactory) {
-        
+
         self._enabledIf = enabledIf
         self.workFactory = workFactory
 
@@ -64,7 +73,7 @@ public final class Action<Input, Element> {
 
         let errorsSubject = PublishSubject<ActionError>()
         errors = errorsSubject.asObservable()
-        
+
         executionObservables = inputs
             .withLatestFrom(enabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
@@ -108,10 +117,10 @@ public final class Action<Input, Element> {
         }
 
 		let subject = ReplaySubject<Element>.createUnbounded()
-		
+
 		let work = executionObservables
 			.map { $0.catchError { throw ActionError.underlyingError($0) } }
-		
+
 		let error = errors
 			.map { Observable<Element>.error($0) }
 
@@ -120,7 +129,7 @@ public final class Action<Input, Element> {
 			.flatMap { $0 }
 			.subscribe(subject)
 			.disposed(by: disposeBag)
-		
+
 		return subject.asObservable()
     }
 }
