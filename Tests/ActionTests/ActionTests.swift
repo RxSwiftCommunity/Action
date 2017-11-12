@@ -14,7 +14,35 @@ class ActionTests: QuickSpec {
 			scheduler = TestScheduler(initialClock: 0)
 			disposeBag = DisposeBag()
 		}
-		
+
+        describe("completable action") {
+            var action: CompletableAction<String>!
+            beforeEach {
+                let work: Completable = Observable<Never>.empty().asCompletable()
+                action = CompletableAction {_ in work }
+                scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+            }
+            afterEach {
+                action = nil
+            }
+            it("inputs subject receives generated inputs") {
+                let inputs = scheduler.createObserver(String.self)
+                action.inputs.bind(to: inputs).disposed(by: disposeBag)
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [
+                    next(10, "a"),
+                    next(20, "b"),
+                    ])
+            }
+            it("emits nothing on `elements`") {
+                let elements = scheduler.createObserver(Never.self)
+                action.elements.bind(to: elements).disposed(by: disposeBag)
+                scheduler.start()
+                XCTAssertEqual(elements.events.count, 0)
+            }
+        }
+        
 		describe("action properties") {
 			var inputs: TestableObserver<String>!
 			var elements: TestableObserver<String>!
