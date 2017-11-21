@@ -3,6 +3,12 @@ Changelog
 
 Current master
 --------------
+
+- Nothing yet!
+
+3.5.0
+-----
+
 - Add convenience initializer with work factories returning `PrimitiveSequence` or any other `ObservableConvertibleType` [#125](https://github.com/RxSwiftCommunity/Action/pull/125)
 - Introduce `CompletableAction`, a typealias for action that only completes without emitting any elements [#125](https://github.com/RxSwiftCommunity/Action/pull/125)
 
