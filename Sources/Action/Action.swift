@@ -22,9 +22,6 @@ When this excuted via execute() or inputs subject, it passes its parameter to th
 public final class Action<Input, Element> {
     public typealias WorkFactory = (Input) -> Observable<Element>
 
-    public let _enabledIf: Observable<Bool>
-    public let workFactory: WorkFactory
-
     /// Inputs that triggers execution of action.
     /// This subject also includes inputs as aguments of execute().
     /// All inputs are always appear in this subject even if the action is not enabled.
@@ -66,9 +63,6 @@ public final class Action<Input, Element> {
     public init(
         enabledIf: Observable<Bool> = Observable.just(true),
         workFactory: @escaping WorkFactory) {
-
-        self._enabledIf = enabledIf
-        self.workFactory = workFactory
 
         let enabledSubject = BehaviorSubject<Bool>(value: false)
         enabled = enabledSubject.asObservable()
