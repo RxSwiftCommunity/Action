@@ -37,7 +37,7 @@ public final class Action<Input, Element> {
     public let elements: Observable<Element>
 
     /// Whether or not we're currently executing. 
-    public let executing: Observable<Bool>
+    public let isExecuting: Observable<Bool>
 
     /// Observables returned by the workFactory.
     /// Useful for sending results back from work being completed
@@ -87,7 +87,7 @@ public final class Action<Input, Element> {
         elements = executionObservables
             .flatMap { $0.catchError { _ in Observable.empty() } }
 
-        executing = executionObservables.flatMap {
+        isExecuting = executionObservables.flatMap {
                 execution -> Observable<Bool> in
                 let execution = execution
                     .flatMap { _ in Observable<Bool>.empty() }
@@ -101,7 +101,7 @@ public final class Action<Input, Element> {
             .share(replay: 1, scope: .forever)
 
         Observable
-            .combineLatest(executing, enabledIf) { !$0 && $1 }
+            .combineLatest(isExecuting, enabledIf) { !$0 && $1 }
             .bind(to: enabledSubject)
             .disposed(by: disposeBag)
     }
@@ -127,5 +127,13 @@ public final class Action<Input, Element> {
 			.disposed(by: disposeBag)
 
 		return subject.asObservable()
+    }
+}
+
+// MARK: Deprecated
+extension Action {
+    @available(*, deprecated, renamed: "isExecuting")
+    public var executing: Observable<Bool> {
+        return isExecuting
     }
 }

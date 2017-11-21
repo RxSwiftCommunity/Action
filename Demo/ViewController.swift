@@ -65,8 +65,8 @@ class ViewController: UIViewController {
         // Demo: observe the output of both actions, spin an activity indicator
         // while performing the work
         Observable.combineLatest(
-            button.rx.action!.executing,
-            self.navigationItem.rightBarButtonItem!.rx.action!.executing) { a,b in
+            button.rx.action!.isExecuting,
+            self.navigationItem.rightBarButtonItem!.rx.action!.isExecuting) { a,b in
                 // we combine two boolean observable and output one boolean
                 return a || b
             }
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
         }
         self.navigationItem.leftBarButtonItem?.rx.bind(to: sharedAction, input: .barButton)
 
-        sharedAction.executing.debounce(0, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] executing in
+        sharedAction.isExecuting.debounce(0, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] executing in
             if (executing) {
                 self?.activityIndicator.startAnimating()
             }
