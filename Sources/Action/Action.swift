@@ -47,7 +47,7 @@ public final class Action<Input, Element> {
     /// Whether or not we're enabled. Note that this is a *computed* sequence
     /// property based on enabledIf initializer and if we're currently executing.
     /// Always observed on MainScheduler.
-    public let enabled: Observable<Bool>
+    public let isEnabled: Observable<Bool>
 
     private let disposeBag = DisposeBag()
 
@@ -65,13 +65,13 @@ public final class Action<Input, Element> {
         workFactory: @escaping WorkFactory) {
 
         let enabledSubject = BehaviorSubject<Bool>(value: false)
-        enabled = enabledSubject.asObservable()
+        isEnabled = enabledSubject.asObservable()
 
         let errorsSubject = PublishSubject<ActionError>()
         errors = errorsSubject.asObservable()
 
         executionObservables = inputs
-            .withLatestFrom(enabled) { input, enabled in (input, enabled) }
+            .withLatestFrom(isEnabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
@@ -135,5 +135,10 @@ extension Action {
     @available(*, deprecated, renamed: "isExecuting")
     public var executing: Observable<Bool> {
         return isExecuting
+    }
+
+    @available(*, deprecated, renamed: "isEnabled")
+    public var enabled: Observable<Bool> {
+        return isEnabled
     }
 }

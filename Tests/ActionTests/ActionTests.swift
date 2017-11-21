@@ -73,7 +73,7 @@ class ActionTests: QuickSpec {
 					.bind(to: errors)
 					.disposed(by: disposeBag)
 				
-				action.enabled
+				action.isEnabled
 					.bind(to: enabled)
 					.disposed(by: disposeBag)
 				
@@ -89,7 +89,7 @@ class ActionTests: QuickSpec {
 				action.inputs.subscribe().disposed(by: disposeBag)
 				action.elements.subscribe().disposed(by: disposeBag)
 				action.errors.subscribe().disposed(by: disposeBag)
-				action.enabled.subscribe().disposed(by: disposeBag)
+				action.isEnabled.subscribe().disposed(by: disposeBag)
                 action.isExecuting.subscribe().disposed(by: disposeBag)
 				action.executionObservables.subscribe().disposed(by: disposeBag)
 			}
