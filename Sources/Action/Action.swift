@@ -22,11 +22,9 @@ When this excuted via execute() or inputs subject, it passes its parameter to th
 public final class Action<Input, Element> {
     public typealias WorkFactory = (Input) -> Observable<Element>
 
-    /// Inputs that triggers execution of action.
-    /// This subject also includes inputs as aguments of execute().
-    /// All inputs are always appear in this subject even if the action is not enabled.
-    /// Thus, inputs count equals elements count + errors count.
-    public let inputs = InputSubject<Input>()
+
+    /// Bindable sink for inputs that triggers execution of action.
+    public let inputs: AnyObserver<Input>
 
     /// Errors aggrevated from invocations of execute().
     /// Delivered on whatever scheduler they were sent from.
@@ -70,7 +68,10 @@ public final class Action<Input, Element> {
         let errorsSubject = PublishSubject<ActionError>()
         errors = errorsSubject.asObservable()
 
-        executionObservables = inputs
+        let inputsSubject = InputSubject<Input>()
+        inputs = inputsSubject.asObserver()
+
+        executionObservables = inputsSubject
             .withLatestFrom(isEnabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
