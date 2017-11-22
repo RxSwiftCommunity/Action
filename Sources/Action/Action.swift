@@ -73,8 +73,11 @@ public final class Action<Input, Element> {
         let errorsSubject = PublishSubject<ActionError>()
         errors = errorsSubject.asObservable()
 
-        let inputsSubject = InputSubject<Input>()
-        inputs = inputsSubject.asObserver()
+        let inputsSubject = PublishSubject<Input>()
+        inputs = AnyObserver { event in
+            guard case .next(let value) = event else { return }
+            inputsSubject.onNext(value)
+        }
 
         executionObservables = inputsSubject
             .withLatestFrom(enabled) { input, enabled in (input, enabled) }
