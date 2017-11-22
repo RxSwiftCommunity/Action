@@ -45,7 +45,7 @@ class ActionTests: QuickSpec {
             }
         }
 
-        describe("Input subject behavior") {
+        describe("Input observer behavior") {
             var action: Action<String, String>!
             var inputs: TestableObserver<String>!
             var executions: TestableObserver<Observable<String>>!
