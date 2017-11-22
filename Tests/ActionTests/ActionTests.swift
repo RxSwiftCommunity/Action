@@ -44,6 +44,72 @@ class ActionTests: QuickSpec {
                 XCTAssertEqual(elements.events.count, 0)
             }
         }
+
+        describe("Input subject behavior") {
+            var action: Action<String, String>!
+            var inputs: TestableObserver<String>!
+            var executions: TestableObserver<Observable<String>>!
+            beforeEach {
+                inputs = scheduler.createObserver(String.self)
+                action = Action {
+                    inputs.onNext($0)
+                    return Observable.just($0)
+                }
+                executions = scheduler.createObserver(Observable<String>.self)
+                action.executionObservables.bind(to: executions).disposed(by: disposeBag)
+            }
+            afterEach {
+                action = nil
+                inputs = nil
+                executions = nil
+            }
+
+            it("execute on .next") {
+                scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [next(10, "a")])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
+            }
+            it("ignore .error events") {
+                scheduler.scheduleAt(10) { action.inputs.onError(TestError) }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 0)
+            }
+            it("ignore .completed events") {
+                scheduler.scheduleAt(10) { action.inputs.onCompleted() }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 0)
+            }
+            it("accept multiple .next events") {
+                scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [
+                    next(10, "a"),
+                    next(20, "b"),
+                    ])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 2)
+                XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
+            }
+            it("not terminate after .error event") {
+                scheduler.scheduleAt(10) { action.inputs.onError(TestError) }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [next(20, "b")])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
+                XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
+            }
+            it("not terminate after .completed event") {
+                scheduler.scheduleAt(10) { action.inputs.onCompleted() }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [next(20, "b")])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
+                XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
+            }
+        }
         
 		describe("action properties") {
 			var inputs: TestableObserver<String>!
