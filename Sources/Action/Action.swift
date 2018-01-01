@@ -13,6 +13,8 @@ public enum ActionError: Error {
     case underlyingError(Error)
 }
 
+// This is a test comment.
+
 /**
 Represents a value that accepts a workFactory which takes some Observable<Input> as its input
 and produces an Observable<Element> as its output.
