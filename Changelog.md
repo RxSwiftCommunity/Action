@@ -6,6 +6,18 @@ Current master
 
 - Nothing yet!
 
+4.0 (In development)
+--------------------
+
+- Cleanup public API [#120](https://github.com/RxSwiftCommunity/Action/issues/120)
+   - Remove unneccessary properties
+      - `workFactory`
+      - `_enabledIf`
+   - Rename properties to match Swift API design [guidelines](https://swift.org/documentation/api-design-guidelines/#strive-for-fluent-usage)
+      - `enabled` ~> `isEnabled`
+      - `executing` ~> `isExecuting`
+   - Deprecate renamed properties
+
 3.5.0
 -----
 
