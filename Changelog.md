@@ -6,6 +6,11 @@ Current master
 
 - Nothing yet!
 
+3.6.0
+-----
+
+- Update RxSwift to 4.1.0
+
 3.5.0
 -----
 
