@@ -26,7 +26,7 @@ public extension Reactive where Base: UIBarButtonItem {
             // Set up new bindings, if applicable.
             if let action = newValue {
                 action
-                    .enabled
+                    .isEnabled
                     .bind(to: self.isEnabled)
                     .disposed(by: self.base.actionDisposeBag)
 
@@ -47,7 +47,7 @@ public extension Reactive where Base: UIBarButtonItem {
             .disposed(by: self.base.actionDisposeBag)
 
         action
-            .enabled
+            .isEnabled
             .bind(to: self.isEnabled)
             .disposed(by: self.base.actionDisposeBag)
     }
