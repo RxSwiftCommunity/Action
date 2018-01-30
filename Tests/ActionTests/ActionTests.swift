@@ -46,7 +46,8 @@ class ActionTests: QuickSpec {
 		describe("action properties") {
 			var inputs: TestableObserver<String>!
 			var elements: TestableObserver<String>!
-			var errors: TestableObserver<ActionError>!
+			var errors: TestableObserver<String>!
+            var disabledErrors: TestableObserver<String>!
 			var enabled: TestableObserver<Bool>!
 			var executing: TestableObserver<Bool>!
 			var executionObservables: TestableObserver<Observable<String>>!
@@ -54,7 +55,8 @@ class ActionTests: QuickSpec {
 			beforeEach {
 				inputs = scheduler.createObserver(String.self)
 				elements = scheduler.createObserver(String.self)
-				errors = scheduler.createObserver(ActionError.self)
+				errors = scheduler.createObserver(String.self)
+                disabledErrors = scheduler.createObserver(String.self)
 				enabled = scheduler.createObserver(Bool.self)
 				executing = scheduler.createObserver(Bool.self)
 				executionObservables = scheduler.createObserver(Observable<String>.self)
@@ -70,8 +72,14 @@ class ActionTests: QuickSpec {
 					.disposed(by: disposeBag)
 				
 				action.errors
+                    .map { _ in return TestError }
 					.bind(to: errors)
 					.disposed(by: disposeBag)
+                
+                action.disabledErrors
+                    .map { _ in return NotEnabledError }
+                    .bind(to: disabledErrors)
+                    .disposed(by: disposeBag)
 				
 				action.isEnabled
 					.bind(to: enabled)
@@ -268,8 +276,8 @@ class ActionTests: QuickSpec {
 					
 					it("errors observable receives generated errors") {
 						XCTAssertEqual(errors.events, [
-							next(10, .underlyingError(TestError)),
-							next(20, .underlyingError(TestError)),
+							next(10, TestError),
+							next(20, TestError),
 							])
 					}
 					
@@ -340,9 +348,9 @@ class ActionTests: QuickSpec {
 					}
 					
 					it("errors observable receives generated errors") {
-						XCTAssertEqual(errors.events, [
-							next(10, .notEnabled),
-							next(20, .notEnabled),
+                        XCTAssertEqual(disabledErrors.events, [
+							next(10, NotEnabledError),
+                            next(20, NotEnabledError),
 							])
 					}
 					
@@ -474,8 +482,8 @@ class ActionTests: QuickSpec {
 				
 				it("element fails with underlyingError") {
 					XCTAssertEqual(element.events, [
-						error(10, ActionError.underlyingError(TestError)),
-						error(20, ActionError.underlyingError(TestError)),
+						error(10, TestError),
+						error(20, TestError),
 						])
 				}
 				
@@ -492,8 +500,8 @@ class ActionTests: QuickSpec {
 				
 				it("element fails with notEnabled") {
 					XCTAssertEqual(element.events, [
-						error(10, ActionError.notEnabled),
-						error(20, ActionError.notEnabled),
+						error(10, ActionDisabledError),
+						error(20, ActionDisabledError),
 						])
 				}
 				
@@ -547,7 +555,7 @@ class ActionTests: QuickSpec {
 				
 				it("second element fails with notEnabled error") {
 					XCTAssertEqual(secondElement.events, [
-						error(20, ActionError.notEnabled)
+						error(20, ActionDisabledError)
 						])
 				}
 				
@@ -559,19 +567,6 @@ class ActionTests: QuickSpec {
 	}
 }
 
-extension ActionError: Equatable {
-	// Not accurate but convenient for testing.
-	public static func ==(lhs: ActionError, rhs: ActionError) -> Bool {
-		switch (lhs, rhs) {
-		case (.notEnabled, .notEnabled):
-			return true
-		case (.underlyingError, .underlyingError):
-			return true
-		default:
-			return false
-		}
-	}
-}
-
 extension String: Error { }
 let TestError = "Test Error"
+let NotEnabledError = "Not Enabled"
