@@ -8,7 +8,7 @@ public typealias CocoaAction = Action<Void, Void>
 public typealias CompletableAction<Input> = Action<Input, Never>
 
 ///// Possible errors from invoking execute()
-public let ActionDisabledError: NSError = NSError(domain: "com.Action.Error",
+public let ActionDisabledError: Error = NSError(domain: "com.Action.Error",
                                                          code: 0,
                                                          userInfo: [NSLocalizedDescriptionKey: "Action not enabled, workFactory didn't send onCompleted."])
 
