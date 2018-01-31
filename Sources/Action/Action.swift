@@ -7,11 +7,10 @@ public typealias CocoaAction = Action<Void, Void>
 /// Typealias for actions with work factory returns `Completable`.
 public typealias CompletableAction<Input> = Action<Input, Never>
 
-/// Possible errors from invoking execute()
-public enum ActionError: Error {
-    case notEnabled
-    case underlyingError(Error)
-}
+///// Possible errors from invoking execute()
+public let ActionDisabledError: Error = NSError(domain: "com.Action.Error",
+                                                         code: 0,
+                                                         userInfo: [NSLocalizedDescriptionKey: "Action not enabled, workFactory didn't send onCompleted."])
 
 /**
 Represents a value that accepts a workFactory which takes some Observable<Input> as its input
@@ -30,8 +29,12 @@ public final class Action<Input, Element> {
 
     /// Errors aggrevated from invocations of execute().
     /// Delivered on whatever scheduler they were sent from.
-    public let errors: Observable<ActionError>
+    public let errors: Observable<Error>
 
+    /// Errors when Action cannot execute due to disabled.
+    /// Delivered on whatever scheduler they were sent from.
+    public let disabledErrors: Observable<Error>
+    
     /// Whether or not we're currently executing.
     /// Delivered on whatever scheduler they were sent from.
     public let elements: Observable<Element>
@@ -67,18 +70,21 @@ public final class Action<Input, Element> {
         let enabledSubject = BehaviorSubject<Bool>(value: false)
         isEnabled = enabledSubject.asObservable()
 
-        let errorsSubject = PublishSubject<ActionError>()
+        let errorsSubject = PublishSubject<Error>()
         errors = errorsSubject.asObservable()
+        
+        let disabledErrorSubject = PublishSubject<Error>()
+        disabledErrors = disabledErrorSubject.asObservable()
 
         executionObservables = inputs
             .withLatestFrom(isEnabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
-                                             .do(onError: { errorsSubject.onNext(.underlyingError($0)) })
+                                             .do(onError: { errorsSubject.onNext($0) })
                                              .share(replay: 1, scope: .forever))
                 } else {
-                    errorsSubject.onNext(.notEnabled)
+                    disabledErrorSubject.onNext(ActionDisabledError)
                     return Observable.empty()
                 }
             }
@@ -113,14 +119,11 @@ public final class Action<Input, Element> {
         }
 
 		let subject = ReplaySubject<Element>.createUnbounded()
+        
+        let error = Observable.merge(errors, disabledErrors).map { Observable<Element>.error($0) }
 
-		let work = executionObservables
-			.map { $0.catchError { throw ActionError.underlyingError($0) } }
-
-		let error = errors
-			.map { Observable<Element>.error($0) }
-
-		work.amb(error)
+		executionObservables
+            .amb(error)
 			.take(1)
 			.flatMap { $0 }
 			.subscribe(subject)
