@@ -41,6 +41,8 @@
 		3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DD1F5DF86B00C180FE /* BindToTests.swift */; };
 		3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */; };
 		5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
+		7B4BFE5420C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */; };
+		7B4BFE5520C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */; };
 		7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
 		7F0569E91DE28587007E1D0D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
@@ -137,6 +139,7 @@
 		3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonTests.swift; sourceTree = "<group>"; };
 		3DD965DD1F5DF86B00C180FE /* BindToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
 		5ED520231E1EA199007621B9 /* BindToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
+		7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Action.swift"; sourceTree = "<group>"; };
 		7F0569E01DE28587007E1D0D /* Action+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Action+Internal.swift"; sourceTree = "<group>"; };
 		7F0569E11DE28587007E1D0D /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		7F0569E21DE28587007E1D0D /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -299,6 +302,7 @@
 			children = (
 				7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */,
 				7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */,
+				7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */,
 			);
 			path = UIKitExtensions;
 			sourceTree = "<group>";
@@ -679,6 +683,7 @@
 			files = (
 				1FCDDA641EAC31EF006EB95B /* Action.swift in Sources */,
 				1FCDDA651EAC31EF006EB95B /* Action+Internal.swift in Sources */,
+				7B4BFE5420C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */,
 				1FCDDA661EAC31EF006EB95B /* UIAlertAction+Action.swift in Sources */,
 				3D730DEA1F674043008534D3 /* Button+Action.swift in Sources */,
 				1FCDDA671EAC31EF006EB95B /* UIBarButtonItem+Action.swift in Sources */,
@@ -748,6 +753,7 @@
 			files = (
 				7F0569EC1DE28587007E1D0D /* UIAlertAction+Action.swift in Sources */,
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
+				7B4BFE5520C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
 				3D730DE91F673FD9008534D3 /* Button+Action.swift in Sources */,
 				CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */,
