@@ -4,7 +4,7 @@ Changelog
 Current master
 --------------
 
-- Nothing yet!
+- UIRefreshControl support: binding to an action (or CocoaAction) starts the action itself and updates the control's refreshing status 
 
 3.5.0
 -----
