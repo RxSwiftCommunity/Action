@@ -43,6 +43,7 @@
 		5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
 		7B4BFE5420C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */; };
 		7B4BFE5520C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */; };
+		7B4BFE6320C290BF00D72FB0 /* RefreshControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4BFE6220C290BE00D72FB0 /* RefreshControlTests.swift */; };
 		7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
 		7F0569E91DE28587007E1D0D /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0569E11DE28587007E1D0D /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
@@ -140,6 +141,7 @@
 		3DD965DD1F5DF86B00C180FE /* BindToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
 		5ED520231E1EA199007621B9 /* BindToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindToTests.swift; sourceTree = "<group>"; };
 		7B4BFE5320C12B7800D72FB0 /* UIRefreshControl+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Action.swift"; sourceTree = "<group>"; };
+		7B4BFE6220C290BE00D72FB0 /* RefreshControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControlTests.swift; sourceTree = "<group>"; };
 		7F0569E01DE28587007E1D0D /* Action+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Action+Internal.swift"; sourceTree = "<group>"; };
 		7F0569E11DE28587007E1D0D /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		7F0569E21DE28587007E1D0D /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */,
 				7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */,
 				7F0569F31DE288EB007E1D0D /* ButtonTests.swift */,
+				7B4BFE6220C290BE00D72FB0 /* RefreshControlTests.swift */,
 				5ED520231E1EA199007621B9 /* BindToTests.swift */,
 			);
 			path = "iOS-Tests";
@@ -733,6 +736,7 @@
 				5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */,
 				7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */,
 				7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */,
+				7B4BFE6320C290BF00D72FB0 /* RefreshControlTests.swift in Sources */,
 				7F0569F81DE288EB007E1D0D /* ButtonTests.swift in Sources */,
 				CA2861CA1ED6A41700BB327A /* InputSubjectTests.swift in Sources */,
 			);
