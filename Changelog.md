@@ -3,7 +3,9 @@ Changelog
 
 Current master
 --------------
-
+3.6.0
+-----
+- Updated `Semantic Versioning` to reflect what is actaully released both on `Pod`  and `Carthage`
 - UIRefreshControl support: binding to an action (or CocoaAction) starts the action itself and updates the control's refreshing status 
 
 3.5.0
@@ -27,6 +29,7 @@ Version table
 | Swift 3.0     | v3.2.*   	      | v2.2.0 		   |
 | Swift 3.2     | v3.6.*   	      | v3.2.0 		   |
 | **Swift 4**   | **v4.0.0**      | **v3.4.0**     |
+| Swift 4.1    | **v4.2.0**      | **v3.6.0**     |
 
 3.2.0
 -----
