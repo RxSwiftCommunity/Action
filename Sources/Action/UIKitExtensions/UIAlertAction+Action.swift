@@ -5,7 +5,7 @@ import RxCocoa
 
 public extension UIAlertAction {
 
-    public static func Action(_ title: String?, style: UIAlertActionStyle) -> UIAlertAction {
+    public static func Action(_ title: String?, style: UIAlertAction.Style) -> UIAlertAction {
         return UIAlertAction(title: title, style: style, handler: { action in
             action.rx.action?.execute(())
             return
