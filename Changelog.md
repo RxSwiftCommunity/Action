@@ -3,12 +3,17 @@ Changelog
 
 Current master
 --------------
+3.7.0
+-----
+- Added full support for Swift 4.2
+- Added full support for RxSwift 4.3
+
 3.6.0
 -----
 - Updated `Semantic Versioning` to reflect what is actaully released both on `Pod`  and `Carthage`
 - Added full support for Swift 4.1
 - Added full support for RxSwift 4.2.0
-- UIRefreshControl support: binding to an action (or CocoaAction) starts the action itself and updates the control's refreshing status 
+- UIRefreshControl support: binding to an action (or CocoaAction) starts the action itself and updates the control's refreshing status
 
 3.5.0
 -----
@@ -133,7 +138,7 @@ Added `UIAlertAction` support.
 0.2.1
 -----
 
-- Fixes `enabledIf:` parameter to be `Observable<B>`, `where B: BooleanType`. 
+- Fixes `enabledIf:` parameter to be `Observable<B>`, `where B: BooleanType`.
 
 0.2.0
 -----
