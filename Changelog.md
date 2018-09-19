@@ -3,6 +3,8 @@ Changelog
 
 Current master
 --------------
+- Fix build failure on New Build System (default on Xcode 10) [#151](https://github.com/RxSwiftCommunity/Action/pull/151)
+
 3.6.0
 -----
 - Updated `Semantic Versioning` to reflect what is actaully released both on `Pod`  and `Carthage`
