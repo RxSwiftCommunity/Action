@@ -1,8 +1,15 @@
 Changelog
 =========
 
+
 Current master
 --------------
+
+- Nothing yet!
+
+3.8.0
+-----
+
 - Fix build failure on New Build System (default on Xcode 10) [#151](https://github.com/RxSwiftCommunity/Action/pull/151)
 
 3.7.0
