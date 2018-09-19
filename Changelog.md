@@ -3,6 +3,8 @@ Changelog
 
 Current master
 --------------
+- Fix build failure on New Build System (default on Xcode 10) [#151](https://github.com/RxSwiftCommunity/Action/pull/151)
+
 3.7.0
 -----
 - Added full support for Swift 4.2
