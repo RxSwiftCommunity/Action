@@ -7,6 +7,12 @@ Current master
 
 - Nothing yet!
 
+3.9.0
+-----
+- Fix Action Demo build failure
+- Added missing support for Swift 4.2 after 3.7.0
+
+
 3.8.0
 -----
 
