@@ -5,8 +5,18 @@ Changelog
 Current master
 --------------
 
-- Nothing yet!
+4.0
+--------------------
 
+- Cleanup public API [#120](https://github.com/RxSwiftCommunity/Action/issues/120)
+   - Remove unneccessary properties
+      - `workFactory`
+      - `_enabledIf`
+   - Rename properties to match Swift API design [guidelines](https://swift.org/documentation/api-design-guidelines/#strive-for-fluent-usage)
+      - `enabled` ~> `isEnabled`
+      - `executing` ~> `isExecuting`
+   - Deprecate renamed properties
+   
 3.9.0
 -----
 - Fix Action Demo build failure
@@ -51,7 +61,7 @@ Version table
 | Swift 3.0     | v3.2.*   	      | v2.2.0 		   |
 | Swift 3.2     | v3.6.*   	      | v3.2.0 		   |
 | **Swift 4**   | **v4.0.0**      | **v3.4.0**     |
-| Swift 4.1    | **v4.2.0**      | **v3.6.0**     |
+| Swift 4.2    | **v4.3.0**      | **v4.0**     |
 
 3.2.0
 -----
