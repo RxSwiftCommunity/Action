@@ -5,9 +5,6 @@
       location = "container:Action.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/RxSwift/Rx.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Carthage/Checkouts/Quick/Quick.xcodeproj">
    </FileRef>
    <FileRef

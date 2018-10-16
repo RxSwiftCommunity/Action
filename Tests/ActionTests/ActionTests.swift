@@ -223,7 +223,7 @@ class ActionTests: QuickSpec {
 						// "a" -> ["a", "b", "c"]
 						let baseValue = UnicodeScalar(input)!.value
 						let strings = (baseValue..<(baseValue + 3))
-							.flatMap { UnicodeScalar($0) }
+                            .compactMap { UnicodeScalar($0) }
 							.map { String($0) }
 						
 						return Observable.from(strings)
