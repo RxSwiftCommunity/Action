@@ -68,8 +68,9 @@ let action = Action<String, String> { input in
     print(input)
     return .just(input)
 }
-button1.rx.bind(to: action) {_ in return "Hello"}
-button2.rx.bind(to: action) {_ in return "Goodbye"}
+
+button1.rx.bindTo(action) { _ in return "Hello"}
+button2.rx.bindTo(action) { _ in return "Goodbye"}
 ```
 
 `button1` and `button2` are sharing the same `Action`, but they are feeding it with different input (`Hello` and `Goodbye` that will be printed for corresponding tap).
@@ -100,7 +101,7 @@ Then run `pod install` and that'll be 👌
 Add this to `Cartfile`
 
 ```
-github "RxSwiftCommunity/Action" ~> 3.6.0
+github "RxSwiftCommunity/Action" ~> 4.0
 ```
 
 If you are using RxSwift 3.2.0 or below, Use Action `~2.2.0` instead!

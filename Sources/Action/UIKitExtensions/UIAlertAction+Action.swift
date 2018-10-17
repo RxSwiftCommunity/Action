@@ -10,8 +10,8 @@ public typealias ActionStyle = UIAlertActionStyle
 #endif
 
 public extension UIAlertAction {
-
-    static func Action(_ title: String?, style: ActionStyle) -> UIAlertAction {
+    
+    public static func Action(_ title: String?, style: ActionStyle) -> UIAlertAction {
         return UIAlertAction(title: title, style: style, handler: { action in
             action.rx.action?.execute()
             return

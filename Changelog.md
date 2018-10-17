@@ -4,6 +4,18 @@ Changelog
 
 Current master
 --------------
+4.0 (In development)
+--------------------
+
+- Cleanup public API [#120](https://github.com/RxSwiftCommunity/Action/issues/120)
+   - Remove unneccessary properties
+      - `workFactory`
+      - `_enabledIf`
+   - Rename properties to match Swift API design [guidelines](https://swift.org/documentation/api-design-guidelines/#strive-for-fluent-usage)
+      - `enabled` ~> `isEnabled`
+      - `executing` ~> `isExecuting`
+   - Deprecate renamed properties
+=======
 3.11.0
 -------
 - Introduction of  `underlyingError` observable which returns a `Swift.Error`  element type. 
@@ -49,18 +61,6 @@ Current master
 - Added full support for Swift 4.1
 - Added full support for RxSwift 4.2.0
 - UIRefreshControl support: binding to an action (or CocoaAction) starts the action itself and updates the control's refreshing status
-
-4.0 (In development)
---------------------
-
-- Cleanup public API [#120](https://github.com/RxSwiftCommunity/Action/issues/120)
-   - Remove unneccessary properties
-      - `workFactory`
-      - `_enabledIf`
-   - Rename properties to match Swift API design [guidelines](https://swift.org/documentation/api-design-guidelines/#strive-for-fluent-usage)
-      - `enabled` ~> `isEnabled`
-      - `executing` ~> `isExecuting`
-   - Deprecate renamed properties
 
 3.5.0
 -----
