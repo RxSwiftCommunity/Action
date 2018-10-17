@@ -31,7 +31,7 @@ public extension Reactive where Base: Button {
 			// Set up new bindings, if applicable.
 			if let action = newValue {
 				action
-					.enabled
+					.isEnabled
 					.bind(to: self.isEnabled)
 					.disposed(by: self.base.actionDisposeBag)
 				
