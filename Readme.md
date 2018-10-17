@@ -68,6 +68,7 @@ let action = Action<String, String> { input in
     print(input)
     return .just(input)
 }
+
 button1.rx.bindTo(action) { _ in return "Hello"}
 button2.rx.bindTo(action) { _ in return "Goodbye"}
 ```
