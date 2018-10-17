@@ -26,7 +26,7 @@ public extension Reactive where Base: Control {
 		
 		// Bind the enabled state of the control to the enabled state of the action
 		action
-			.isEnabled
+			.enabled
 			.bind(to: self.isEnabled)
 			.disposed(by: self.base.actionDisposeBag)
 	}
