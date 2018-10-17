@@ -24,6 +24,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     var disposableBag = DisposeBag()
     let sharedAction = Action<SharedInput, String> { input in
         switch input {
@@ -104,5 +106,18 @@ class ViewController: UIViewController {
             print(string  + " pressed")
         })
         .disposed(by: self.disposableBag)
+        
+        
+        var refreshControl = UIRefreshControl()
+        self.scrollView.addSubview(refreshControl)
+        refreshControl.rx.action = CocoaAction {
+            print("Reloading was triggered!")
+            return Observable
+                .empty()
+                .delaySubscription(2, scheduler: MainScheduler.instance)
+                .do(onCompleted:{
+                    print ("Reloading completed!")
+            })
+        }
     }
 }

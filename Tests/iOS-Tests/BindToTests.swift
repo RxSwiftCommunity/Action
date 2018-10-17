@@ -17,6 +17,17 @@ extension UIButton {
 	}
 }
 
+extension UIRefreshControl {
+    // Normally I'd use subject.sendActionsForControlEvents(.valueChanged) but it's not working
+    func test_executeRefresh() {
+        for case let target as NSObject in allTargets {
+            for action in actions(forTarget: target, forControlEvent: .valueChanged) ?? [] {
+                target.perform(Selector(action), with: self)
+            }
+        }
+    }
+}
+
 class BindToTests: QuickSpec {
 	override func spec() {
 		it("actives a UIButton") {
@@ -64,6 +75,19 @@ class BindToTests: QuickSpec {
 			
 			expect(called).toEventually( beTrue() )
 		}
+        it("actives a UIRefreshControl") {
+            var called = false
+            let item = UIRefreshControl()
+            let action = Action<String, String>(workFactory: { _ in
+                called = true
+                return .empty()
+            })
+            item.rx.bind(to: action, input: "Hi there!")
+            
+            item.test_executeRefresh()
+            
+            expect(called).toEventually( beTrue() )
+        }
 		
 		describe("unbinding") {
 			it("unbinds actions for UIButton") {
@@ -81,8 +105,24 @@ class BindToTests: QuickSpec {
 				
 				expect(button.allTargets).toEventually( beEmpty() )
 			}
+            
+            it("unbinds actions for UIRefreshControl") {
+                let refreshControl = UIRefreshControl()
+                let action = Action<String, String>(workFactory: { _ in
+                    assertionFailure()
+                    return .empty()
+                })
+                refreshControl.rx.bind(to: action, input: "Hi there!")
+                // Setting the action has an asynchronous effect of adding a target.
+                expect(refreshControl.allTargets).toEventuallyNot( beEmpty() )
+                
+                refreshControl.rx.unbindAction()
+                refreshControl.test_executeRefresh()
+                
+                expect(refreshControl.allTargets).toEventually( beEmpty() )
+            }
 			
-			it("actives a UIBarButtonItem") {
+			it("unbinds actions for UIBarButtonItem") {
 				var called = false
 				let item = UIBarButtonItem()
 				let action = Action<String, String>(workFactory: { _ in
