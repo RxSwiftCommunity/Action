@@ -41,14 +41,14 @@ public extension Reactive where Base: UIAlertAction {
             // Set up new bindings, if applicable.
             if let action = newValue {
                 action
-                    .isEnabled
-                    .bind(to: self.isEnabled)
+                    .enabled
+                    .bind(to: self.enabled)
                     .disposed(by: self.base.actionDisposeBag)
             }
         }
     }
 
-    public var isEnabled: AnyObserver<Bool> {
+    public var enabled: AnyObserver<Bool> {
         return AnyObserver { [weak base] event in
             MainScheduler.ensureExecutingOnScheduler()
 

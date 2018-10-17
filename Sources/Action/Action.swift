@@ -22,6 +22,9 @@ When this excuted via execute() or inputs subject, it passes its parameter to th
 public final class Action<Input, Element> {
     public typealias WorkFactory = (Input) -> Observable<Element>
 
+    public let _enabledIf: Observable<Bool>
+    public let workFactory: WorkFactory
+
     /// Inputs that triggers execution of action.
     /// This subject also includes inputs as aguments of execute().
     /// All inputs are always appear in this subject even if the action is not enabled.
@@ -37,7 +40,7 @@ public final class Action<Input, Element> {
     public let elements: Observable<Element>
 
     /// Whether or not we're currently executing. 
-    public let isExecuting: Observable<Bool>
+    public let executing: Observable<Bool>
 
     /// Observables returned by the workFactory.
     /// Useful for sending results back from work being completed
@@ -47,7 +50,7 @@ public final class Action<Input, Element> {
     /// Whether or not we're enabled. Note that this is a *computed* sequence
     /// property based on enabledIf initializer and if we're currently executing.
     /// Always observed on MainScheduler.
-    public let isEnabled: Observable<Bool>
+    public let enabled: Observable<Bool>
 
     private let disposeBag = DisposeBag()
 
@@ -64,14 +67,17 @@ public final class Action<Input, Element> {
         enabledIf: Observable<Bool> = Observable.just(true),
         workFactory: @escaping WorkFactory) {
 
+        self._enabledIf = enabledIf
+        self.workFactory = workFactory
+
         let enabledSubject = BehaviorSubject<Bool>(value: false)
-        isEnabled = enabledSubject.asObservable()
+        enabled = enabledSubject.asObservable()
 
         let errorsSubject = PublishSubject<ActionError>()
         errors = errorsSubject.asObservable()
 
         executionObservables = inputs
-            .withLatestFrom(isEnabled) { input, enabled in (input, enabled) }
+            .withLatestFrom(enabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
@@ -87,7 +93,7 @@ public final class Action<Input, Element> {
         elements = executionObservables
             .flatMap { $0.catchError { _ in Observable.empty() } }
 
-        isExecuting = executionObservables.flatMap {
+        executing = executionObservables.flatMap {
                 execution -> Observable<Bool> in
                 let execution = execution
                     .flatMap { _ in Observable<Bool>.empty() }
@@ -101,7 +107,7 @@ public final class Action<Input, Element> {
             .share(replay: 1, scope: .forever)
 
         Observable
-            .combineLatest(isExecuting, enabledIf) { !$0 && $1 }
+            .combineLatest(executing, enabledIf) { !$0 && $1 }
             .bind(to: enabledSubject)
             .disposed(by: disposeBag)
     }
@@ -127,18 +133,5 @@ public final class Action<Input, Element> {
 			.disposed(by: disposeBag)
 
 		return subject.asObservable()
-    }
-}
-
-// MARK: Deprecated
-extension Action {
-    @available(*, deprecated, renamed: "isExecuting")
-    public var executing: Observable<Bool> {
-        return isExecuting
-    }
-
-    @available(*, deprecated, renamed: "isEnabled")
-    public var enabled: Observable<Bool> {
-        return isEnabled
     }
 }

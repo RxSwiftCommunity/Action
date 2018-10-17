@@ -39,12 +39,12 @@ public extension Reactive where Base: UIRefreshControl {
             .disposed(by: self.base.actionDisposeBag)
         
         action
-            .isExecuting
+            .executing
             .bind(to: self.isRefreshing)
             .disposed(by: self.base.actionDisposeBag)
         
         action
-            .isEnabled
+            .enabled
             .bind(to: self.isEnabled)
             .disposed(by: self.base.actionDisposeBag)
     }
