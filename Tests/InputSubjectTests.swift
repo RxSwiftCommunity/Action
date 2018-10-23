@@ -8,7 +8,8 @@ class InputSubjectTests: QuickSpec {
     override func spec() {
         var scheduler: TestScheduler!
         var disposeBag: DisposeBag!
-
+        let testError: NSError = NSError(domain: "TestError", code: -101)
+        
         beforeEach {
             scheduler = TestScheduler(initialClock: 0)
             disposeBag = DisposeBag()
@@ -47,7 +48,7 @@ class InputSubjectTests: QuickSpec {
                 scheduler.scheduleAt(10) { subject.onNext(1) }
                 scheduler.scheduleAt(20) { subject.onNext(2) }
                 scheduler.scheduleAt(30) { subject.onNext(3) }
-                scheduler.start()
+                    scheduler.start()
 
                 XCTAssertEqual(observer.events, [
                     next(10, 1),
@@ -55,15 +56,16 @@ class InputSubjectTests: QuickSpec {
                     next(30, 3)
                 ])
             }
-
             it("ignore .error events") {
                 let subject = InputSubject<Int>()
                 let observer = scheduler.createObserver(Int.self)
+                
                 subject.asObservable()
                     .bind(to: observer)
                     .disposed(by: disposeBag)
+                
                 scheduler.scheduleAt(10) { subject.onNext(1) }
-                scheduler.scheduleAt(20) { subject.onError(TestError) }
+                scheduler.scheduleAt(20) { subject.onError(testError) }
                 scheduler.scheduleAt(30) { subject.onNext(3) }
                 scheduler.start()
 

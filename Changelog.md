@@ -2,11 +2,25 @@ Changelog
 =========
 
 
-Current master
+Master: Version table
+-------------
+
+| Swift version | RxSwift version | Action version |
+| ------------- | --------------- | -------------- |
+| Swift 3.0     | v3.2.*             | v2.2.0            |
+| Swift 3.2     | v3.6.*             | v3.2.0            |
+| **Swift 4**   | **v4.0.0**      | **v3.4.0**     |
+| Swift 4.1    | **v4.2.0**      | **v3.6.0**     |
+| Swift 4.2    | **v4.3.1**      |   **v4.0**     |
 --------------
 
-4.0 
+4.0
 --------------------
+
+- Flatten error API [#158](https://github.com/RxSwiftCommunity/Action/pull/158)
+   - Removed  `ActionError`
+   - Added `errors: Observable<Error>` as underlying errors observable
+   - Added  `disabledErrors: Observable<AationDisabledError>` for better debugging when workFactory not send `onCompleted()`
 
 - Cleanup public API [#120](https://github.com/RxSwiftCommunity/Action/issues/120)
    - Remove unneccessary properties
@@ -16,7 +30,7 @@ Current master
       - `enabled` ~> `isEnabled`
       - `executing` ~> `isExecuting`
    - Deprecate renamed properties
-=======
+
 3.9.0
 -----
 - Fix Action Demo build failure
@@ -51,19 +65,6 @@ Current master
 - Added full support for Swift 4.0
 - Added full support for RxSwift 4.0.0
 - Preserved old behavior for `shareReplay(1)` api changes from `RxSwift`. [#110](https://github.com/RxSwiftCommunity/Action/pull/110)
-
-
-Version table
--------------
-
-| Swift version | RxSwift version | Action version |
-| ------------- | --------------- | -------------- |
-| Swift 3.0     | v3.2.*   	      | v2.2.0 		   |
-| Swift 3.2     | v3.6.*   	      | v3.2.0 		   |
-| **Swift 4**   | **v4.0.0**      | **v3.4.0**     |
-| Swift 4.1    | **v4.2.0**      | **v3.6.0**     |
-| Swift 4.2    | **v4.3.1**      |   **v4.0**     |
-
 
 3.2.0
 -----

@@ -9,7 +9,10 @@ class ActionTests: QuickSpec {
 	override func spec() {
 		var scheduler: TestScheduler!
 		var disposeBag: DisposeBag!
-		
+        
+        let testError: NSError = NSError(domain: "TestError", code: -101)
+		let testDisabledError = ActionDisabledError()
+        
 		beforeEach {
 			scheduler = TestScheduler(initialClock: 0)
 			disposeBag = DisposeBag()
@@ -46,7 +49,8 @@ class ActionTests: QuickSpec {
 		describe("action properties") {
 			var inputs: TestableObserver<String>!
 			var elements: TestableObserver<String>!
-			var errors: TestableObserver<ActionError>!
+			var errors: TestableObserver<Error>!
+            var disabledErrors: TestableObserver<ActionDisabledError>!
 			var enabled: TestableObserver<Bool>!
 			var executing: TestableObserver<Bool>!
 			var executionObservables: TestableObserver<Observable<String>>!
@@ -54,7 +58,8 @@ class ActionTests: QuickSpec {
 			beforeEach {
 				inputs = scheduler.createObserver(String.self)
 				elements = scheduler.createObserver(String.self)
-				errors = scheduler.createObserver(ActionError.self)
+				errors = scheduler.createObserver(Error.self)
+                disabledErrors = scheduler.createObserver(ActionDisabledError.self)
 				enabled = scheduler.createObserver(Bool.self)
 				executing = scheduler.createObserver(Bool.self)
 				executionObservables = scheduler.createObserver(Observable<String>.self)
@@ -72,7 +77,11 @@ class ActionTests: QuickSpec {
 				action.errors
 					.bind(to: errors)
 					.disposed(by: disposeBag)
-				
+                
+                action.disabledErrors
+                    .bind(to: disabledErrors)
+                    .disposed(by: disposeBag)
+
 				action.isEnabled
 					.bind(to: enabled)
 					.disposed(by: disposeBag)
@@ -111,8 +120,12 @@ class ActionTests: QuickSpec {
 					}
 					
 					it("errors observable receives nothing") {
-						XCTAssertEqual(errors.events, [])
+						XCTAssertTrue(errors.events.isEmpty)
 					}
+                    
+                    it("disabledErrors observable receives nothing") {
+                        XCTAssertTrue(disabledErrors.events.isEmpty)
+                    }
 					
 					it("disabled until element returns") {
 						XCTAssertEqual(enabled.events, [
@@ -187,10 +200,14 @@ class ActionTests: QuickSpec {
 							])
 					}
 					
-					it("errors observable receives nothing") {
-						XCTAssertEqual(errors.events, [])
-					}
-					
+                    it("errors observable receives nothing") {
+                        XCTAssertTrue(errors.events.isEmpty)
+                    }
+                    
+                    it("disabledErrors observable receives nothing") {
+                        XCTAssertTrue(disabledErrors.events.isEmpty)
+                    }
+                    
 					it("disabled until element returns") {
 						XCTAssertEqual(enabled.events, [
 							next(0, true),
@@ -267,11 +284,12 @@ class ActionTests: QuickSpec {
 					}
 					
 					it("errors observable receives generated errors") {
-						XCTAssertEqual(errors.events, [
-							next(10, .underlyingError(TestError)),
-							next(20, .underlyingError(TestError)),
-							])
+                        XCTAssertEqual(errors.events.map { $0.value.element! as NSError }, [testError, testError])
 					}
+                    
+                    it("disabledErrors observable receives nothing") {
+                        XCTAssertTrue(disabledErrors.events.isEmpty)
+                    }
 					
 					it("disabled until error returns") {
 						XCTAssertEqual(enabled.events, [
@@ -301,7 +319,7 @@ class ActionTests: QuickSpec {
 				var action: Action<String, String>!
 				
 				beforeEach {
-					action = Action { _ in Observable.error(TestError) }
+					action = Action { _ in Observable.error(testError) }
 					bindAction(action: action)
 				}
 				
@@ -339,11 +357,12 @@ class ActionTests: QuickSpec {
 						XCTAssertEqual(elements.events, [])
 					}
 					
-					it("errors observable receives generated errors") {
-						XCTAssertEqual(errors.events, [
-							next(10, .notEnabled),
-							next(20, .notEnabled),
-							])
+                    it("errors observable receives nothing") {
+                        XCTAssertTrue(errors.events.isEmpty)
+                    }
+                    
+					it("disabledErrors observable receives notEnable errors") {
+                        XCTAssertEqual(disabledErrors.events.map { $0.value.element! as ActionDisabledError }, [testDisabledError, testDisabledError])
 					}
 					
 					it("disabled") {
@@ -468,17 +487,17 @@ class ActionTests: QuickSpec {
 			
 			context("error action") {
 				beforeEach {
-					action = Action { _ in Observable.error(TestError) }
+					action = Action { _ in Observable.error(testError) }
 					bindAndExecuteTwice(action: action)
 				}
 				
-				it("element fails with underlyingError") {
-					XCTAssertEqual(element.events, [
-						error(10, ActionError.underlyingError(TestError)),
-						error(20, ActionError.underlyingError(TestError)),
-						])
-				}
-				
+                it("element fails with generated error") {
+                    XCTAssertEqual(element.events, [
+                        error(10, testError),
+                        error(20, testError),
+                        ])
+                }
+                
 				it("executes twice") {
 					expect(executionObservables.events.count) == 2
 				}
@@ -492,8 +511,8 @@ class ActionTests: QuickSpec {
 				
 				it("element fails with notEnabled") {
 					XCTAssertEqual(element.events, [
-						error(10, ActionError.notEnabled),
-						error(20, ActionError.notEnabled),
+						error(10, testDisabledError),
+						error(20, testDisabledError),
 						])
 				}
 				
@@ -547,7 +566,7 @@ class ActionTests: QuickSpec {
 				
 				it("second element fails with notEnabled error") {
 					XCTAssertEqual(secondElement.events, [
-						error(20, ActionError.notEnabled)
+						error(20, testDisabledError)
 						])
 				}
 				
@@ -559,19 +578,8 @@ class ActionTests: QuickSpec {
 	}
 }
 
-extension ActionError: Equatable {
-	// Not accurate but convenient for testing.
-	public static func ==(lhs: ActionError, rhs: ActionError) -> Bool {
-		switch (lhs, rhs) {
-		case (.notEnabled, .notEnabled):
-			return true
-		case (.underlyingError, .underlyingError):
-			return true
-		default:
-			return false
-		}
-	}
+extension ActionDisabledError: Equatable {
+    public static func ==(lhs: ActionDisabledError, rhs: ActionDisabledError) -> Bool {
+        return lhs.errorDescription == rhs.errorDescription
+    }
 }
-
-extension String: Error { }
-let TestError = "Test Error"
