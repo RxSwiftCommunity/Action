@@ -33,11 +33,9 @@ public final class Action<Input, Element> {
     public let inputs = InputSubject<Input>()
 
     /// Errors aggrevated from invocations of execute().
-    /// Delivered on whatever scheduler they were sent from.
     public let errors: Observable<Error>
     
     /// Errors when Action cannot execute due to disabled.
-    /// Delivered on whatever scheduler they were sent from.
     public let disabledErrors: Observable<ActionDisabledError>
 
     /// Whether or not we're currently executing.
