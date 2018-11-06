@@ -4,8 +4,7 @@ Changelog
 
 Current master
 --------------
-
-- Nothing yet!
+- Less restrictive RxSwift/RxCocoa dependencies in podspec, now supporting RxSwift/RxCocoa 4.x starting with version 4.3
 
 3.9.0
 -----
