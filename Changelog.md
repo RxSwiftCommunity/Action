@@ -5,7 +5,7 @@ Changelog
 Current master
 --------------
 
-- Nothing yet!
+- Adding syntax sugar `execute()` method on `Action` when `Input` is `Void`. [#171](https://github.com/RxSwiftCommunity/Action/pull/171)
 
 3.9.1
 -----
