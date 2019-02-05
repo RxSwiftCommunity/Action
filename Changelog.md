@@ -5,7 +5,12 @@ Changelog
 Current master
 --------------
 
+- Nothing yet!
+
+# 3.10.0
+
 - Adding syntax sugar `execute()` method on `Action` when `Input` is `Void`. [#171](https://github.com/RxSwiftCommunity/Action/pull/171)
+- Raises minimum watchOS deployment target to 3.0, to match RxSwift.
 
 3.9.1
 -----
