@@ -1,17 +1,93 @@
-machine:
-  xcode:
-    version: 9.0
-  environment:
-    LANG: en_US.UTF-8
-dependencies:
-  override:
-    - bin/bootstrap-if-needed
-  cache_directories:
-    - "Carthage"
-test:
-  override:
-  - set -o pipefail
-  - xcodebuild test -workspace Action.xcworkspace -scheme Action -sdk iphonesimulator -destination "name=iPhone X" | xcpretty -c --test
-  - xcodebuild build  -workspace Action.xcworkspace -scheme Action-watchOS -sdk watchsimulator -destination "name=Apple Watch - 38mm" | xcpretty -c
-  - xcodebuild build -workspace Action.xcworkspace -scheme Action-macOS -sdk macosx -destination "arch=x86_64" | xcpretty -c
-  - xcodebuild build -workspace Action.xcworkspace -scheme Action-tvOS -sdk appletvsimulator -destination "name=Apple TV 1080p" | xcpretty -c
+---
+version: 2
+jobs:
+  "Action Tests":
+    working_directory: ~/RxSwiftCommunity/Action
+    parallelism: 1
+    shell: /bin/bash --login
+    environment:
+      XCODE_TEST_REPORTS: /tmp/xcode-test-results
+      LANG: en_US.UTF-8
+    macos:
+      xcode: '10.1'
+    steps:
+      - checkout
+      - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
+      - restore_cache:
+          keys:
+            - v1-dep-{{ .Branch }}-
+            - v1-dep-master-
+            - v1-dep-
+      - run:
+          name: Bootstrap Carthage
+          command: carthage update --no-use-binaries
+      - save_cache:
+          key: v1-dep-{{ .Branch }}-{{ epoch }}
+          paths:
+            - Carthage
+      - run:
+          name: Run Tests (Swift 4.0)
+          command: >
+                   set -o pipefail && xcodebuild test SWIFT_VERSION=4.0
+                   -workspace Action.xcworkspace
+                   -scheme 'Action' -sdk iphonesimulator
+                   -destination "name=iPhone X" | xcpretty -c --test
+      - run:
+          name: Run Tests (Swift 4.2)
+          command: >
+                   set -o pipefail && xcodebuild test SWIFT_VERSION=4.2
+                   -workspace Action.xcworkspace
+                   -scheme 'Action' -sdk iphonesimulator
+                   -destination "name=iPhone X" | xcpretty -c --test
+      - run:
+          name: Build  watchOS (Swift 4.0)
+          command: >
+                   set -o pipefail && xcodebuild build SWIFT_VERSION=4.0
+                   -workspace Action.xcworkspace
+                   -scheme Action-watchOS -sdk watchsimulator
+                   -destination "name=Apple Watch Series 2 - 42mm" | xcpretty -c
+      - run:
+          name: Build  watchOS (Swift 4.2)
+          command: >
+                   set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
+                   -workspace Action.xcworkspace
+                   -scheme Action-watchOS -sdk watchsimulator
+                   -destination "name=Apple Watch Series 2 - 42mm" | xcpretty -c
+      - run:
+          name: Build  macOS (Swift 4.0)
+          command: >
+                   set -o pipefail && xcodebuild build SWIFT_VERSION=4.0
+                   -workspace Action.xcworkspace
+                   -scheme Action-macOS -sdk macosx
+                   -destination "arch=x86_64" | xcpretty -c
+      - run:
+          name: Build  macOS (Swift 4.2)
+          command: >
+                   set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
+                   -workspace Action.xcworkspace
+                   -scheme Action-macOS -sdk macosx
+                   -destination "arch=x86_64" | xcpretty -c
+      - run:
+          name: Build  tvOS (Swift 4.0)
+          command: >
+                   set -o pipefail && xcodebuild build SWIFT_VERSION=4.0
+                   -workspace Action.xcworkspace
+                   -scheme Action-tvOS -sdk appletvsimulator
+                   -destination "name=Apple TV 4K (at 1080p)" | xcpretty -c
+      - run:
+          name: Build  tvOS (Swift 4.2)
+          command: >
+                   set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
+                   -workspace Action.xcworkspace
+                   -scheme Action-tvOS -sdk appletvsimulator
+                   -destination "name=Apple TV 4K (at 1080p)" | xcpretty -c
+      - store_artifacts:
+          path: /tmp/xcode-test-results
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "Action Tests":
+          filters:
+            tags:
+              ignore: /[0-9]+(\.[0-9]+)*/
