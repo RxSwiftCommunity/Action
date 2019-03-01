@@ -68,6 +68,7 @@
 		C41CE73D22283CF90006E722 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41CE72522283BEE0006E722 /* RxAtomic.framework */; };
 		C41CE74022283D220006E722 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41CE73E22283D220006E722 /* RxAtomic.framework */; };
 		C41CE74122283D220006E722 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41CE73F22283D220006E722 /* RxSwift.framework */; };
+		C4DE00052229758700FB50AB /* Action+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE00042229758700FB50AB /* Action+Extensions.swift */; };
 		CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C71ED6979400BB327A /* InputSubject.swift */; };
 		CA2861CA1ED6A41700BB327A /* InputSubjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C91ED6A41700BB327A /* InputSubjectTests.swift */; };
 		CA2861CB1ED6B08300BB327A /* InputSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2861C71ED6979400BB327A /* InputSubject.swift */; };
@@ -155,6 +156,7 @@
 		C41CE73922283CD00006E722 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
 		C41CE73E22283D220006E722 /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/watchOS/RxAtomic.framework; sourceTree = "<group>"; };
 		C41CE73F22283D220006E722 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
+		C4DE00042229758700FB50AB /* Action+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+Extensions.swift"; sourceTree = "<group>"; };
 		C4E0263F20D119EE00C8164C /* Action.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Action.podspec; sourceTree = "<group>"; };
 		C4E0264020D11A0F00C8164C /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		C4E0264120D11A0F00C8164C /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				7F0569E21DE28587007E1D0D /* Action.swift */,
+				C4DE00042229758700FB50AB /* Action+Extensions.swift */,
 				7F0569E01DE28587007E1D0D /* Action+Internal.swift */,
 				CA2861C71ED6979400BB327A /* InputSubject.swift */,
 				3D730DE11F673BCB008534D3 /* CommonUI */,
@@ -779,6 +782,7 @@
 				7F0569E81DE28587007E1D0D /* Action+Internal.swift in Sources */,
 				7B4BFE5520C12B7800D72FB0 /* UIRefreshControl+Action.swift in Sources */,
 				7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */,
+				C4DE00052229758700FB50AB /* Action+Extensions.swift in Sources */,
 				3D730DE91F673FD9008534D3 /* Button+Action.swift in Sources */,
 				CA2861C81ED6979400BB327A /* InputSubject.swift in Sources */,
 				3D730DE31F673BE4008534D3 /* Control+Action.swift in Sources */,
