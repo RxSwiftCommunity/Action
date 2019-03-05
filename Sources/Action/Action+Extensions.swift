@@ -12,12 +12,12 @@ import RxSwift
 extension Action {
     /// Filters out `notEnabled` errors and returns
     /// only underlying error from `ActionError`
-    var underlyingError: Observable<Error?> {
-        return errors.map { actionError in
+    var underlyingError: Observable<Error> {
+        return errors.flatMap { actionError -> Observable<Error> in
             guard case .underlyingError(let error) = actionError else {
-                return nil
+                return Observable.empty()
             }
-            return error
+            return Observable.just(error)
         }
     }
 }
