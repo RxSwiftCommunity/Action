@@ -135,10 +135,3 @@ public final class Action<Input, Element> {
 		return subject.asObservable()
     }
 }
-
-extension Action where Input == Void {
-    @discardableResult
-    public func execute() -> Observable<Element> {
-        return execute(())
-    }
-}

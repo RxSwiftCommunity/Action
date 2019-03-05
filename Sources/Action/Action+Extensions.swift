@@ -21,3 +21,11 @@ extension Action {
         }
     }
 }
+
+extension Action where Input == Void {
+    /// use to trigger an action.
+    @discardableResult
+    public func execute() -> Observable<Element> {
+        return execute(())
+    }
+}
