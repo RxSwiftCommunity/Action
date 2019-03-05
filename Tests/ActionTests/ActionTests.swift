@@ -3,7 +3,7 @@ import Nimble
 import RxSwift
 import RxBlocking
 import RxTest
-import Action
+@testable import Action
 
 class ActionTests: QuickSpec {
 	override func spec() {
@@ -50,6 +50,7 @@ class ActionTests: QuickSpec {
 			var enabled: TestableObserver<Bool>!
 			var executing: TestableObserver<Bool>!
 			var executionObservables: TestableObserver<Observable<String>>!
+            var underlyingError: TestableObserver<Error>!
 			
 			beforeEach {
 				inputs = scheduler.createObserver(String.self)
@@ -58,6 +59,7 @@ class ActionTests: QuickSpec {
 				enabled = scheduler.createObserver(Bool.self)
 				executing = scheduler.createObserver(Bool.self)
 				executionObservables = scheduler.createObserver(Observable<String>.self)
+                underlyingError = scheduler.createObserver(Error.self)
 			}
 			
 			func bindAction(action: Action<String, String>) {
@@ -84,6 +86,10 @@ class ActionTests: QuickSpec {
 				action.executionObservables
 					.bind(to: executionObservables)
 					.disposed(by: disposeBag)
+                
+                action.underlyingError
+                    .bind(to: underlyingError)
+                    .disposed(by: disposeBag)
 				
 				// Dummy subscription for multiple subcription tests
 				action.inputs.subscribe().disposed(by: disposeBag)
@@ -92,6 +98,7 @@ class ActionTests: QuickSpec {
 				action.enabled.subscribe().disposed(by: disposeBag)
 				action.executing.subscribe().disposed(by: disposeBag)
 				action.executionObservables.subscribe().disposed(by: disposeBag)
+                action.underlyingError.subscribe().disposed(by: disposeBag)
 			}
 			
 			describe("single element action") {
@@ -267,11 +274,22 @@ class ActionTests: QuickSpec {
 					}
 					
 					it("errors observable receives generated errors") {
-						XCTAssertEqual(errors.events, [
+                        XCTAssertEqual(errors.events, [
 							next(10, .underlyingError(TestError)),
 							next(20, .underlyingError(TestError)),
 							])
 					}
+                    
+                    it("underlyingError observable receives 2 generated errors") {
+                        XCTAssertEqual(underlyingError.events.count, 2)
+                    }
+                    
+                    it("underlyingError observable receives generated errors") {
+                        let first = underlyingError.events[0].value.element as! String
+                        let second = underlyingError.events[1].value.element as! String
+                        XCTAssertEqual(first, TestError)
+                        XCTAssertEqual(second, TestError)
+                    }
 					
 					it("disabled until error returns") {
 						XCTAssertEqual(enabled.events, [
@@ -345,6 +363,10 @@ class ActionTests: QuickSpec {
 							next(20, .notEnabled),
 							])
 					}
+                    
+                    it("underlyingError observable receives zero generated errors") {
+                        XCTAssertEqual(underlyingError.events.count, 0)
+                    }
 					
 					it("disabled") {
 						XCTAssertEqual(enabled.events, [
