@@ -39,7 +39,7 @@ class BindToTests: QuickSpec {
 			})
 			button.rx.bind(to: action, input: "Hi there!")
 			// Setting the action has an asynchronous effect of adding a target.
-			expect(button.allTargets).toEventuallyNot( beEmpty() )
+			expect(button.allTargets.count) == 1
 			
 			button.test_executeTap()
 			
@@ -55,7 +55,7 @@ class BindToTests: QuickSpec {
 			})
 			button.rx.bind(to: action, controlEvent: button.rx.tap, inputTransform: { input in "\(input)" })
 			// Setting the action has an asynchronous effect of adding a target.
-			expect(button.allTargets).toEventuallyNot( beEmpty() )
+			expect(button.allTargets.count) == 1
 			
 			button.test_executeTap()
 			
@@ -98,12 +98,12 @@ class BindToTests: QuickSpec {
 				})
 				button.rx.bind(to: action, input: "Hi there!")
 				// Setting the action has an asynchronous effect of adding a target.
-				expect(button.allTargets).toEventuallyNot( beEmpty() )
+				expect(button.allTargets.count) == 1
 				
 				button.rx.unbindAction()
 				button.test_executeTap()
 				
-				expect(button.allTargets).toEventually( beEmpty() )
+				expect(button.allTargets.count) == 0
 			}
             
             it("unbinds actions for UIRefreshControl") {
@@ -114,12 +114,12 @@ class BindToTests: QuickSpec {
                 })
                 refreshControl.rx.bind(to: action, input: "Hi there!")
                 // Setting the action has an asynchronous effect of adding a target.
-                expect(refreshControl.allTargets).toEventuallyNot( beEmpty() )
+                expect(refreshControl.allTargets.count) == 1
                 
                 refreshControl.rx.unbindAction()
                 refreshControl.test_executeRefresh()
                 
-                expect(refreshControl.allTargets).toEventually( beEmpty() )
+                expect(refreshControl.allTargets.count) == 0
             }
 			
 			it("unbinds actions for UIBarButtonItem") {

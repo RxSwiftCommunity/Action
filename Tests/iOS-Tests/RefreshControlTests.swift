@@ -46,7 +46,7 @@ class RefreshControlTests: QuickSpec {
             var subject = UIRefreshControl()
 
             subject.rx.action = emptyAction(.just(false))
-            expect(subject.allTargets).toEventuallyNot( beEmpty() )
+            expect(subject.allTargets.count) == 1
             
             expect(subject.isEnabled) == false
         }
@@ -76,7 +76,7 @@ class RefreshControlTests: QuickSpec {
             subject.rx.action = action
 
             // Setting the action has an asynchronous effect of adding a target.
-            expect(subject.allTargets).toEventuallyNot( beEmpty() )
+            expect(subject.allTargets.count) == 1
             
             subject.test_executeRefresh()
             
