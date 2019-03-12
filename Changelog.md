@@ -4,6 +4,10 @@ Changelog
 
 Current master
 --------------
+3.11.0
+-------
+- Introduction of  `underlyingError` streams 🔥 which returns a `Swift.Error` type. 
+- Updated specs that were breaking in `Circle CI` pipeline 
 
 3.10.2
 -------
