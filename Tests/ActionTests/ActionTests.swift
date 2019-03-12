@@ -44,23 +44,23 @@ class ActionTests: QuickSpec {
         }
         
 		describe("action properties") {
-			var inputs: TestableObserver<String>!
-			var elements: TestableObserver<String>!
-			var errors: TestableObserver<ActionError>!
-			var enabled: TestableObserver<Bool>!
-			var executing: TestableObserver<Bool>!
-			var executionObservables: TestableObserver<Observable<String>>!
+            var inputs: TestableObserver<String>!
+            var elements: TestableObserver<String>!
+            var errors: TestableObserver<ActionError>!
+            var enabled: TestableObserver<Bool>!
+            var executing: TestableObserver<Bool>!
+            var executionObservables: TestableObserver<Observable<String>>!
             var underlyingError: TestableObserver<Error>!
-			
-			beforeEach {
-				inputs = scheduler.createObserver(String.self)
-				elements = scheduler.createObserver(String.self)
-				errors = scheduler.createObserver(ActionError.self)
-				enabled = scheduler.createObserver(Bool.self)
-				executing = scheduler.createObserver(Bool.self)
-				executionObservables = scheduler.createObserver(Observable<String>.self)
+            
+            beforeEach {
+                inputs = scheduler.createObserver(String.self)
+                elements = scheduler.createObserver(String.self)
+                errors = scheduler.createObserver(ActionError.self)
+                enabled = scheduler.createObserver(Bool.self)
+                executing = scheduler.createObserver(Bool.self)
+                executionObservables = scheduler.createObserver(Observable<String>.self)
                 underlyingError = scheduler.createObserver(Error.self)
-			}
+            }
 			
 			func bindAction(action: Action<String, String>) {
 				action.inputs
