@@ -91,13 +91,13 @@ class ActionTests: QuickSpec {
                     .bind(to: underlyingError)
                     .disposed(by: disposeBag)
 				
-				// Dummy subscription for multiple subcription tests
-				action.inputs.subscribe().disposed(by: disposeBag)
-				action.elements.subscribe().disposed(by: disposeBag)
-				action.errors.subscribe().disposed(by: disposeBag)
-				action.enabled.subscribe().disposed(by: disposeBag)
-				action.executing.subscribe().disposed(by: disposeBag)
-				action.executionObservables.subscribe().disposed(by: disposeBag)
+                // Dummy subscription for multiple subcription tests
+                action.inputs.subscribe().disposed(by: disposeBag)
+                action.elements.subscribe().disposed(by: disposeBag)
+                action.errors.subscribe().disposed(by: disposeBag)
+                action.enabled.subscribe().disposed(by: disposeBag)
+                action.executing.subscribe().disposed(by: disposeBag)
+                action.executionObservables.subscribe().disposed(by: disposeBag)
                 action.underlyingError.subscribe().disposed(by: disposeBag)
 			}
 			
