@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Action"
-  s.version      = "3.10.2"
+  s.version      = "3.11.0"
   s.summary      = "Abstracts actions to be performed in RxSwift."
   s.description  = <<-DESC
     Encapsulates an action to be performed, usually by a button press, but also useful to pass actions to execute later
