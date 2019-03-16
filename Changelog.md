@@ -6,7 +6,7 @@ Current master
 --------------
 3.11.0
 -------
-- Introduction of  `underlyingError`  observable which returns a `Swift.Error`  element type. 
+- Introduction of  `underlyingError` observable which returns a `Swift.Error`  element type. 
 - Updated specs that were breaking in `Circle CI` pipeline 
 
 3.10.2
