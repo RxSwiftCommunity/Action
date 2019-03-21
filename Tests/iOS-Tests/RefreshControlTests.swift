@@ -35,7 +35,7 @@ class RefreshControlTests: QuickSpec {
 
             subject.rx.action = action
 
-            action.execute(())
+            action.execute()
             expect(subject.isEnabled).toEventually( beFalse() )
 
             observer.onCompleted()
