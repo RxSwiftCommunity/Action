@@ -14,7 +14,7 @@ public extension Reactive where Base: Control {
 	/// Binds enabled state of action to control, and subscribes action's execution to provided controlEvents.
 	/// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
 	/// them, set the rx.action to nil or another action, or call unbindAction().
-	public func bind<Input, Output>(to action: Action<Input, Output>, controlEvent: ControlEvent<Void>, inputTransform: @escaping (Base) -> (Input))   {
+    func bind<Input, Output>(to action: Action<Input, Output>, controlEvent: ControlEvent<Void>, inputTransform: @escaping (Base) -> (Input))   {
 		// This effectively disposes of any existing subscriptions.
 		unbindAction()
 		
@@ -32,7 +32,7 @@ public extension Reactive where Base: Control {
 	}
 	
 	/// Unbinds any existing action, disposing of all subscriptions.
-	public func unbindAction() {
+    func unbindAction() {
 		self.base.resetActionDisposeBag()
 	}
 }

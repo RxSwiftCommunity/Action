@@ -14,7 +14,7 @@ public extension Reactive where Base: Button {
 	/// Binds enabled state of action to button, and subscribes to rx_tap to execute action.
 	/// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
 	/// them, set the rx.action to nil or another action.
-	public var action: CocoaAction? {
+    var action: CocoaAction? {
 		get {
 			var action: CocoaAction?
 			action = objc_getAssociatedObject(self.base, &AssociatedKeys.Action) as? Action
@@ -59,7 +59,7 @@ public extension Reactive where Base: Button {
 	/// Binds enabled state of action to button, and subscribes to rx_tap to execute action with given input transform.
 	/// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
 	/// them, call bindToAction with another action or call unbindAction().
-	public func bind<Input, Output>(to action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input))   {
+    func bind<Input, Output>(to action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input))   {
 		// This effectively disposes of any existing subscriptions.
 		unbindAction()
 		
@@ -82,7 +82,7 @@ public extension Reactive where Base: Button {
 	/// Binds enabled state of action to button, and subscribes to rx_tap to execute action with given input value.
 	/// These subscriptions are managed in a private, inaccessible dispose bag. To cancel
 	/// them, call bindToAction with another action or call unbindAction().
-	public func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
+    func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
 		self.bind(to: action) { _ in input }
 	}
 }
