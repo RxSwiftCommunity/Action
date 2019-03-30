@@ -10,7 +10,7 @@ public typealias ActionStyle = UIAlertActionStyle
 #endif
 
 public extension UIAlertAction {
-    
+
     public static func Action(_ title: String?, style: ActionStyle) -> UIAlertAction {
         return UIAlertAction(title: title, style: style, handler: { action in
             action.rx.action?.execute()
@@ -34,10 +34,10 @@ public extension Reactive where Base: UIAlertAction {
         set {
             // Store new value.
             objc_setAssociatedObject(base, &AssociatedKeys.Action, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
+
             // This effectively disposes of any existing subscriptions.
             self.base.resetActionDisposeBag()
-            
+
             // Set up new bindings, if applicable.
             if let action = newValue {
                 action
