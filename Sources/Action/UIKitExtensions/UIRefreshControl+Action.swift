@@ -8,7 +8,7 @@ public extension Reactive where Base: UIRefreshControl {
     // Binds enabled state of action to refresh control, and subscribes to value changed control event to execute action.
     // These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     // them, set the rx.action to nil or another action.
-    
+
     public var action: CocoaAction? {
         get {
             var action: CocoaAction?
@@ -37,22 +37,22 @@ public extension Reactive where Base: UIRefreshControl {
             .map { inputTransform(self.base)}
             .bind(to: action.inputs)
             .disposed(by: self.base.actionDisposeBag)
-        
+
         action
             .executing
             .bind(to: self.isRefreshing)
             .disposed(by: self.base.actionDisposeBag)
-        
+
         action
             .enabled
             .bind(to: self.isEnabled)
             .disposed(by: self.base.actionDisposeBag)
     }
-    
+
     public func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
         self.bind(to: action) { _ in input}
     }
-    
+
     /// Unbinds any existing action, disposing of all subscriptions.
     public func unbindAction() {
         self.base.resetActionDisposeBag()
