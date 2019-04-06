@@ -9,7 +9,7 @@ public extension Reactive where Base: UIRefreshControl {
     // These subscriptions are managed in a private, inaccessible dispose bag. To cancel
     // them, set the rx.action to nil or another action.
 
-    public var action: CocoaAction? {
+    var action: CocoaAction? {
         get {
             var action: CocoaAction?
             action = objc_getAssociatedObject(base, &AssociatedKeys.Action) as? Action
@@ -30,7 +30,7 @@ public extension Reactive where Base: UIRefreshControl {
         }
     }
 
-    public func bind<Input, Output>(to action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input)) {
+    func bind<Input, Output>(to action: Action<Input, Output>, inputTransform: @escaping (Base) -> (Input)) {
         unbindAction()
 
         self.controlEvent(.valueChanged)
@@ -49,12 +49,12 @@ public extension Reactive where Base: UIRefreshControl {
             .disposed(by: self.base.actionDisposeBag)
     }
 
-    public func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
+    func bind<Input, Output>(to action: Action<Input, Output>, input: Input) {
         self.bind(to: action) { _ in input}
     }
 
     /// Unbinds any existing action, disposing of all subscriptions.
-    public func unbindAction() {
+    func unbindAction() {
         self.base.resetActionDisposeBag()
     }
 }
