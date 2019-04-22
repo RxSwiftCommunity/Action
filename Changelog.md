@@ -4,10 +4,12 @@ Changelog
 
 Current master
 --------------
+- Introdue `completions` property to `CompletableAction`
+
 3.11.0
 -------
-- Introduction of  `underlyingError` observable which returns a `Swift.Error`  element type. 
-- Updated specs that were breaking in `Circle CI` pipeline 
+- Introduction of  `underlyingError` observable which returns a `Swift.Error`  element type.
+- Updated specs that were breaking in `Circle CI` pipeline
 
 3.10.2
 -------
