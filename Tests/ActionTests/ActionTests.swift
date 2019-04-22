@@ -18,8 +18,8 @@ class ActionTests: QuickSpec {
         describe("completable action") {
             var action: CompletableAction<String>!
             beforeEach {
-                let work: Completable = Observable<Never>.empty().asCompletable()
-                action = CompletableAction {_ in work }
+                let work: TestableObservable<Never> = scheduler.createColdObservable([.completed(0)])
+                action = CompletableAction {_ in work.asCompletable() }
                 scheduler.scheduleAt(10) { action.inputs.onNext("a") }
                 scheduler.scheduleAt(20) { action.inputs.onNext("b") }
             }
@@ -40,6 +40,13 @@ class ActionTests: QuickSpec {
                 action.elements.bind(to: elements).disposed(by: disposeBag)
                 scheduler.start()
                 XCTAssertEqual(elements.events.count, 0)
+            }
+            it("emits on `completions` when completed") {
+                let completions = scheduler.createObserver(Void.self)
+                action.completions.bind(to: completions).disposed(by: disposeBag)
+                scheduler.start()
+                XCTAssert(completions.events.contains { $0.time == 10})
+                XCTAssert(completions.events.contains { $0.time == 20})
             }
         }
         
