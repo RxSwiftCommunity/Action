@@ -22,12 +22,12 @@ public extension Action where Input == Void {
     }
 }
 
-extension CompletableAction {
+public extension CompletableAction {
     /// Emits everytime work factory completes.
-    public var completions: Observable<Void> {
+    var completions: Observable<Void> {
         return executionObservables
             .flatMap { execution in
-                execution.flatMap {_ in Observable.empty() }
+                execution.flatMap { _ in Observable.empty() }
                     .concat(Observable.just(()))
         }
     }
