@@ -16,19 +16,21 @@ class ActionTests: QuickSpec {
 		}
 
         describe("completable action") {
+            var inputs: TestableObserver<String>!
             var action: CompletableAction<String>!
             beforeEach {
-                let work: Completable = Observable<Never>.empty().asCompletable()
-                action = CompletableAction {_ in work }
+                inputs = scheduler.createObserver(String.self)
+                action = CompletableAction { input -> Completable in
+                    inputs.onNext(input)
+                    return Observable<Never>.empty().asCompletable()
+                }
                 scheduler.scheduleAt(10) { action.inputs.onNext("a") }
                 scheduler.scheduleAt(20) { action.inputs.onNext("b") }
             }
             afterEach {
                 action = nil
             }
-            it("inputs subject receives generated inputs") {
-                let inputs = scheduler.createObserver(String.self)
-                action.inputs.bind(to: inputs).disposed(by: disposeBag)
+            it("receives generated inputs") {
                 scheduler.start()
                 XCTAssertEqual(inputs.events, [
                     next(10, "a"),
@@ -40,6 +42,72 @@ class ActionTests: QuickSpec {
                 action.elements.bind(to: elements).disposed(by: disposeBag)
                 scheduler.start()
                 XCTAssertEqual(elements.events.count, 0)
+            }
+        }
+
+        describe("Input observer behavior") {
+            var action: Action<String, String>!
+            var inputs: TestableObserver<String>!
+            var executions: TestableObserver<Observable<String>>!
+            beforeEach {
+                inputs = scheduler.createObserver(String.self)
+                action = Action {
+                    inputs.onNext($0)
+                    return Observable.just($0)
+                }
+                executions = scheduler.createObserver(Observable<String>.self)
+                action.executionObservables.bind(to: executions).disposed(by: disposeBag)
+            }
+            afterEach {
+                action = nil
+                inputs = nil
+                executions = nil
+            }
+
+            it("execute on .next") {
+                scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [next(10, "a")])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
+            }
+            it("ignore .error events") {
+                scheduler.scheduleAt(10) { action.inputs.onError(TestError) }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 0)
+            }
+            it("ignore .completed events") {
+                scheduler.scheduleAt(10) { action.inputs.onCompleted() }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 0)
+            }
+            it("accept multiple .next events") {
+                scheduler.scheduleAt(10) { action.inputs.onNext("a") }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [
+                    next(10, "a"),
+                    next(20, "b"),
+                    ])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 2)
+                XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
+            }
+            it("not terminate after .error event") {
+                scheduler.scheduleAt(10) { action.inputs.onError(TestError) }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [next(20, "b")])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
+                XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
+            }
+            it("not terminate after .completed event") {
+                scheduler.scheduleAt(10) { action.inputs.onCompleted() }
+                scheduler.scheduleAt(20) { action.inputs.onNext("b") }
+                scheduler.start()
+                XCTAssertEqual(inputs.events, [next(20, "b")])
+                XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
+                XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
             }
         }
         
@@ -61,12 +129,14 @@ class ActionTests: QuickSpec {
                 executionObservables = scheduler.createObserver(Observable<String>.self)
                 underlyingError = scheduler.createObserver(Error.self)
             }
-			
-			func bindAction(action: Action<String, String>) {
-				action.inputs
-					.bind(to: inputs)
-					.disposed(by: disposeBag)
-				
+
+            func buildAction(enabledIf: Observable<Bool> = Observable.just(true),
+                             factory: @escaping (String) -> Observable<String>) -> Action<String, String> {
+                let action = Action<String, String>(enabledIf: enabledIf) {
+                    inputs.onNext($0)
+                    return factory($0)
+                }
+
 				action.elements
 					.bind(to: elements)
 					.disposed(by: disposeBag)
@@ -92,17 +162,18 @@ class ActionTests: QuickSpec {
                     .disposed(by: disposeBag)
 				
 				// Dummy subscription for multiple subcription tests
-				action.inputs.subscribe().disposed(by: disposeBag)
 				action.elements.subscribe().disposed(by: disposeBag)
 				action.errors.subscribe().disposed(by: disposeBag)
 				action.isEnabled.subscribe().disposed(by: disposeBag)
                 action.isExecuting.subscribe().disposed(by: disposeBag)
 				action.executionObservables.subscribe().disposed(by: disposeBag)
+
+                return action
 			}
 			
 			describe("single element action") {
 				sharedExamples("send elements to elements observable") {
-					it("inputs subject receives generated inputs") {
+					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, [
 							next(10, "a"),
 							next(20, "b"),
@@ -148,8 +219,7 @@ class ActionTests: QuickSpec {
 				var action: Action<String, String>!
 				
 				beforeEach {
-					action = Action { Observable.just($0) }
-					bindAction(action: action)
+					action = buildAction { Observable.just($0) }
 				}
 				
 				context("trigger via inputs subject") {
@@ -175,7 +245,7 @@ class ActionTests: QuickSpec {
 			
 			describe("multiple element action") {
 				sharedExamples("send array elements to elements observable") {
-					it("inputs subject receives generated inputs") {
+					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, [
 							next(10, "a"),
 							next(20, "b"),
@@ -225,7 +295,7 @@ class ActionTests: QuickSpec {
 				var action: Action<String, String>!
 				
 				beforeEach {
-					action = Action { input in
+					action = buildAction { input in
 						// "a" -> ["a", "b", "c"]
 						let baseValue = UnicodeScalar(input)!.value
 						let strings = (baseValue..<(baseValue + 3))
@@ -234,8 +304,6 @@ class ActionTests: QuickSpec {
 						
 						return Observable.from(strings)
 					}
-					
-					bindAction(action: action)
 				}
 				
 				context("trigger via inputs subject") {
@@ -261,7 +329,7 @@ class ActionTests: QuickSpec {
 			
 			describe("error action") {
 				sharedExamples("send errors to errors observable") {
-					it("inputs subject receives generated inputs") {
+					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, [
 							next(10, "a"),
 							next(20, "b"),
@@ -318,8 +386,7 @@ class ActionTests: QuickSpec {
 				var action: Action<String, String>!
 				
 				beforeEach {
-					action = Action { _ in Observable.error(TestError) }
-					bindAction(action: action)
+					action = buildAction { _ in Observable.error(TestError) }
 				}
 				
 				context("trigger via inputs subject") {
@@ -345,11 +412,8 @@ class ActionTests: QuickSpec {
 			
 			describe("disabled action") {
 				sharedExamples("send notEnabled errors to errors observable") {
-					it("inputs subject receives generated inputs") {
-						XCTAssertEqual(inputs.events, [
-							next(10, "a"),
-							next(20, "b"),
-							])
+					it("work factory receives nothing") {
+						XCTAssertEqual(inputs.events, [])
 					}
 					
 					it("elements observable receives nothing") {
@@ -387,8 +451,7 @@ class ActionTests: QuickSpec {
 				var action: Action<String, String>!
 				
 				beforeEach {
-					action = Action(enabledIf: Observable.just(false)) { Observable.just($0) }
-					bindAction(action: action)
+					action = buildAction(enabledIf: Observable.just(false)) { Observable.just($0) }
 				}
 				
 				context("trigger via inputs subject") {
