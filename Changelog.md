@@ -4,7 +4,7 @@ Changelog
 
 Current master
 --------------
-- Introdue `completions` property to `CompletableAction`
+- Add `completions` property to `CompletableAction`
 
 3.11.0
 -------
