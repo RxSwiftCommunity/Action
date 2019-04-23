@@ -5,6 +5,7 @@ Changelog
 Current master
 --------------
 - Add `completions` property to `CompletableAction`
+- Change `inputs` type to `AnyObserver<Input>`
 
 3.11.0
 -------
