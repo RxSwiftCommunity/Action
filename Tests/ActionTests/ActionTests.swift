@@ -6,15 +6,15 @@ import RxTest
 @testable import Action
 
 class ActionTests: QuickSpec {
-	override func spec() {
-		var scheduler: TestScheduler!
-		var disposeBag: DisposeBag!
-
-		beforeEach {
-			scheduler = TestScheduler(initialClock: 0)
-			disposeBag = DisposeBag()
-		}
-
+    override func spec() {
+        var scheduler: TestScheduler!
+        var disposeBag: DisposeBag!
+        
+        beforeEach {
+            scheduler = TestScheduler(initialClock: 0)
+            disposeBag = DisposeBag()
+        }
+        
         describe("completable action") {
             var inputs: TestableObserver<String>!
             var action: CompletableAction<String>!
@@ -33,10 +33,10 @@ class ActionTests: QuickSpec {
             it("receives generated inputs") {
                 scheduler.start()
                 XCTAssertEqual(inputs.events, Recorded.events([
-					.next(10, "a"),
-					.next(20, "b")
+                    .next(10, "a"),
+                    .next(20, "b")
                     ])
-				)
+                )
             }
             it("emits nothing on `elements`") {
                 let elements = scheduler.createObserver(Never.self)
@@ -126,7 +126,7 @@ class ActionTests: QuickSpec {
             var executing: TestableObserver<Bool>!
             var executionObservables: TestableObserver<Observable<String>>!
             var underlyingError: TestableObserver<Error>!
-
+            
             beforeEach {
                 inputs = scheduler.createObserver(String.self)
                 elements = scheduler.createObserver(String.self)
@@ -183,43 +183,43 @@ class ActionTests: QuickSpec {
 				sharedExamples("send elements to elements observable") {
 					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, Recorded.events([
-							.next(10, "a"),
-							.next(20, "b")
-							])
+						  .next(10, "a"),
+						  .next(20, "b")
+						  ])
                         )
-					}
-
-					it("elements observable receives generated elements") {
-						XCTAssertEqual(elements.events, Recorded.events([
-							.next(10, "a"),
-							.next(20, "b")
-							])
+                    }
+                    
+                    it("elements observable receives generated elements") {
+                        XCTAssertEqual(elements.events, Recorded.events([
+                          .next(10, "a"),
+                          .next(20, "b")
+                          ])
                         )
-					}
-
-					it("errors observable receives nothing") {
-						XCTAssertEqual(errors.events, [])
-					}
-
-					it("disabled until element returns") {
-						XCTAssertEqual(enabled.events, Recorded.events([
-							.next(0, true),
-							.next(10, false),
-							.next(10, true),
-							.next(20, false),
-							.next(20, true)
-							])
+                    }
+                    
+                    it("errors observable receives nothing") {
+                        XCTAssertEqual(errors.events, [])
+                    }
+                    
+                    it("disabled until element returns") {
+                        XCTAssertEqual(enabled.events, Recorded.events([
+                          .next(0, true),
+                          .next(10, false),
+                          .next(10, true),
+                          .next(20, false),
+                          .next(20, true)
+                          ])
                         )
-					}
-
-					it("executing until element returns") {
-						XCTAssertEqual(executing.events, Recorded.events([
-							.next(0, false),
-							.next(10, true),
-							.next(10, false),
-							.next(20, true),
-							.next(20, false)
-							])
+                    }
+                    
+                    it("executing until element returns") {
+                        XCTAssertEqual(executing.events, Recorded.events([
+                            .next(0, false),
+                            .next(10, true),
+                            .next(10, false),
+                            .next(20, true),
+                            .next(20, false)
+                            ])
                         )
 					}
 
@@ -263,43 +263,43 @@ class ActionTests: QuickSpec {
                             .next(20, "b")
                             ])
                         )
-					}
-
-					it("elements observable receives generated elements") {
-						XCTAssertEqual(elements.events, Recorded.events([
-							.next(10, "a"),
-							.next(10, "b"),
-							.next(10, "c"),
-							.next(20, "b"),
-							.next(20, "c"),
-							.next(20, "d")
-							])
+                    }
+                    
+                    it("elements observable receives generated elements") {
+                        XCTAssertEqual(elements.events, Recorded.events([
+                            .next(10, "a"),
+                            .next(10, "b"),
+                            .next(10, "c"),
+                            .next(20, "b"),
+                            .next(20, "c"),
+                            .next(20, "d")
+                            ])
                         )
-					}
-
-					it("errors observable receives nothing") {
-						XCTAssertEqual(errors.events, [])
-					}
-
-					it("disabled until element returns") {
-						XCTAssertEqual(enabled.events, Recorded.events([
-							.next(0, true),
-							.next(10, false),
-							.next(10, true),
-							.next(20, false),
-							.next(20, true)
-							])
+                    }
+                    
+                    it("errors observable receives nothing") {
+                        XCTAssertEqual(errors.events, [])
+                    }
+                    
+                    it("disabled until element returns") {
+                        XCTAssertEqual(enabled.events, Recorded.events([
+                            .next(0, true),
+                            .next(10, false),
+                            .next(10, true),
+                            .next(20, false),
+                            .next(20, true)
+                            ])
                         )
-					}
-
-					it("executing until element returns") {
-						XCTAssertEqual(executing.events, Recorded.events([
-							.next(0, false),
-							.next(10, true),
-							.next(10, false),
-							.next(20, true),
-							.next(20, false)
-							])
+                    }
+                    
+                    it("executing until element returns") {
+                        XCTAssertEqual(executing.events, Recorded.events([
+                            .next(0, false),
+                            .next(10, true),
+                            .next(10, false),
+                            .next(20, true),
+                            .next(20, false)
+                            ])
                         )
 					}
 
@@ -351,50 +351,50 @@ class ActionTests: QuickSpec {
                             .next(20, "b")
                             ])
                         )
-					}
-
-					it("elements observable receives nothing") {
-						XCTAssertEqual(elements.events, [])
-					}
-
-					it("errors observable receives generated errors") {
+                    }
+                    
+                    it("elements observable receives nothing") {
+                        XCTAssertEqual(elements.events, [])
+                    }
+                    
+                    it("errors observable receives generated errors") {
                         XCTAssertEqual(errors.events, Recorded.events([
-							.next(10, .underlyingError(TestError)),
-							.next(20, .underlyingError(TestError))
-							])
+                            .next(10, .underlyingError(TestError)),
+                            .next(20, .underlyingError(TestError))
+                            ])
                         )
-					}
-
+                    }
+                    
                     it("underlyingError observable receives 2 generated errors") {
                         XCTAssertEqual(underlyingError.events.count, 2)
                     }
-
+                    
                     it("underlyingError observable receives generated errors") {
                         let first = underlyingError.events[0].value.element as! String
                         let second = underlyingError.events[1].value.element as! String
                         XCTAssertEqual(first, TestError)
                         XCTAssertEqual(second, TestError)
                     }
-
-					it("disabled until error returns") {
-						XCTAssertEqual(enabled.events, Recorded.events([
-							.next(0, true),
-							.next(10, false),
-							.next(10, true),
-							.next(20, false),
-							.next(20, true)
-							])
+                    
+                    it("disabled until error returns") {
+                        XCTAssertEqual(enabled.events, Recorded.events([
+                            .next(0, true),
+                            .next(10, false),
+                            .next(10, true),
+                            .next(20, false),
+                            .next(20, true)
+                            ])
                         )
-					}
-
-					it("executing until error returns") {
-						XCTAssertEqual(executing.events, Recorded.events([
-							.next(0, false),
-							.next(10, true),
-							.next(10, false),
-							.next(20, true),
-							.next(20, false)
-							])
+                    }
+                    
+                    it("executing until error returns") {
+                        XCTAssertEqual(executing.events, Recorded.events([
+                            .next(0, false),
+                            .next(10, true),
+                            .next(10, false),
+                            .next(20, true),
+                            .next(20, false)
+                            ])
                         )
 					}
 
@@ -446,23 +446,23 @@ class ActionTests: QuickSpec {
 							.next(20, .notEnabled)
 							])
                         )
-					}
-
+                    }
+                    
                     it("underlyingError observable receives zero generated errors") {
                         XCTAssertEqual(underlyingError.events.count, 0)
                     }
-
-					it("disabled") {
-						XCTAssertEqual(enabled.events, Recorded.events([
-							.next(0, false)
-							])
+                    
+                    it("disabled") {
+                        XCTAssertEqual(enabled.events, Recorded.events([
+                            .next(0, false)
+                            ])
                         )
-					}
-
-					it("never be executing") {
-						XCTAssertEqual(executing.events, Recorded.events([
-							.next(0, false)
-							])
+                    }
+                    
+                    it("never be executing") {
+                        XCTAssertEqual(executing.events, Recorded.events([
+                            .next(0, false)
+                            ])
                         )
 					}
 
@@ -544,18 +544,18 @@ class ActionTests: QuickSpec {
                         ])
                     )
                 }
-
-				it("executes twice") {
-					expect(executionObservables.events.count) == 2
-				}
-			}
-
-			context("multiple element action") {
-				beforeEach {
-					action = Action { Observable.of($0, $0, $0) }
-					bindAndExecuteTwice(action: action)
-				}
-
+                
+                it("executes twice") {
+                    expect(executionObservables.events.count) == 2
+                }
+            }
+            
+            context("multiple element action") {
+                beforeEach {
+                    action = Action { Observable.of($0, $0, $0) }
+                    bindAndExecuteTwice(action: action)
+                }
+                
                 it("element receives 3 values for each execution") {
                     XCTAssertEqual(element.events, Recorded.events([
                         .next(10, "a"),
@@ -569,121 +569,121 @@ class ActionTests: QuickSpec {
                         ])
                     )
                 }
-
-				it("executes twice") {
-					expect(executionObservables.events.count) == 2
-				}
-			}
-
-			context("error action") {
-				beforeEach {
-					action = Action { _ in Observable.error(TestError) }
-					bindAndExecuteTwice(action: action)
-				}
-
-				it("element fails with underlyingError") {
-					XCTAssertEqual(element.events, Recorded.events([
+                
+                it("executes twice") {
+                    expect(executionObservables.events.count) == 2
+                }
+            }
+            
+            context("error action") {
+                beforeEach {
+                    action = Action { _ in Observable.error(TestError) }
+                    bindAndExecuteTwice(action: action)
+                }
+                
+                it("element fails with underlyingError") {
+                    XCTAssertEqual(element.events, Recorded.events([
                         .error(10, ActionError.underlyingError(TestError)),
                         .error(20, ActionError.underlyingError(TestError))
-						])
+                        ])
                     )
-				}
-
-				it("executes twice") {
-					expect(executionObservables.events.count) == 2
-				}
-			}
-
-			context("disabled") {
-				beforeEach {
-					action = Action(enabledIf: Observable.just(false)) { Observable.just($0) }
-					bindAndExecuteTwice(action: action)
-				}
-
-				it("element fails with notEnabled") {
-					XCTAssertEqual(element.events, Recorded.events([
+                }
+                
+                it("executes twice") {
+                    expect(executionObservables.events.count) == 2
+                }
+            }
+            
+            context("disabled") {
+                beforeEach {
+                    action = Action(enabledIf: Observable.just(false)) { Observable.just($0) }
+                    bindAndExecuteTwice(action: action)
+                }
+                
+                it("element fails with notEnabled") {
+                    XCTAssertEqual(element.events, Recorded.events([
                         .error(10, ActionError.notEnabled),
                         .error(20, ActionError.notEnabled)
-						])
+                        ])
                     )
-				}
-
-				it("never executes") {
-					expect(executionObservables.events).to(beEmpty())
-				}
-			}
-
-			context("execute while executing") {
-				var secondElement: TestableObserver<String>!
-				var trigger: PublishSubject<Void>!
-
-				beforeEach {
-					secondElement = scheduler.createObserver(String.self)
-					trigger = PublishSubject<Void>()
-					action = Action { Observable.just($0).sample(trigger) }
-
-					action.executionObservables
-						.bind(to: executionObservables)
-						.disposed(by: disposeBag)
-
-					scheduler.scheduleAt(10) {
-						action.execute("a")
-							.bind(to: element)
-							.disposed(by: disposeBag)
-					}
-
-					scheduler.scheduleAt(20) {
-						action.execute("b")
-							.bind(to: secondElement)
-							.disposed(by: disposeBag)
-					}
-
-					scheduler.scheduleAt(30) {
-						#if swift(>=3.2)
-							trigger.onNext(())
-						#else
-							trigger.onNext()
-						#endif
-					}
-
-					scheduler.start()
-				}
-
-				it("first element receives single value") {
-					XCTAssertEqual(element.events, Recorded.events([
+                }
+                
+                it("never executes") {
+                    expect(executionObservables.events).to(beEmpty())
+                }
+            }
+            
+            context("execute while executing") {
+                var secondElement: TestableObserver<String>!
+                var trigger: PublishSubject<Void>!
+                
+                beforeEach {
+                    secondElement = scheduler.createObserver(String.self)
+                    trigger = PublishSubject<Void>()
+                    action = Action { Observable.just($0).sample(trigger) }
+                    
+                    action.executionObservables
+                        .bind(to: executionObservables)
+                        .disposed(by: disposeBag)
+                    
+                    scheduler.scheduleAt(10) {
+                        action.execute("a")
+                            .bind(to: element)
+                            .disposed(by: disposeBag)
+                    }
+                    
+                    scheduler.scheduleAt(20) {
+                        action.execute("b")
+                            .bind(to: secondElement)
+                            .disposed(by: disposeBag)
+                    }
+                    
+                    scheduler.scheduleAt(30) {
+                        #if swift(>=3.2)
+                        trigger.onNext(())
+                        #else
+                        trigger.onNext()
+                        #endif
+                    }
+                    
+                    scheduler.start()
+                }
+                
+                it("first element receives single value") {
+                    XCTAssertEqual(element.events, Recorded.events([
                         .next(30, "a"),
                         .completed(30)
-						])
+                        ])
                     )
-				}
-
-				it("second element fails with notEnabled error") {
-					XCTAssertEqual(secondElement.events, Recorded.events([
+                }
+                
+                it("second element fails with notEnabled error") {
+                    XCTAssertEqual(secondElement.events, Recorded.events([
                         .error(20, ActionError.notEnabled)
-						])
+                        ])
                     )
-				}
-
-				it("executes once") {
-					expect(executionObservables.events.count) == 1
-				}
-			}
-		}
-	}
+                }
+                
+                it("executes once") {
+                    expect(executionObservables.events.count) == 1
+                }
+            }
+        }
+    }
 }
 
 extension ActionError: Equatable {
-	// Not accurate but convenient for testing.
-	public static func ==(lhs: ActionError, rhs: ActionError) -> Bool {
-		switch (lhs, rhs) {
-		case (.notEnabled, .notEnabled):
-			return true
-		case (.underlyingError, .underlyingError):
-			return true
-		default:
-			return false
-		}
-	}
+    // Not accurate but convenient for testing.
+    public static func ==(lhs: ActionError, rhs: ActionError) -> Bool {
+        switch (lhs, rhs) {
+        case (.notEnabled, .notEnabled):
+            return true
+        case (.underlyingError, .underlyingError):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension String: Error { }
