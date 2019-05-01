@@ -75,7 +75,10 @@ class ActionTests: QuickSpec {
             it("execute on .next") {
                 scheduler.scheduleAt(10) { action.inputs.onNext("a") }
                 scheduler.start()
-                XCTAssertEqual(inputs.events, [next(10, "a")])
+                XCTAssertEqual(inputs.events, Recorded.events([
+                  .next(10, "a")
+                  ])
+                )
                 XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
             }
             it("ignore .error events") {
@@ -94,10 +97,11 @@ class ActionTests: QuickSpec {
                 scheduler.scheduleAt(10) { action.inputs.onNext("a") }
                 scheduler.scheduleAt(20) { action.inputs.onNext("b") }
                 scheduler.start()
-                XCTAssertEqual(inputs.events, [
-                    next(10, "a"),
-                    next(20, "b"),
-                    ])
+                XCTAssertEqual(inputs.events, Recorded.events([
+                  .next(10, "a"),
+                  .next(20, "b"),
+                  ])
+                )
                 XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 2)
                 XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
             }
@@ -105,7 +109,10 @@ class ActionTests: QuickSpec {
                 scheduler.scheduleAt(10) { action.inputs.onError(TestError) }
                 scheduler.scheduleAt(20) { action.inputs.onNext("b") }
                 scheduler.start()
-                XCTAssertEqual(inputs.events, [next(20, "b")])
+                XCTAssertEqual(inputs.events, Recorded.events([
+                  .next(20, "b")
+                  ])
+                )
                 XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
                 XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
             }
@@ -113,7 +120,10 @@ class ActionTests: QuickSpec {
                 scheduler.scheduleAt(10) { action.inputs.onCompleted() }
                 scheduler.scheduleAt(20) { action.inputs.onNext("b") }
                 scheduler.start()
-                XCTAssertEqual(inputs.events, [next(20, "b")])
+                XCTAssertEqual(inputs.events, Recorded.events([
+                  .next(20, "b")
+                  ])
+                )
                 XCTAssertEqual(executions.events.filter { !$0.value.isStopEvent }.count, 1)
                 XCTAssertEqual(executions.events.filter { $0.value.isStopEvent }.count, 0)
             }
@@ -442,9 +452,9 @@ class ActionTests: QuickSpec {
 
 					it("errors observable receives generated errors") {
 						XCTAssertEqual(errors.events, Recorded.events([
-							.next(10, .notEnabled),
-							.next(20, .notEnabled)
-							])
+						  .next(10, .notEnabled),
+						  .next(20, .notEnabled)
+						  ])
                         )
                     }
                     
