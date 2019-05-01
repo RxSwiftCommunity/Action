@@ -104,9 +104,9 @@ class ButtonTests: QuickSpec {
 
             expect(disposed) == true
         }
-        
+
         it("cancels the observable if the button is deallocated") {
-            
+
             var disposed = false
 
             waitUntil { done in
@@ -125,7 +125,7 @@ class ButtonTests: QuickSpec {
                     subject.rx.action?.execute()
                 }
             }
-            
+
             expect(disposed) == true
         }
     }

@@ -26,12 +26,12 @@ class BindToTests: QuickSpec {
 			button.rx.bind(to: action, input: "Hi there!")
 			// Setting the action has an asynchronous effect of adding a target.
 			expect(button.target).toEventuallyNot( beNil() )
-			
+
 			button.test_executeAction()
-			
+
 			expect(called).toEventually( beTrue() )
 		}
-		
+
 		it("activates a generic control event") {
 			var called = false
 			let button = NSButton()
@@ -42,13 +42,12 @@ class BindToTests: QuickSpec {
 			button.rx.bind(to: action, controlEvent: button.rx.tap, inputTransform: { input in "\(input)" })
 			// Setting the action has an asynchronous effect of adding a target.
 			expect(button.target).toEventuallyNot( beNil() )
-			
+
 			button.test_executeAction()
-			
+
 			expect(called).toEventually( beTrue() )
 		}
-		
-		
+
 		describe("unbinding") {
 			it("unbinds actions for UIButton") {
 				let button = NSButton()
@@ -59,13 +58,12 @@ class BindToTests: QuickSpec {
 				button.rx.bind(to: action, input: "Hi there!")
 				// Setting the action has an asynchronous effect of adding a target.
 				expect(button.target).toEventuallyNot( beNil() )
-				
+
 				button.rx.unbindAction()
 				button.test_executeAction()
-				
+
 				expect(button.target).toEventually( beNil() )
 			}
 		}
 	}
 }
-
