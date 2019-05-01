@@ -54,7 +54,7 @@ public final class Action<Input, Element> {
     public convenience init<O: ObservableConvertibleType>(
         enabledIf: Observable<Bool> = Observable.just(true),
         workFactory: @escaping (Input) -> O
-    ) where O.E == Element {
+    ) where O.Element == Element {
         self.init(enabledIf: enabledIf) {
             workFactory($0).asObservable()
         }
