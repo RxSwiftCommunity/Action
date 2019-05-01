@@ -57,17 +57,17 @@ class AlertActionTests: QuickSpec {
 
             expect(subject.isEnabled) == false
         }
-        
+
         it("disposes of old action subscriptions when re-set") {
             var subject = UIAlertAction.Action("Hi", style: .default)
-            
+
             var disposed = false
             autoreleasepool {
                 let disposeBag = DisposeBag()
-                
+
                 let action = emptyAction()
                 subject.rx.action = action
-                
+
                 action
                     .elements
                     .subscribe(onNext: nil, onError: nil, onCompleted: nil, onDisposed: {
@@ -75,9 +75,9 @@ class AlertActionTests: QuickSpec {
                     })
                     .disposed(by: disposeBag)
             }
-            
+
             subject.rx.action = nil
-            
+
             expect(disposed) == true
         }
     }
