@@ -33,8 +33,8 @@ class ActionTests: QuickSpec {
             it("receives generated inputs") {
                 scheduler.start()
                 XCTAssertEqual(inputs.events, [
-                    next(10, "a"),
-                    next(20, "b"),
+                    Recorded.next(10, "a"),
+                    Recorded.next(20, "b"),
                     ])
             }
             it("emits nothing on `elements`") {
@@ -183,15 +183,15 @@ class ActionTests: QuickSpec {
 				sharedExamples("send elements to elements observable") {
 					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, [
-							next(10, "a"),
-							next(20, "b"),
+							Recorded.next(10, "a"),
+							Recorded.next(20, "b"),
 							])
 					}
 					
 					it("elements observable receives generated elements") {
 						XCTAssertEqual(elements.events, [
-							next(10, "a"),
-							next(20, "b"),
+							Recorded.next(10, "a"),
+							Recorded.next(20, "b"),
 							])
 					}
 					
@@ -201,21 +201,21 @@ class ActionTests: QuickSpec {
 					
 					it("disabled until element returns") {
 						XCTAssertEqual(enabled.events, [
-							next(0, true),
-							next(10, false),
-							next(10, true),
-							next(20, false),
-							next(20, true),
+							Recorded.next(0, true),
+							Recorded.next(10, false),
+							Recorded.next(10, true),
+							Recorded.next(20, false),
+							Recorded.next(20, true),
 							])
 					}
 					
 					it("executing until element returns") {
 						XCTAssertEqual(executing.events, [
-							next(0, false),
-							next(10, true),
-							next(10, false),
-							next(20, true),
-							next(20, false),
+							Recorded.next(0, false),
+							Recorded.next(10, true),
+							Recorded.next(10, false),
+							Recorded.next(20, true),
+							Recorded.next(20, false),
 							])
 					}
 					
@@ -255,19 +255,19 @@ class ActionTests: QuickSpec {
 				sharedExamples("send array elements to elements observable") {
 					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, [
-							next(10, "a"),
-							next(20, "b"),
+							Recorded.next(10, "a"),
+							Recorded.next(20, "b"),
 							])
 					}
 					
 					it("elements observable receives generated elements") {
 						XCTAssertEqual(elements.events, [
-							next(10, "a"),
-							next(10, "b"),
-							next(10, "c"),
-							next(20, "b"),
-							next(20, "c"),
-							next(20, "d"),
+							Recorded.next(10, "a"),
+							Recorded.next(10, "b"),
+							Recorded.next(10, "c"),
+							Recorded.next(20, "b"),
+							Recorded.next(20, "c"),
+							Recorded.next(20, "d"),
 							])
 					}
 					
@@ -277,21 +277,21 @@ class ActionTests: QuickSpec {
 					
 					it("disabled until element returns") {
 						XCTAssertEqual(enabled.events, [
-							next(0, true),
-							next(10, false),
-							next(10, true),
-							next(20, false),
-							next(20, true),
+							Recorded.next(0, true),
+							Recorded.next(10, false),
+							Recorded.next(10, true),
+							Recorded.next(20, false),
+							Recorded.next(20, true),
 							])
 					}
 					
 					it("executing until element returns") {
 						XCTAssertEqual(executing.events, [
-							next(0, false),
-							next(10, true),
-							next(10, false),
-							next(20, true),
-							next(20, false),
+							Recorded.next(0, false),
+							Recorded.next(10, true),
+							Recorded.next(10, false),
+							Recorded.next(20, true),
+							Recorded.next(20, false),
 							])
 					}
 					
@@ -339,8 +339,8 @@ class ActionTests: QuickSpec {
 				sharedExamples("send errors to errors observable") {
 					it("work factory receives inputs") {
 						XCTAssertEqual(inputs.events, [
-							next(10, "a"),
-							next(20, "b"),
+							Recorded.next(10, "a"),
+							Recorded.next(20, "b"),
 							])
 					}
 					
@@ -350,8 +350,8 @@ class ActionTests: QuickSpec {
 					
 					it("errors observable receives generated errors") {
                         XCTAssertEqual(errors.events, [
-							next(10, .underlyingError(TestError)),
-							next(20, .underlyingError(TestError)),
+							Recorded.next(10, .underlyingError(TestError)),
+							Recorded.next(20, .underlyingError(TestError)),
 							])
 					}
                     
@@ -368,21 +368,21 @@ class ActionTests: QuickSpec {
 					
 					it("disabled until error returns") {
 						XCTAssertEqual(enabled.events, [
-							next(0, true),
-							next(10, false),
-							next(10, true),
-							next(20, false),
-							next(20, true),
+							Recorded.next(0, true),
+							Recorded.next(10, false),
+							Recorded.next(10, true),
+							Recorded.next(20, false),
+							Recorded.next(20, true),
 							])
 					}
 					
 					it("executing until error returns") {
 						XCTAssertEqual(executing.events, [
-							next(0, false),
-							next(10, true),
-							next(10, false),
-							next(20, true),
-							next(20, false),
+							Recorded.next(0, false),
+							Recorded.next(10, true),
+							Recorded.next(10, false),
+							Recorded.next(20, true),
+							Recorded.next(20, false),
 							])
 					}
 					
@@ -430,8 +430,8 @@ class ActionTests: QuickSpec {
 					
 					it("errors observable receives generated errors") {
 						XCTAssertEqual(errors.events, [
-							next(10, .notEnabled),
-							next(20, .notEnabled),
+							Recorded.next(10, .notEnabled),
+							Recorded.next(20, .notEnabled),
 							])
 					}
                     
@@ -441,13 +441,13 @@ class ActionTests: QuickSpec {
 					
 					it("disabled") {
 						XCTAssertEqual(enabled.events, [
-							next(0, false),
+							Recorded.next(0, false),
 							])
 					}
 					
 					it("never be executing") {
 						XCTAssertEqual(executing.events, [
-							next(0, false),
+							Recorded.next(0, false),
 							])
 					}
 					
@@ -522,10 +522,10 @@ class ActionTests: QuickSpec {
 				
 				it("element receives single value for each execution") {
 					XCTAssertEqual(element.events, [
-						next(10, "a"),
-						completed(10),
-						next(20, "b"),
-						completed(20),
+						Recorded.next(10, "a"),
+                        Recorded.completed(10),
+						Recorded.next(20, "b"),
+                        Recorded.completed(20),
 						])
 				}
 				
@@ -542,14 +542,14 @@ class ActionTests: QuickSpec {
 				
 				it("element receives 3 values for each execution") {
 					XCTAssertEqual(element.events, [
-						next(10, "a"),
-						next(10, "a"),
-						next(10, "a"),
-						completed(10),
-						next(20, "b"),
-						next(20, "b"),
-						next(20, "b"),
-						completed(20),
+						Recorded.next(10, "a"),
+                        Recorded.next(10, "a"),
+                        Recorded.next(10, "a"),
+                        Recorded.completed(10),
+                        Recorded.next(20, "b"),
+                        Recorded.next(20, "b"),
+                        Recorded.next(20, "b"),
+                        Recorded.completed(20),
 						])
 				}
 				
@@ -566,8 +566,8 @@ class ActionTests: QuickSpec {
 				
 				it("element fails with underlyingError") {
 					XCTAssertEqual(element.events, [
-						error(10, ActionError.underlyingError(TestError)),
-						error(20, ActionError.underlyingError(TestError)),
+                        Recorded.error(10, ActionError.underlyingError(TestError)),
+                        Recorded.error(20, ActionError.underlyingError(TestError)),
 						])
 				}
 				
@@ -584,8 +584,8 @@ class ActionTests: QuickSpec {
 				
 				it("element fails with notEnabled") {
 					XCTAssertEqual(element.events, [
-						error(10, ActionError.notEnabled),
-						error(20, ActionError.notEnabled),
+                        Recorded.error(10, ActionError.notEnabled),
+                        Recorded.error(20, ActionError.notEnabled),
 						])
 				}
 				
@@ -632,14 +632,14 @@ class ActionTests: QuickSpec {
 				
 				it("first element receives single value") {
 					XCTAssertEqual(element.events, [
-						next(30, "a"),
-						completed(30),
+                        Recorded.next(30, "a"),
+                        Recorded.completed(30),
 						])
 				}
 				
 				it("second element fails with notEnabled error") {
 					XCTAssertEqual(secondElement.events, [
-						error(20, ActionError.notEnabled)
+                        Recorded.error(20, ActionError.notEnabled)
 						])
 				}
 				
