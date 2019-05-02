@@ -4,6 +4,12 @@ Changelog
 
 Current master
 --------------
+- Added full support for Swift 5.0
+- Added full support for RxSwift 5.0
+- Remove RxAtomic references
+
+4.0.0
+-------
 - Add `completions` property to `CompletableAction`
 - Change `inputs` type to `AnyObserver<Input>`
 
