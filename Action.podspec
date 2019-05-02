@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Action"
-  s.version      = "3.11.0"
+  s.version      = "4.0.0"
   s.summary      = "Abstracts actions to be performed in RxSwift."
   s.description  = <<-DESC
     Encapsulates an action to be performed, usually by a button press, but also useful to pass actions to execute later
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/RxSwiftCommunity/Action"
   s.license      = { :type => "MIT", :file => "License.md" }
-  s.author             = { "Ash Furrow" => "ash@ashfurrow.com" }
+  s.author             = { "RxSwift Community" => "community@rxswift.org" }
   s.social_media_url   = "http://twitter.com/ashfurrow"
 
   s.ios.deployment_target = '8.0'
