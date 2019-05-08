@@ -37,3 +37,18 @@ extension PredicateResult {
                                message: .expectedCustomValueTo("get <\(expected.asString())>", "<\(actual.asString())>"))
     }
 }
+
+public func match<T: Equatable>(_ expected: T) -> Predicate<T> {
+    return Predicate { events in
+        
+        guard let source = try events.evaluate() else {
+            return PredicateResult.evaluationFailed
+        }
+        guard source == expected else {
+            return PredicateResult(status: .doesNotMatch, message: .expectedCustomValueTo("get <\(expected)> events", "<\(source)> events"))
+        }
+        
+        
+        return PredicateResult(bool: true, message: .fail("matched values and timeline as expected"))
+    }
+}
