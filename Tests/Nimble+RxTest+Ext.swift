@@ -74,3 +74,21 @@ public func match<T>(_ expected: [Recorded<Event<T>>]) -> Predicate<[Recorded<Ev
         return PredicateResult(bool: true, message: .fail("match timeline"))
     }
 }
+
+public func match<T, E: Error>(with expectedErrors: [Recorded<Event<E>>]) -> Predicate<[Recorded<Event<T>>]> where E: Equatable {
+    return Predicate { events in
+        guard let source = try events.evaluate() else {
+            return PredicateResult.evaluationFailed
+        }
+        let errorEvents = source.filter { $0.value.isError }
+        for (lhs, rhs) in zip(errorEvents, expectedErrors) {
+            guard lhs.time == rhs.time,
+                lhs.value.error.asString() == rhs.value.error.asString() else {
+                return PredicateResult(bool: false, message: .fail("did not error"))
+            }
+            continue
+        }
+        
+        return PredicateResult(bool: true, message: .fail("matched values and timeline as expected"))
+    }
+}
