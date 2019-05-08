@@ -8,22 +8,16 @@ class AlertActionTests: QuickSpec {
     override func spec() {
         it("is nil by default") {
             let subject = UIAlertAction.Action("Hi", style: .default)
-            expect(subject.rx.action).to( beNil() )
+            expect(subject.rx.action).to(beNil())
         }
-
         it("respects setter") {
             var subject = UIAlertAction.Action("Hi", style: .default)
-
             let action = emptyAction()
-
             subject.rx.action = action
-
-            expect(subject.rx.action) === action
+            expect(subject.rx.action).to(beAKindOf(CocoaAction.self))
         }
-
         it("disables the alert action while executing") {
             var subject = UIAlertAction.Action("Hi", style: .default)
-
             var observer: AnyObserver<Void>!
             let action = CocoaAction(workFactory: { _ in
                 return Observable.create { (obsv) -> Disposable in
@@ -33,7 +27,6 @@ class AlertActionTests: QuickSpec {
             })
 
             subject.rx.action = action
-
             action.execute()
             expect(subject.isEnabled).toEventually( beFalse() )
 
@@ -55,7 +48,7 @@ class AlertActionTests: QuickSpec {
                     .disposed(by: disposeBag)
             }
 
-            expect(subject.isEnabled) == false
+            expect(subject.isEnabled).to(beFalse())
         }
 
         it("disposes of old action subscriptions when re-set") {
@@ -77,8 +70,7 @@ class AlertActionTests: QuickSpec {
             }
 
             subject.rx.action = nil
-
-            expect(disposed) == true
+            expect(disposed).to(beTrue())
         }
     }
 }
