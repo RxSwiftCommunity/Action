@@ -4,4 +4,17 @@
    <FileRef
       location = "group:Action.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:"
+      name = "Carthage">
+      <FileRef
+         location = "group:Carthage/Checkouts/Nimble/Nimble.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Carthage/Checkouts/Quick/Quick.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Carthage/Checkouts/RxSwift/Rx.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
