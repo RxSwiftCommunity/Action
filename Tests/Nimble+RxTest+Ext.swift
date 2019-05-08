@@ -38,14 +38,15 @@ extension PredicateResult {
     }
 }
 
-public func match<T: Equatable>(_ expected: T) -> Predicate<T> {
+public func match<T>(_ expected: T) -> Predicate<T> where T: Equatable {
     return Predicate { events in
         
         guard let source = try events.evaluate() else {
             return PredicateResult.evaluationFailed
         }
         guard source == expected else {
-            return PredicateResult(status: .doesNotMatch, message: .expectedCustomValueTo("get <\(expected)> events", "<\(source)> events"))
+            return PredicateResult(status: .doesNotMatch,
+                                   message: .expectedCustomValueTo("get <\(expected)> events", "<\(source)> events"))
         }
         
         
@@ -60,13 +61,15 @@ public func match<T>(_ expected: [Recorded<Event<T>>]) -> Predicate<[Recorded<Ev
             return PredicateResult.evaluationFailed
         }
         guard source.count == expected.count else {
-            return PredicateResult(bool: false, message: .expectedCustomValueTo("get <\(expected.count)> events", "<\(source.count)> events"))
+            return PredicateResult(bool: false,
+                                   message: .expectedCustomValueTo("get <\(expected.count)> events", "<\(source.count)> events"))
         }
         
         for (lhs, rhs) in zip(source, expected) {
             guard lhs.time == rhs.time,
                 lhs.value == rhs.value else {
-                    return PredicateResult(bool: rhs == lhs, message: .expectedCustomValueTo("match <\(rhs)>", "<\(lhs)>"))
+                    return PredicateResult(bool: rhs == lhs,
+                                           message: .expectedCustomValueTo("match <\(rhs)>", "<\(lhs)>"))
             }
             continue
         }
@@ -84,7 +87,8 @@ public func match<T, E: Error>(with expectedErrors: [Recorded<Event<E>>]) -> Pre
         for (lhs, rhs) in zip(errorEvents, expectedErrors) {
             guard lhs.time == rhs.time,
                 lhs.value.error.asString() == rhs.value.error.asString() else {
-                return PredicateResult(bool: false, message: .fail("did not error"))
+                return PredicateResult(bool: false,
+                                       message: .fail("did not error"))
             }
             continue
         }
