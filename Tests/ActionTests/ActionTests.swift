@@ -74,20 +74,17 @@ class ActionTests: QuickSpec {
             it("execute on .next") {
                 scheduler.scheduleAt(10) { action.inputs.onNext("a") }
                 scheduler.start()
-                let hasStopEvent = executions.events.filter { $0.value.isStopEvent }.isEmpty
-                expect(hasStopEvent).to(beTrue())
+                expect(executions.events.filter { $0.value.isStopEvent }).to(beEmpty())
             }
             it("ignore .error events") {
                 scheduler.scheduleAt(10) { action.inputs.onError(TestError) }
                 scheduler.start()
-                let hasStopEvent = executions.events.filter { $0.value.isStopEvent }.isEmpty
-                expect(hasStopEvent).to(beTrue())
+                expect(executions.events.filter { $0.value.isStopEvent }).to(beEmpty())
             }
             it("ignore .completed events") {
                 scheduler.scheduleAt(10) { action.inputs.onCompleted() }
                 scheduler.start()
-                let hasStopEvent = executions.events.filter { $0.value.isStopEvent }.isEmpty
-                expect(hasStopEvent).to(beTrue())
+                expect(executions.events.filter { $0.value.isStopEvent }).to(beEmpty())
                 expect(inputs.events.isEmpty).to(beTrue())
             }
             it("accept multiple .next events") {
