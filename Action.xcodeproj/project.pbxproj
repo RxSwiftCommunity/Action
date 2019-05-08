@@ -64,6 +64,10 @@
 		C41E08EE2237D26D0039D213 /* Action+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE00042229758700FB50AB /* Action+Extensions.swift */; };
 		C41E08EF2237D2700039D213 /* Action+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE00042229758700FB50AB /* Action+Extensions.swift */; };
 		C41E08F02237D2740039D213 /* Action+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE00042229758700FB50AB /* Action+Extensions.swift */; };
+		C4BFF33D2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */; };
+		C4BFF33E2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */; };
+		C4BFF3402282B79F00D1AA27 /* TestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */; };
+		C4BFF3412282B79F00D1AA27 /* TestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */; };
 		C4DE00052229758700FB50AB /* Action+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE00042229758700FB50AB /* Action+Extensions.swift */; };
 		FA3F973C1EDAF46F00A84787 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
 		FA3F973D1EDAF46F00A84787 /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
@@ -143,6 +147,8 @@
 		C41CE72B22283BEE0006E722 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/Mac/RxTest.framework; sourceTree = "<group>"; };
 		C41CE73922283CD00006E722 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
 		C41CE73F22283D220006E722 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
+		C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nimble+RxTest+Ext.swift"; sourceTree = "<group>"; };
+		C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEvents.swift; sourceTree = "<group>"; };
 		C4DE00042229758700FB50AB /* Action+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+Extensions.swift"; sourceTree = "<group>"; };
 		C4E0263F20D119EE00C8164C /* Action.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Action.podspec; sourceTree = "<group>"; };
 		C4E0264020D11A0F00C8164C /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -319,6 +325,8 @@
 				3DD965DC1F5DF84800C180FE /* macOS-Tests */,
 				3DD965DB1F5DF83700C180FE /* iOS-Tests */,
 				7F0569F01DE288EB007E1D0D /* ActionTests.swift */,
+				C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */,
+				C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */,
 				7F0569F41DE288EB007E1D0D /* Info.plist */,
 			);
 			path = Tests;
@@ -720,7 +728,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */,
+				C4BFF3412282B79F00D1AA27 /* TestEvents.swift in Sources */,
 				3DD965C61F5DC2E100C180FE /* ActionTests.swift in Sources */,
+				C4BFF33E2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */,
 				3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,11 +739,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BFF3402282B79F00D1AA27 /* TestEvents.swift in Sources */,
 				7F0569F71DE288EB007E1D0D /* BarButtonTests.swift in Sources */,
 				5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */,
 				7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */,
 				7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */,
 				7B4BFE6320C290BF00D72FB0 /* RefreshControlTests.swift in Sources */,
+				C4BFF33D2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */,
 				7F0569F81DE288EB007E1D0D /* ButtonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
