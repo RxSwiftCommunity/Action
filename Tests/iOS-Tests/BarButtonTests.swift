@@ -16,10 +16,8 @@ class BarButtonTests: QuickSpec {
 			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 
 			let action = emptyAction()
-
 			subject.rx.action = action
-
-			expect(subject.rx.action) === action
+            expect(subject.rx.action).to(beAKindOf(CocoaAction.self))
 		}
 
 		it("disables the button while executing") {
@@ -46,9 +44,8 @@ class BarButtonTests: QuickSpec {
 			var subject = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 
 			subject.rx.action = emptyAction(.just(false))
-            expect(subject.target).toEventuallyNot( beNil() )
-
-			expect(subject.isEnabled) == false
+            expect(subject.target).toEventuallyNot(beNil())
+			expect(subject.isEnabled).to(beFalse())
 		}
 
 		it("doesn't execute a disabled action when tapped") {
@@ -61,7 +58,6 @@ class BarButtonTests: QuickSpec {
 			})
 
 			_ = subject.target?.perform(subject.action, with: subject)
-
 			expect(executed) == false
 		}
 
@@ -75,11 +71,9 @@ class BarButtonTests: QuickSpec {
 			})
 			subject.rx.action = action
             // Setting the action has the asynchronous effect of adding a target.
-            expect(subject.target).toEventuallyNot( beNil() )
-
+            expect(subject.target).toEventuallyNot(beNil())
 			_ = subject.target?.perform(subject.action, with: subject)
-
-			expect(executed) == true
+			expect(executed).to(beTrue())
 		}
 
 		it("disposes of old action subscriptions when re-set") {
@@ -101,8 +95,7 @@ class BarButtonTests: QuickSpec {
 			}
 
 			subject.rx.action = nil
-
-			expect(disposed) == true
+			expect(disposed).to(beTrue())
 		}
 	}
 }
