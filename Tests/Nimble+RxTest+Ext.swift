@@ -24,3 +24,16 @@ extension Event {
     }
 }
 
+/// Nimble
+
+extension PredicateResult {
+    static var evaluationFailed: PredicateResult {
+        return PredicateResult(status: .doesNotMatch,
+                               message: .fail("failed to evaluate given expression"))
+    }
+    
+    static func isEqual<T: Equatable>(actual: T?, expected: T?) -> PredicateResult {
+        return PredicateResult(bool: actual == expected,
+                               message: .expectedCustomValueTo("get <\(expected.asString())>", "<\(actual.asString())>"))
+    }
+}
