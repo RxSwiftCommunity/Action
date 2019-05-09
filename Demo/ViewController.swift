@@ -39,20 +39,20 @@ class ViewController: UIViewController {
 
         // Demo: add an action to a button in the view
         let action = CocoaAction {
-			print("Button was pressed, showing an alert and keeping the activity indicator spinning while alert is displayed")
+            print("Button was pressed, showing an alert and keeping the activity indicator spinning while alert is displayed")
             return Observable.create { [weak self] observer -> Disposable in
-				// Demo: show an alert and complete the view's button action once the alert's OK button is pressed
-				let alertController = UIAlertController(title: "Hello world", message: "This alert was triggered by a button action", preferredStyle: .alert)
-				var ok = UIAlertAction.Action("OK", style: .default)
-				ok.rx.action = CocoaAction {
-					print("Alert's OK button was pressed")
-					observer.onCompleted()
-					return .empty()
-				}
-				alertController.addAction(ok)
-				self?.present(alertController, animated: true, completion: nil)
+                // Demo: show an alert and complete the view's button action once the alert's OK button is pressed
+                let alertController = UIAlertController(title: "Hello world", message: "This alert was triggered by a button action", preferredStyle: .alert)
+                var ok = UIAlertAction.Action("OK", style: .default)
+                ok.rx.action = CocoaAction {
+                    print("Alert's OK button was pressed")
+                    observer.onCompleted()
+                    return .empty()
+                }
+                alertController.addAction(ok)
+                self?.present(alertController, animated: true, completion: nil)
 
-				return Disposables.create()
+                return Disposables.create()
             }
         }
         
@@ -100,12 +100,12 @@ class ViewController: UIViewController {
                 self?.activityIndicator.stopAnimating()
             }
         })
-        .disposed(by: self.disposableBag)
+            .disposed(by: self.disposableBag)
 
         sharedAction.elements.subscribe(onNext: { string in
             print(string  + " pressed")
         })
-        .disposed(by: self.disposableBag)
+            .disposed(by: self.disposableBag)
         
         
         var refreshControl = UIRefreshControl()
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
                 .delaySubscription(.seconds(2), scheduler: MainScheduler.instance)
                 .do(onCompleted:{
                     print ("Reloading completed!")
-            })
+                })
         }
     }
 }
