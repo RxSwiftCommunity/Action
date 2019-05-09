@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     var disposableBag = DisposeBag()
     let sharedAction = Action<SharedInput, String> { input in
         switch input {
-        case .barButton: return Observable.just("UIBarButtonItem with 3 seconds delay").delaySubscription(3, scheduler: MainScheduler.instance)
+        case .barButton: return Observable.just("UIBarButtonItem with 3 seconds delay").delaySubscription(.seconds(3), scheduler: MainScheduler.instance)
         case .button(let title): return .just("UIButton " + title)
         }
     }
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         // Demo: add an action to a UIBarButtonItem in the navigation item
         self.navigationItem.rightBarButtonItem?.rx.action = CocoaAction {
             print("Bar button item was pressed, simulating a 2 second action")
-            return Observable.empty().delaySubscription(2, scheduler: MainScheduler.instance)
+            return Observable.empty().delaySubscription(.seconds(2), scheduler: MainScheduler.instance)
         }
 
         // Demo: observe the output of both actions, spin an activity indicator
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
         }
         self.navigationItem.leftBarButtonItem?.rx.bind(to: sharedAction, input: .barButton)
 
-        sharedAction.executing.debounce(0, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] executing in
+        sharedAction.executing.debounce(.seconds(0), scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] executing in
             if (executing) {
                 self?.activityIndicator.startAnimating()
             }
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
             print("Reloading was triggered!")
             return Observable
                 .empty()
-                .delaySubscription(2, scheduler: MainScheduler.instance)
+                .delaySubscription(.seconds(2), scheduler: MainScheduler.instance)
                 .do(onCompleted:{
                     print ("Reloading completed!")
             })
