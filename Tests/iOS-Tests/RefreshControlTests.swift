@@ -1,7 +1,6 @@
 import Quick
 import Nimble
 import RxSwift
-import RxBlocking
 import Action
 
 class RefreshControlTests: QuickSpec {
