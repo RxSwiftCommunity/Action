@@ -23,7 +23,6 @@
 		3D730DEA1F674043008534D3 /* Button+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE81F673FD9008534D3 /* Button+Action.swift */; };
 		3D730DEB1F674044008534D3 /* Button+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730DE81F673FD9008534D3 /* Button+Action.swift */; };
 		3DD965C01F5DC0E400C180FE /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCDDA821EAC3295006EB95B /* Action.framework */; };
-		3DD965C61F5DC2E100C180FE /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F01DE288EB007E1D0D /* ActionTests.swift */; };
 		3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DD1F5DF86B00C180FE /* BindToTests.swift */; };
 		3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD965DA1F5DF79800C180FE /* NSButtonTests.swift */; };
 		5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED520231E1EA199007621B9 /* BindToTests.swift */; };
@@ -35,7 +34,6 @@
 		7F0569EA1DE28587007E1D0D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
 		7F0569EC1DE28587007E1D0D /* UIAlertAction+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */; };
 		7F0569ED1DE28587007E1D0D /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */; };
-		7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F01DE288EB007E1D0D /* ActionTests.swift */; };
 		7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */; };
 		7F0569F71DE288EB007E1D0D /* BarButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */; };
 		7F0569F81DE288EB007E1D0D /* ButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569F31DE288EB007E1D0D /* ButtonTests.swift */; };
@@ -66,6 +64,8 @@
 		C4BFF33E2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */; };
 		C4BFF3402282B79F00D1AA27 /* TestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */; };
 		C4BFF3412282B79F00D1AA27 /* TestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */; };
+		C4D3237E2285ADF7004B05A5 /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3237D2285ADF7004B05A5 /* ActionTests.swift */; };
+		C4D3237F2285AEAD004B05A5 /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3237D2285ADF7004B05A5 /* ActionTests.swift */; };
 		C4DE00052229758700FB50AB /* Action+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE00042229758700FB50AB /* Action+Extensions.swift */; };
 		FA3F973C1EDAF46F00A84787 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E21DE28587007E1D0D /* Action.swift */; };
 		FA3F973D1EDAF46F00A84787 /* Action+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0569E01DE28587007E1D0D /* Action+Internal.swift */; };
@@ -118,7 +118,6 @@
 		7F0569E31DE28587007E1D0D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F0569E51DE28587007E1D0D /* UIAlertAction+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Action.swift"; sourceTree = "<group>"; };
 		7F0569E61DE28587007E1D0D /* UIBarButtonItem+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Action.swift"; sourceTree = "<group>"; };
-		7F0569F01DE288EB007E1D0D /* ActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTests.swift; path = ActionTests/ActionTests.swift; sourceTree = "<group>"; };
 		7F0569F11DE288EB007E1D0D /* AlertActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertActionTests.swift; sourceTree = "<group>"; };
 		7F0569F21DE288EB007E1D0D /* BarButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonTests.swift; sourceTree = "<group>"; };
 		7F0569F31DE288EB007E1D0D /* ButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
@@ -145,6 +144,7 @@
 		C41CE73F22283D220006E722 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
 		C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nimble+RxTest+Ext.swift"; sourceTree = "<group>"; };
 		C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEvents.swift; sourceTree = "<group>"; };
+		C4D3237D2285ADF7004B05A5 /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
 		C4DE00042229758700FB50AB /* Action+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+Extensions.swift"; sourceTree = "<group>"; };
 		C4E0263F20D119EE00C8164C /* Action.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Action.podspec; sourceTree = "<group>"; };
 		C4E0264020D11A0F00C8164C /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -316,7 +316,7 @@
 			children = (
 				3DD965DC1F5DF84800C180FE /* macOS-Tests */,
 				3DD965DB1F5DF83700C180FE /* iOS-Tests */,
-				7F0569F01DE288EB007E1D0D /* ActionTests.swift */,
+				C4D3237D2285ADF7004B05A5 /* ActionTests.swift */,
 				C4BFF33C2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift */,
 				C4BFF33F2282B79F00D1AA27 /* TestEvents.swift */,
 				7F0569F41DE288EB007E1D0D /* Info.plist */,
@@ -721,9 +721,9 @@
 			files = (
 				3DD965DE1F5DF8C500C180FE /* BindToTests.swift in Sources */,
 				C4BFF3412282B79F00D1AA27 /* TestEvents.swift in Sources */,
-				3DD965C61F5DC2E100C180FE /* ActionTests.swift in Sources */,
 				C4BFF33E2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */,
 				3DD965DF1F5DF8C900C180FE /* NSButtonTests.swift in Sources */,
+				C4D3237F2285AEAD004B05A5 /* ActionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,7 +735,7 @@
 				7F0569F71DE288EB007E1D0D /* BarButtonTests.swift in Sources */,
 				5ED520241E1EA199007621B9 /* BindToTests.swift in Sources */,
 				7F0569F61DE288EB007E1D0D /* AlertActionTests.swift in Sources */,
-				7F0569F51DE288EB007E1D0D /* ActionTests.swift in Sources */,
+				C4D3237E2285ADF7004B05A5 /* ActionTests.swift in Sources */,
 				7B4BFE6320C290BF00D72FB0 /* RefreshControlTests.swift in Sources */,
 				C4BFF33D2281D6E100D1AA27 /* Nimble+RxTest+Ext.swift in Sources */,
 				7F0569F81DE288EB007E1D0D /* ButtonTests.swift in Sources */,
