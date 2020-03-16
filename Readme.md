@@ -74,7 +74,7 @@ button2.rx.bindTo(action) { _ in return "Goodbye"}
 
 `button1` and `button2` are sharing the same `Action`, but they are feeding it with different input (`Hello` and `Goodbye` that will be printed for corresponding tap).
 
-A more complex use case can be a single action related to a `UIViewController` that manages your navigation, error handling and loading state. With this approach, you can have as many `UIButton`s (or `UIBarButtonItem`s) as you want and subscribe to `executing`, `errors` and `elements` once and in a single common place.
+A more complex use case can be a single action related to a `UIViewController` that manages your navigation, error handling and loading state. With this approach, you can have as many `UIButton`s (or `UIBarButtonItem`s) as you want and subscribe to `executing`, `errors`, `elements` and `completions` once and in a single common place.
 
 There's also a really cool extension on `UIAlertAction`, used by [`UIAlertController`](http://ashfurrow.com/blog/uialertviewcontroller-example/). One catch: because of the limitations of that class, you can't instantiate it with the normal initializer. Instead, call this class method:
 
