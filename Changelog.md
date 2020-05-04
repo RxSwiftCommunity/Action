@@ -1,13 +1,22 @@
 Changelog
 =========
 
-
 Current master
 --------------
+
+- Nothing yet!
+
+4.1.0
+-----
+
 - Added full support for Swift 5.0
 - Added full support for RxSwift 5.0
-- Remove RxAtomic references
 - Added RxCocoa dependency for all non-test targets
+
+4.0.1
+-----
+
+- Remove RxAtomic references
 
 4.0.0
 -------
