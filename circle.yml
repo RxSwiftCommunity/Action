@@ -31,14 +31,14 @@ jobs:
             set -o pipefail && xcodebuild test SWIFT_VERSION=5.0
             -workspace Action.xcworkspace
             -scheme 'Action' -sdk iphonesimulator
-            -destination "name=iPhone X" | xcpretty -c --test
+            -destination "name=iPhone 11" | xcpretty -c --test
       - run:
           name: Run Tests (Swift 4.2)
           command: >
             set -o pipefail && xcodebuild test SWIFT_VERSION=4.2
             -workspace Action.xcworkspace
             -scheme 'Action' -sdk iphonesimulator
-            -destination "name=iPhone X" | xcpretty -c --test
+            -destination "name=iPhone 11" | xcpretty -c --test
       - run:
           name: Build  watchOS (Swift 5.0)
           command: >
