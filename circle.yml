@@ -45,14 +45,14 @@ jobs:
             set -o pipefail && xcodebuild build SWIFT_VERSION=5.0
             -workspace Action.xcworkspace
             -scheme Action-watchOS -sdk watchsimulator
-            -destination "name=Apple Watch Series 2 - 42mm" | xcpretty -c
+            -destination "name=Apple Watch Series 5 - 44mm" | xcpretty -c
       - run:
           name: Build  watchOS (Swift 4.2)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
             -workspace Action.xcworkspace
             -scheme Action-watchOS -sdk watchsimulator
-            -destination "name=Apple Watch Series 2 - 42mm" | xcpretty -c
+            -destination "name=Apple Watch Series 5 - 44mm" | xcpretty -c
       - run:
           name: Build  macOS (Swift 5.0)
           command: >
