@@ -4,7 +4,7 @@ Changelog
 Current master
 --------------
 
-- Nothing yet!
+- Add support for RxSwift 6.0.
 
 4.1.0
 -----
