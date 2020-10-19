@@ -9,7 +9,7 @@ jobs:
       XCODE_TEST_REPORTS: /tmp/xcode-test-results
       LANG: en_US.UTF-8
     macos:
-      xcode: "11.3.0"
+      xcode: "11.7.0"
     steps:
       - checkout
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
@@ -30,57 +30,57 @@ jobs:
           command: >
             set -o pipefail && xcodebuild test SWIFT_VERSION=5.0
             -workspace Action.xcworkspace
-            -scheme 'Action' -sdk iphonesimulator
-            -destination "name=iPhone 11" | xcpretty -c --test
+            -scheme 'Action'
+            -destination "platform=iOS Simulator,name=iPhone 11" | xcpretty -c --test
       - run:
           name: Run Tests (Swift 4.2)
           command: >
             set -o pipefail && xcodebuild test SWIFT_VERSION=4.2
             -workspace Action.xcworkspace
-            -scheme 'Action' -sdk iphonesimulator
-            -destination "name=iPhone 11" | xcpretty -c --test
+            -scheme 'Action'
+            -destination "platform=iOS Simulator,name=iPhone 11" | xcpretty -c --test
       - run:
           name: Build  watchOS (Swift 5.0)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=5.0
             -workspace Action.xcworkspace
-            -scheme Action-watchOS -sdk watchsimulator
-            -destination "name=Apple Watch Series 5 - 44mm" | xcpretty -c
+            -scheme Action-watchOS
+            -destination "platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm" | xcpretty -c
       - run:
           name: Build  watchOS (Swift 4.2)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
             -workspace Action.xcworkspace
-            -scheme Action-watchOS -sdk watchsimulator
-            -destination "name=Apple Watch Series 5 - 44mm" | xcpretty -c
+            -scheme Action-watchOS
+            -destination "platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm" | xcpretty -c
       - run:
           name: Build  macOS (Swift 5.0)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=5.0
             -workspace Action.xcworkspace
-            -scheme Action-macOS -sdk macosx
+            -scheme Action-macOS
             -destination "arch=x86_64" | xcpretty -c
       - run:
           name: Build  macOS (Swift 4.2)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
             -workspace Action.xcworkspace
-            -scheme Action-macOS -sdk macosx
+            -scheme Action-macOS
             -destination "arch=x86_64" | xcpretty -c
       - run:
           name: Build  tvOS (Swift 5.0)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=5.0
             -workspace Action.xcworkspace
-            -scheme Action-tvOS -sdk appletvsimulator
-            -destination "name=Apple TV 4K (at 1080p)" | xcpretty -c
+            -scheme Action-tvOS
+            -destination "platform=tvOS Simulator,name=Apple TV 4K (at 1080p)" | xcpretty -c
       - run:
           name: Build  tvOS (Swift 4.2)
           command: >
             set -o pipefail && xcodebuild build SWIFT_VERSION=4.2
             -workspace Action.xcworkspace
-            -scheme Action-tvOS -sdk appletvsimulator
-            -destination "name=Apple TV 4K (at 1080p)" | xcpretty -c
+            -scheme Action-tvOS
+            -destination "platform=tvOS Simulator,name=Apple TV 4K (at 1080p)" | xcpretty -c
       - store_artifacts:
           path: /tmp/xcode-test-results
 workflows:

@@ -34,7 +34,7 @@ extension PredicateResult {
     
     static func isEqual<T: Equatable>(actual: T?, expected: T?) -> PredicateResult {
         return PredicateResult(bool: actual == expected,
-                               message: .expectedCustomValueTo("get <\(expected.asString())>", "<\(actual.asString())>"))
+                               message: .expectedCustomValueTo("get <\(expected.asString())>", actual: "<\(actual.asString())>"))
     }
 }
 
@@ -46,7 +46,7 @@ public func match<T>(_ expected: T) -> Predicate<T> where T: Equatable {
         }
         guard source == expected else {
             return PredicateResult(status: .doesNotMatch,
-                                   message: .expectedCustomValueTo("get <\(expected)> events", "<\(source)> events"))
+                                   message: .expectedCustomValueTo("get <\(expected)> events", actual: "<\(source)> events"))
         }
         
         
@@ -62,14 +62,14 @@ public func match<T>(_ expected: [Recorded<Event<T>>]) -> Predicate<[Recorded<Ev
         }
         guard source.count == expected.count else {
             return PredicateResult(bool: false,
-                                   message: .expectedCustomValueTo("get <\(expected.count)> events", "<\(source.count)> events"))
+                                   message: .expectedCustomValueTo("get <\(expected.count)> events", actual: "<\(source.count)> events"))
         }
         
         for (lhs, rhs) in zip(source, expected) {
             guard lhs.time == rhs.time,
                 lhs.value == rhs.value else {
                     return PredicateResult(bool: rhs == lhs,
-                                           message: .expectedCustomValueTo("match <\(rhs)>", "<\(lhs)>"))
+                                           message: .expectedCustomValueTo("match <\(rhs)>", actual: "<\(lhs)>"))
             }
             continue
         }
