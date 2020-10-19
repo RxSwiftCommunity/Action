@@ -4,6 +4,11 @@ Changelog
 Current master
 --------------
 
+- Nothing yet!
+
+4.2.0
+-----
+
 - Add support for RxSwift 6.0.
 
 4.1.0
