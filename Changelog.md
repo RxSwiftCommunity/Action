@@ -6,6 +6,11 @@ Current master
 
 - Nothing yet!
 
+4.2.1
+-----
+
+- Add miminum platform requirements to Swift Package.
+
 4.2.0
 -----
 
