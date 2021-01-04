@@ -4,6 +4,11 @@ Changelog
 Current master
 --------------
 
+- Nothing yet!
+
+4.3.0
+-----
+
 - Changed iOS Deployment target version to 9.0
 
 4.2.0
