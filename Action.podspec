@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author             = { "RxSwift Community" => "community@rxswift.org" }
   s.social_media_url   = "http://twitter.com/ashfurrow"
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
   s.watchos.deployment_target = '3.0'
   s.tvos.deployment_target = '9.0'
@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
   s.swift_version   =   '5.0'
 
   s.frameworks  = "Foundation"
-  s.dependency "RxSwift", ">= 5.0", "< 7.0"
-  s.dependency "RxCocoa", ">= 5.0", "< 7.0"
+  s.dependency "RxSwift", '~> 6.0'
+  s.dependency "RxCocoa", '~> 6.0'
 
   s.watchos.exclude_files = "Control+Action.swift", "Button+Action.swift", "UIBarButtonItem+Action.swift", "UIAlertAction+Action.swift"
   s.osx.exclude_files = "UIBarButtonItem+Action.swift", "UIAlertAction+Action.swift"
