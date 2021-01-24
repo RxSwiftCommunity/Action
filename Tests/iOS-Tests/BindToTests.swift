@@ -45,18 +45,18 @@ class BindToTests: QuickSpec {
 			expect(called).toEventually( beTrue() )
 		}
 
-        it("does not retain UIButton") {
-          var button: UIButton? = UIButton()
-          let action = Action<String, String>(workFactory: { _ in
-              return .empty()
-          })
-          button?.rx.bind(to: action, input: "Hi there!")
+		it("does not retain UIButton") {
+			var button: UIButton? = UIButton()
+			let action = Action<String, String>(workFactory: { _ in
+				return .empty()
+			})
+			button?.rx.bind(to: action, input: "Hi there!")
 
-          weak var buttonWeakReference = button
-          button = nil
+			weak var buttonWeakReference = button
+			button = nil
 
-          expect(buttonWeakReference).to(beNil())
-        }
+			expect(buttonWeakReference).to(beNil())
+		}
 
 		it("activates a generic control event") {
 			var called = false
