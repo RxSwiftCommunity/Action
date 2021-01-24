@@ -4,7 +4,7 @@ Changelog
 Current master
 --------------
 
-- Nothing yet!
+- Break retain cycle in `bind(to:input:)`
 
 4.3.0
 -----
