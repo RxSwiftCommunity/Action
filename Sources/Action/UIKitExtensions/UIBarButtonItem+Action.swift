@@ -42,7 +42,9 @@ public extension Reactive where Base: UIBarButtonItem {
         unbindAction()
 
         self.tap
-            .map { inputTransform(self.base) }
+            .withUnretained(self.base)
+            .map(\.0)
+            .map(inputTransform)
             .bind(to: action.inputs)
             .disposed(by: self.base.actionDisposeBag)
 

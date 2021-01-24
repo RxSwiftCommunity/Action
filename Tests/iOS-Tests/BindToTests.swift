@@ -45,6 +45,19 @@ class BindToTests: QuickSpec {
 			expect(called).toEventually( beTrue() )
 		}
 
+        it("does not retain UIButton") {
+          var button: UIButton? = UIButton()
+          let action = Action<String, String>(workFactory: { _ in
+              return .empty()
+          })
+          button?.rx.bind(to: action, input: "Hi there!")
+
+          weak var buttonWeakReference = button
+          button = nil
+
+          expect(buttonWeakReference).to(beNil())
+        }
+
 		it("activates a generic control event") {
 			var called = false
 			let button = UIButton()
@@ -74,6 +87,20 @@ class BindToTests: QuickSpec {
 
 			expect(called).toEventually( beTrue() )
 		}
+
+        it("does not retain UIBarButtonItem") {
+          var barButtonItem: UIBarButtonItem? = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+          let action = Action<String, String>(workFactory: { _ in
+              return .empty()
+          })
+          barButtonItem?.rx.bind(to: action, input: "Hi there!")
+
+          weak var barButtonItemWeakReference = barButtonItem
+          barButtonItem = nil
+
+          expect(barButtonItemWeakReference).to(beNil())
+        }
+
         it("actives a UIRefreshControl") {
             var called = false
             let item = UIRefreshControl()
@@ -86,6 +113,19 @@ class BindToTests: QuickSpec {
             item.test_executeRefresh()
 
             expect(called).toEventually( beTrue() )
+        }
+
+        it("does not retain UIRefreshControl") {
+          var refreshControl: UIRefreshControl? = UIRefreshControl()
+          let action = Action<String, String>(workFactory: { _ in
+              return .empty()
+          })
+          refreshControl?.rx.bind(to: action, input: "Hi there!")
+
+          weak var refreshControlWeakReference = refreshControl
+          refreshControl = nil
+
+          expect(refreshControlWeakReference).to(beNil())
         }
 
 		describe("unbinding") {
