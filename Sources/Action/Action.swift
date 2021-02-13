@@ -94,13 +94,13 @@ public final class Action<Input, Element> {
             .share()
 
         elements = executionObservables
-            .flatMap { $0.catchError { _ in Observable.empty() } }
+            .flatMap { $0.catch { _ in Observable.empty() } }
 
         executing = executionObservables.flatMap {
                 execution -> Observable<Bool> in
                 let execution = execution
                     .flatMap { _ in Observable<Bool>.empty() }
-                    .catchError { _ in Observable.empty() }
+                    .catch { _ in Observable.empty() }
 
                 return Observable.concat([Observable.just(true),
                                           execution,
@@ -124,7 +124,7 @@ public final class Action<Input, Element> {
 		let subject = ReplaySubject<Element>.createUnbounded()
 
 		let work = executionObservables
-			.map { $0.catchError { throw ActionError.underlyingError($0) } }
+			.map { $0.catch { throw ActionError.underlyingError($0) } }
 
 		let error = errors
 			.map { Observable<Element>.error($0) }
