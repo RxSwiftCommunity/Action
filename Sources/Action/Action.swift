@@ -84,8 +84,13 @@ public final class Action<Input, Element> {
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
-                                             .do(onError: { errorsSubject.onNext(.underlyingError($0)) })
-                                             .share(replay: 1, scope: .forever))
+                        .do(onError: { error in
+                            if let error = error as? ActionError {
+                                errorsSubject.onNext(error)
+                            } else {
+                                errorsSubject.onNext(.underlyingError(error))
+                            }
+                        }).share(replay: 1, scope: .forever))
                 } else {
                     errorsSubject.onNext(.notEnabled)
                     return Observable.empty()
