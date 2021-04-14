@@ -1,0 +1,31 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  xcode:
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        swift: [5.0, 4.2]
+      fail-fast: false
+    name: Action Tests (Swift ${{ matrix.swift }})
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_11.7.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Carthage
+        uses: actions/cache@v2
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-
+      - name: Bootstrap Carthage
+        run: carthage bootstrap --no-use-binaries --cache-builds
+      - name: Tests
+        run: |
+          set -o pipefail && xcodebuild test SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action -destination "platform=iOS Simulator,name=iPhone 11" | xcpretty -c --test
+          set -o pipefail && xcodebuild test SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action-macOS -destination "arch=x86_64" | xcpretty -c --test
+      - name: Builds
+        run: |
+          set -o pipefail && xcodebuild build SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action-watchOS -destination "platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm" | xcpretty -c
+          set -o pipefail && xcodebuild build SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action-tvOS -destination "platform=tvOS Simulator,name=Apple TV 4K (at 1080p)" | xcpretty -c
