@@ -70,24 +70,24 @@ public final class Action<Input, Element> {
         let enabledSubject = BehaviorSubject<Bool>(value: false)
         enabled = enabledSubject.asObservable()
 
-        let errorsSubject = PublishSubject<ActionError>()
-        errors = errorsSubject.asObservable()
+        let errorRelay = PublishRelay<ActionError>()
+        errors = errorRelay.asObservable()
 
-        let inputsSubject = PublishSubject<Input>()
+        let inputsRelay = PublishRelay<Input>()
         inputs = AnyObserver { event in
             guard case .next(let value) = event else { return }
-            inputsSubject.onNext(value)
+            inputsRelay.accept(value)
         }
 
-        executionObservables = inputsSubject
+        executionObservables = inputsRelay
             .withLatestFrom(enabled) { input, enabled in (input, enabled) }
             .flatMap { input, enabled -> Observable<Observable<Element>> in
                 if enabled {
                     return Observable.of(workFactory(input)
-                                             .do(onError: { errorsSubject.onNext(.underlyingError($0)) })
+                                             .do(onError: { errorRelay.accept(.underlyingError($0)) })
                                              .share(replay: 1, scope: .forever))
                 } else {
-                    errorsSubject.onNext(.notEnabled)
+                    errorRelay.accept(.notEnabled)
                     return Observable.empty()
                 }
             }
