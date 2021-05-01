@@ -5,6 +5,7 @@ Current master
 --------------
 
 - Break retain cycle in `bind(to:input:)`
+- Use PublishRelay instead of PublishSubject 
 
 4.3.0
 -----
