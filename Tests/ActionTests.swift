@@ -46,8 +46,8 @@ class ActionTests: QuickSpec {
                 let completions = scheduler.createObserver(Void.self)
                 action.completions.bind(to: completions).disposed(by: disposeBag)
                 scheduler.start()
-                expect(completions.events.contains { $0.time == 10}).to(beTrue())
-                expect(completions.events.contains { $0.time == 20}).to(beTrue())
+                expect(completions.events.contains { $0.time == 10 }).to(beTrue())
+                expect(completions.events.contains { $0.time == 20 }).to(beTrue())
             }
         }
         
@@ -516,6 +516,49 @@ class ActionTests: QuickSpec {
                 it("second element fails with notEnabled error") {
                     expect(secondElement.events).to(match(Recorded.events([.error(20, ActionError.notEnabled)])))
                 }
+                it("executes once") {
+                    expect(executionObservables.events.count).to(match(1))
+                }
+            }
+
+            context("subscribe elements while executing") {
+                var trigger: PublishSubject<Void>!
+
+                beforeEach {
+                    trigger = PublishSubject<Void>()
+                    action = Action { Observable.just($0).sample(trigger) }
+
+                    action.executionObservables
+                        .bind(to: executionObservables)
+                        .disposed(by: disposeBag)
+
+                    scheduler.scheduleAt(10) {
+                        Observable.just("a")
+                            .bind(to: action.inputs)
+                            .disposed(by: disposeBag)
+                    }
+
+                    scheduler.scheduleAt(20) {
+                        action.elements
+                            .bind(to: element)
+                            .disposed(by: disposeBag)
+                    }
+
+                    scheduler.scheduleAt(30) {
+                        #if swift(>=3.2)
+                        trigger.onNext(())
+                        #else
+                        trigger.onNext()
+                        #endif
+                    }
+
+                    scheduler.start()
+                }
+
+                it("elements receives value") {
+                    expect(element.events).to(match(Recorded.events([.next(30, "a")])))
+                }
+
                 it("executes once") {
                     expect(executionObservables.events.count).to(match(1))
                 }

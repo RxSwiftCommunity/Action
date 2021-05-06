@@ -95,6 +95,7 @@ public final class Action<Input, Element> {
 
         elements = executionObservables
             .flatMap { $0.catch { _ in Observable.empty() } }
+            .share()
 
         executing = executionObservables.flatMap {
                 execution -> Observable<Bool> in
@@ -112,6 +113,10 @@ public final class Action<Input, Element> {
         Observable
             .combineLatest(executing, enabledIf) { !$0 && $1 }
             .bind(to: enabledSubject)
+            .disposed(by: disposeBag)
+
+        elements
+            .subscribe()
             .disposed(by: disposeBag)
     }
 
