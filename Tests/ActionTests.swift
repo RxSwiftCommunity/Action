@@ -50,6 +50,33 @@ class ActionTests: QuickSpec {
                 expect(completions.events.contains { $0.time == 20}).to(beTrue())
             }
         }
+        describe("completable action finished with error") {
+            var action: CompletableAction<Error?>!
+            beforeEach {
+                action = CompletableAction { errorMaybe -> Completable in
+                    if let error = errorMaybe {
+                        return Observable<Never>.error(error).asCompletable()
+                    } else {
+                        return Observable<Never>.empty().asCompletable()
+                    }
+                    
+                }
+                scheduler.scheduleAt(10) { action.inputs.onNext(TestError) }
+                scheduler.scheduleAt(20) { action.inputs.onNext(nil) }
+            }
+            afterEach {
+                action = nil
+            }
+            it("emits no errors on `completions`") {
+                let completions = scheduler.createObserver(Void.self)
+                action.completions.bind(to: completions).disposed(by: disposeBag)
+                
+                scheduler.start()
+                
+                expect(completions.events.contains { $0.time == 10 }).to(beFalse())
+                expect(completions.events.contains { $0.time == 20 }).to(beTrue())
+            }
+        }
         
         describe("Input observer behavior") {
             var action: Action<String, String>!
