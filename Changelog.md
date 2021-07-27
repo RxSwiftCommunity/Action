@@ -4,6 +4,7 @@ Changelog
 Current master
 --------------
 
+- Avoid from getting errors in `CompletableAction.completions`
 - Break retain cycle in `bind(to:input:)`
 - Use PublishRelay instead of PublishSubject 
 
