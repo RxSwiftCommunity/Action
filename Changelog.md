@@ -4,7 +4,12 @@ Changelog
 Current master
 --------------
 
-- Avoid from getting errors in `CompletableAction.completions`
+Nothing yet!
+
+5.0.0
+-----
+
+- **Breaking change** Avoid from getting errors in `CompletableAction.completions`. See [#25](https://github.com/RxSwiftCommunity/Action/pull/236)
 - Break retain cycle in `bind(to:input:)`
 - Use PublishRelay instead of PublishSubject 
 
