@@ -27,8 +27,10 @@ public extension CompletableAction {
     var completions: Observable<Void> {
         return executionObservables
             .flatMap { execution in
-                execution.flatMap { _ in Observable.empty() }
-                    .concat(Observable.just(()))
-        }
+                execution.flatMap { _ in Observable<Void?>.empty() }
+                    .concat(Observable<Void?>.just(()))
+                    .catchAndReturn(nil)
+            }
+            .compactMap { $0 }
     }
 }
