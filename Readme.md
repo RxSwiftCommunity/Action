@@ -7,13 +7,15 @@ This library is used with [RxSwift](https://github.com/ReactiveX/RxSwift) to pro
 
 An action is a way to say "hey, later I'll need you to subscribe to this thing." It's actually a lot more involved than that.
 
-Actions accept a `workFactory`: a closure that takes some input and produces an observable. When `execute()` is called, it passes its parameter to this closure and subscribes to the work.
+Actions accept a `workFactory`: a closure that takes some input and produces an observable. When `execute()` is called on the action, the `workFactory` gets passed this parameter and the action subscribes to the observable that gets returned.
+
+An action:
 
 - Can only be executed while "enabled" (`true` if unspecified).
-- Only execute one thing at a time.
+- Only executes one thing at a time.
 - Aggregates next/error events across individual executions.
 
-Oh, and it has this really swift thing with `UIButton` that's pretty cool. It'll manage the button's enabled state, make sure the button is disabled while your work is being done, all that stuff 👍
+Oh, and it has this really Swift thing with `UIButton` that's pretty cool. It'll manage the button's enabled state, make sure the button is disabled while your work is being done, all that stuff 👍
 
 Usage
 -----
@@ -46,7 +48,7 @@ action: Action<String, Bool> = Action(enabledIf: validEmailAddress, workFactory:
 
 Now `execute()` only does the work if the email address is valid. Super cool!
 
-Note that `enabledIf` isn't the same as the `enabled` property. You pass in `enabledIf` and the action uses that, and its current executing state, to determine if it's currently enabled.
+(Note that `enabledIf` isn't the same as the `enabled` property. You pass in `enabledIf` and the action uses that (combined with its current executing state) to determine if it's currently enabled.)
 
 What's _really_ cool is the `UIButton` extension. It accepts a `CocoaAction`, which is just `Action<Void, Void>`.
 
@@ -100,15 +102,15 @@ Then run `pod install` and that'll be 👌
 Add this to `Cartfile`
 
 ```
-github "RxSwiftCommunity/Action" ~> 4.0.0
+github "RxSwiftCommunity/Action" ~> 5.0.0
 ```
 
 If you are using RxSwift 3.2.0 or below, Use Action `~2.2.0` instead!
 
 then run
 
-```
-$ carthage update
+```sh
+> carthage update
 ```
 
 Thanks
