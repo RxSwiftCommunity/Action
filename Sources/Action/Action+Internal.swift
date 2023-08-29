@@ -2,8 +2,8 @@ import Foundation
 import RxSwift
 
 internal struct AssociatedKeys {
-    static var Action = "rx_action"
-    static var DisposeBag = "rx_disposeBag"
+    static var Action: UInt8 = 0
+    static var DisposeBag: UInt8 = 0
 }
 
 // Note: Actions performed in this extension are _not_ locked
