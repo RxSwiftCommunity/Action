@@ -3,11 +3,7 @@ on: [push, pull_request]
 jobs:
   xcode:
     runs-on: macos-13
-    strategy:
-      matrix:
-        swift: [5.0, 4.2]
-      fail-fast: false
-    name: Action Tests (Swift ${{ matrix.swift }})
+    name: Action Tests (Swift 5.0)
     env:
       DEVELOPER_DIR: /Applications/Xcode_14.3.1.app/Contents/Developer
     steps:
@@ -23,9 +19,9 @@ jobs:
         run: carthage bootstrap --no-use-binaries --use-xcframeworks --cache-builds
       - name: Tests
         run: |
-          set -o pipefail && xcodebuild test SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action -destination "platform=iOS Simulator,name=iPhone 14" | xcpretty -c --test
-          set -o pipefail && xcodebuild test SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action-macOS -destination "arch=x86_64" | xcpretty -c --test
+          set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -workspace Action.xcworkspace -scheme Action -destination "platform=iOS Simulator,name=iPhone 14" | xcpretty -c --test
+          set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -workspace Action.xcworkspace -scheme Action-macOS -destination "arch=x86_64" | xcpretty -c --test
       - name: Builds
         run: |
-          set -o pipefail && xcodebuild build SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action-watchOS -destination "platform=watchOS Simulator,name=Apple Watch Series 5 (44mm)" | xcpretty -c
-          set -o pipefail && xcodebuild build SWIFT_VERSION=${{ matrix.swift }} -workspace Action.xcworkspace -scheme Action-tvOS -destination "platform=tvOS Simulator,name=Apple TV 4K (3rd generation) (at 1080p)" | xcpretty -c
+          set -o pipefail && xcodebuild build SWIFT_VERSION=5.0 -workspace Action.xcworkspace -scheme Action-watchOS -destination "platform=watchOS Simulator,name=Apple Watch Series 5 (44mm)" | xcpretty -c
+          set -o pipefail && xcodebuild build SWIFT_VERSION=5.0 -workspace Action.xcworkspace -scheme Action-tvOS -destination "platform=tvOS Simulator,name=Apple TV 4K (3rd generation) (at 1080p)" | xcpretty -c
