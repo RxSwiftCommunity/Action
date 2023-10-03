@@ -6,7 +6,7 @@ import RxBlocking
 import Action
 
 class NSButtonTests: QuickSpec {
-	override func spec() {
+    override class func spec() {
 
 		it("is nil by default") {
 			let subject = NSButton()

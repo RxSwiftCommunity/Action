@@ -38,7 +38,7 @@ extension PredicateResult {
     }
 }
 
-public func match<T>(_ expected: T) -> Predicate<T> where T: Equatable {
+public func match<T>(_ expected: T) -> Nimble.Predicate<T> where T: Equatable {
     return Predicate { events in
         
         guard let source = try events.evaluate() else {
@@ -54,7 +54,7 @@ public func match<T>(_ expected: T) -> Predicate<T> where T: Equatable {
     }
 }
 
-public func match<T>(_ expected: [Recorded<Event<T>>]) -> Predicate<[Recorded<Event<T>>]> where T: Equatable {
+public func match<T>(_ expected: [Recorded<Event<T>>]) -> Nimble.Predicate<[Recorded<Event<T>>]> where T: Equatable {
     return Predicate { events in
         
         guard let source = try events.evaluate() else {
@@ -78,7 +78,7 @@ public func match<T>(_ expected: [Recorded<Event<T>>]) -> Predicate<[Recorded<Ev
     }
 }
 
-public func match<T, E: Error>(with expectedErrors: [Recorded<Event<E>>]) -> Predicate<[Recorded<Event<T>>]> where E: Equatable {
+public func match<T, E: Error>(with expectedErrors: [Recorded<Event<E>>]) -> Nimble.Predicate<[Recorded<Event<T>>]> where E: Equatable {
     return Predicate { events in
         guard let source = try events.evaluate() else {
             return PredicateResult.evaluationFailed
