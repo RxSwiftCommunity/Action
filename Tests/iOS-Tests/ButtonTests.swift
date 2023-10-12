@@ -1,10 +1,11 @@
 import Quick
 import Nimble
 import RxSwift
+import UIKit
 import Action
 
 class ButtonTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
 
         it("is nil by default") {
             let subject = UIButton(type: .system)

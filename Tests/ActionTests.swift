@@ -5,7 +5,7 @@ import RxTest
 @testable import Action
 
 class ActionTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         var scheduler: TestScheduler!
         var disposeBag: DisposeBag!
         

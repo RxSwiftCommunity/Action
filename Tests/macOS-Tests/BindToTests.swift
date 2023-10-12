@@ -4,6 +4,7 @@ import RxSwift
 import RxCocoa
 import RxBlocking
 import RxTest
+import AppKit
 import Action
 
 extension NSButton {
@@ -15,7 +16,7 @@ extension NSButton {
 }
 
 class BindToTests: QuickSpec {
-	override func spec() {
+    override class func spec() {
 		it("actives a NSButton") {
 			var called = false
 			let button = NSButton()

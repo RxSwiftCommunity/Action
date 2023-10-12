@@ -1,10 +1,11 @@
 import Quick
 import Nimble
 import RxSwift
+import UIKit
 import Action
 
 class AlertActionTests: QuickSpec {
-    override func spec() {
+    override class func spec() {
         it("is nil by default") {
             let subject = UIAlertAction.Action("Hi", style: .default)
             expect(subject.rx.action).to(beNil())
